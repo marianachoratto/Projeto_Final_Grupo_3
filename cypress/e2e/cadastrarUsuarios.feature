@@ -4,6 +4,8 @@ Funcionalidade: Cadastrar usuários
 Contexto: O usuário deve ter acessado a página de cadastro
     Dado que acessei a funcionalidade de cadastro
 
+Cenário: o formulário de cadastro deve estar visível e habilitado
+
 Cenário: cadastrar usuário com sucesso
 # Não esquecer de validar o tipo (0)
 
@@ -42,4 +44,4 @@ Esquema do Cenário: Validando senha e confirmação de senha
 Esquema do Cenário: Não deve ser possível cadastrar com emails inválidos
 # mais de 60, sem padrão nomeUtilizador@dominio.
 
-Cenário: Deve ser possível cadastrar um usuário com email de letras maiúsculas 
+Cenário: Deve ser possível cadastrar um usuário com email de letras maiúscula
