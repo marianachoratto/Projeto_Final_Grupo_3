@@ -45,3 +45,5 @@ Esquema do Cenário: Não deve ser possível cadastrar com emails inválidos
 # mais de 60, sem padrão nomeUtilizador@dominio.
 
 Cenário: Deve ser possível cadastrar um usuário com email de letras maiúscula
+
+Cenário: Após cadastrar, o usuário é automaticamente logado

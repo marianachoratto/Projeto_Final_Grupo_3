@@ -11,29 +11,26 @@ Cenário: As informações do usuário devem estar corretas na seção de gerenc
     Então o nome cadastrado deve estar correto
     E o email deve estar correto
     E o usuário deve ser do tipo comum
-
-@deletarUsuario 
+ 
 Cenário: Dever ser possível alterar nome
     Quando altero o nome cadastrado
     E confirmo a operação 
     Então terei minhas informações atualizadas
 
-@deletarUsuarioModificado 
+
 Cenário: Deve ser possível alterar senha
     Quando clico no botão de alterar senha
     E altero a senha cadastrada
     E confirmo a operação
     Então terei minhas informações atualizadas
 
-@deletarUsuarioModificado 
 Cenário: Deve ser possível alterar nome e senha ao mesmo tempo
     Quando altero o nome cadastrado
     Quando clico no botão de alterar senha
     E altero a senha cadastrada
     E confirmo a operação
     Então terei minhas informações atualizadas
-
-@deletarUsuario 
+ 
 Cenário: Não deve ser possível alterar o email
     Quando tento alterar o email cadastrado
     Então não é possível alterá-lo
@@ -49,22 +46,20 @@ Cenário: Não deve ser possível alterar senha para que ela tenha mais de 12 ca
     E altero a senha cadastrada para que tenha 13 caracteres
     E confirmo a operação
     Então a senha não é alterada
-
-@deletarUsuario 
+ 
 Cenário: Não deve ser possível alterar senha para que ela tenha menos de 6 caracteres
     Quando clico no botão de alterar senha
     E altero a senha cadastrada para que ela tenha 5 caracteres
     E confirmo a operação
     Então aparece uma mensagem embaixo dos inputs de senha "A senha deve ter pelo menos 6 dígitos"
-
-@deletarUsuario 
+ 
 Cenário: O usuário deve conseguir cancelar uma operação de mudar senha
     Quando clico no botão de alterar senha
     E começo a alterar a senha
     Quando clico no botão de cancelar
     Então a operação é cancelada
 
-@deletarUsuario 
+
 Cenário: Não deve ser possível o usuário alterar senha passando um valor diferente no input de confirmação
     Quando clico no botão de alterar senha
     E passo um valor para senha
@@ -82,12 +77,11 @@ Cenário: Não deve ser possível alterar informações sem passar a senha
     Então aparece a mensagem 'As senhas devem ser iguais.'
 
 
-@deletarUsuario 
 Cenário: Não deve ser possível usuário comum alterar o tipo de sua conta
     Dado que sou um usuário do tipo comum
     Então não deve ser possível alterar o tipo da conta
 
-@deletarUsuario 
+
 Cenário: Usuário não deve conseguir atualizar seu nome sem passar um valor de nome
     Quando apago o valor nome
     E confirmo a operação
