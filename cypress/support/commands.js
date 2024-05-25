@@ -1,12 +1,3 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
 //
 //
 // -- This is a parent command --
@@ -29,6 +20,7 @@ let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
+let tokenid;
 
 Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
   return cy
@@ -86,4 +78,25 @@ Cypress.Commands.add("cadastrarUsuario", () => {
         password: password,
       });
     });
+});
+
+Cypress.Commands.add("promoverCritico", function (tokenid) {
+  cy.request({
+    method: "PATCH",
+    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/apply",
+    headers: {
+      Authorization: `Bearer ${tokenid} `,
+    },
+  });
+});
+
+Cypress.Commands.add("promoverAdmin", function (tokenid) {
+  cy.log("Promover para admin");
+  cy.request({
+    method: "PATCH",
+    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/admin",
+    headers: {
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
 });
