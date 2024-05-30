@@ -1,6 +1,6 @@
-Comandos interessantes para usar o Git: 
+## Comandos interessantes para usar o Git: 
 
-Para começar a trabalhar, puxar tudo do main para a sua pasta: 
+Para começar a trabalhar, puxar tudo do main para a sua pasta:<br> 
 1- git pull origin main
 
 2- SEMPRE checar se você está fazendo o trabalho na sua branch. Melhor jeito é olhando ali no cantinho do VSCode: 
@@ -11,4 +11,6 @@ cd nomeDaPasta
 
 4- Toda a vez que terminar um testes ou o dia de trabalho dar um commit
 
-5- Para o cypress funcionar, você tem que fazer o npx cypress open na pasta que ele está instalado, então sempre checar no terminal a pasta que você está. 
+5- Para o cypress funcionar, você tem que fazer o npx cypress open na pasta que ele está instalado, então sempre checar no terminal a pasta que você está.
+
+6- Os pushs para a Main vão ser feito após seu trabalho passar pela vistoria de 2 colegas. Quando acabar, colocar o card no Trello para "Em revisão" 
