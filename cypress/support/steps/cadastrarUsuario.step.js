@@ -41,6 +41,28 @@ When('informo um nome {string}', (name) => {
     createUser.typeName(name)
 })
 
+When('informo um email inválido {string}', (email) => {
+    createUser.typeEmail(email)
+})
+
+When('informo um email com 5 caracteres', () => {
+    email = 'a@c.l'
+    createUser.typeEmail(email)
+})
+
+When('informo um email com 60 caracteres', () => {
+    email = faker.random.alpha({ count: 48 }) + '@dominio.com'
+    createUser.typeEmail(email)
+})
+
+When('informo uma senha {string}', (password) => {
+    createUser.typePassword(password)
+})
+
+When('confirmo a senha {string}', (password) => {
+    createUser.typeConfirmPassword(password)
+})
+
 When('informo um nome inválido {string}', (name) => {
     createUser.typeName(name)
 });
@@ -65,10 +87,25 @@ When('informo um nome com mais de 100 caracteres', () => {
 When('informo uma senha válida', () => {
     password = '123456'
     createUser.typePassword(password)
+    cy.wrap(password).as('confirmPassword')
+})
+
+When('informo uma senha com 6 caracteres', () => {
+    password = 'a!@#5ç'
+    createUser.typePassword(password)
+    cy.wrap(password).as('confirmPassword')
+})
+
+When('informo uma senha com 12 caracteres', () => {
+    password = '123456123456'
+    createUser.typePassword(password)
+    cy.wrap(password).as('confirmPassword')
 })
 
 When('confirmo a senha', () => {
-    createUser.typeConfirmPassword('123456')
+    cy.get('@confirmPassword').then((confirmPassword) => {
+    createUser.typeConfirmPassword(confirmPassword)
+    })
 })
 
 When('clico para cadastrar', () => {
@@ -120,6 +157,18 @@ Then('retorna mensagem informando que o nome deve ser preenchido', () => {
     cy.get(createUser.spanName).contains('Informe o nome.')
 })
 
+Then('retornará erro no formulário {string}', (mensagem) => {
+    if (createUser.spanPassword > 0) {
+        cy.get(createUser.spanPassword).contains(mensagem)
+    } else {
+        cy.get(createUser.spanConfirmPassword).contains(mensagem)
+    }
+})
+
 Then('retorna mensagem informando que o email deve ser preenchido', () => {
     cy.get(createUser.spanEmail).contains('Informe o e-mail.')
+})
+
+Then('retornará mensagem de email inválido {string}', (mensagem) => {
+    cy.get(createUser.spanEmail).contains(mensagem)
 })
