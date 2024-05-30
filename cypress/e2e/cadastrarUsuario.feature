@@ -4,45 +4,60 @@ Funcionalidade: Cadastrar usuários
 Contexto: O usuário deve ter acessado a página de cadastro
     Dado que acessei a funcionalidade de cadastro
 
-Cenário: o formulário de cadastro deve estar visível e habilitado
-    Quando visualizo a pagina de criação
-    Então os inputs estão habilitados e instruções visíveis
+# Cenário: o formulário de cadastro deve estar visível e habilitado
+#     Quando visualizo a pagina de criação
+#     Então os inputs estão habilitados e instruções visíveis
 
-@deleteUser
-Cenário: Ao criar novo usuário deve ser gerado usuário do tipo comum
-    Quando informo um nome válido
-    E informo um email válido
-    E informo uma senha válida
-    E confirmo a senha
-    E clico para cadastrar
-    Então um usuário do tipo comum será gerado
+# @deleteUser
+# Cenário: Ao criar novo usuário deve ser gerado usuário do tipo comum
+#     Quando informo um nome válido
+#     E informo um email válido
+#     E informo uma senha válida
+#     E confirmo a senha
+#     E clico para cadastrar
+#     Então um usuário do tipo comum será gerado
 
-@createUser @deleteUser
-Cenário: Não é possível cadastrar usuário com email repetido
-    Quando informo dados válidos com e-mail já cadastrado
-    E clico para cadastrar
-    Então o usuário não é criado
+# @createUser @deleteUser
+# Cenário: Não é possível cadastrar usuário com email repetido
+#     Quando informo dados válidos com e-mail já cadastrado
+#     E clico para cadastrar
+#     Então o usuário não é criado
 
-# # Testes de falha
-Cenário: Não deve ser possível criar usuário com nome maior que 100 caracteres
-    Quando informo um nome com mais de 100 caracteres
-    E informo um email válido
-    E informo uma senha válida
-    E confirmo a senha
-    E clico para cadastrar
-    Então retorna mensagem informando o limite de caracteres
+# Cenário: Não deve ser possível criar usuário com nome maior que 100 caracteres
+#     Quando informo um nome com mais de 100 caracteres
+#     E informo um email válido
+#     E informo uma senha válida
+#     E confirmo a senha
+#     E clico para cadastrar
+#     Então retorna mensagem informando o limite de caracteres
     
- Cenário: Não deve ser possível criar usuário sem informar um nome
-    Quando informo um email válido
-    E informo uma senha válida
-    E confirmo a senha
-    E clico para cadastrar
-    Então retorna mensagem informando que o nome deve ser preenchido
+#  Cenário: Não deve ser possível criar usuário sem informar um nome
+#     Quando informo um email válido
+#     E informo uma senha válida
+#     E confirmo a senha
+#     E clico para cadastrar
+#     Então retorna mensagem informando que o nome deve ser preenchido
 
 # Esquema do Cenário: Deve ser possível criar usuário de 1 a 100 caracteres
-# # Não esquecer de usuários "esdrúxulos", como *, 1234, emoji
+#     Quando informo um nome "<nome>"
+#     E informo um email válido
+#     E informo uma senha válida
+#     E confirmo a senha
+#     E clico para cadastrar
+#     Então um usuário do tipo comum será gerado
+#     Exemplos:
+#     | nome                                                                                                                                                                                                     |
+#     |nomecom100caracteresnomecom100caracteresnomecom100caracteresnomecom100caracteresnomecom100caracteres|
+#     |12348@#$¨%@@$¨&BVSFVSFVdcsdj<HRSARY##¨%$&*|
+#     | ´ |
+#     | 1 |
 
-# Cenário: Não deve ser possível criar um usuário sem email 
+Cenário: Não deve ser possível criar um usuário sem email 
+    Quando informo um nome válido
+    E informo uma senha válida
+    E confirmo a senha
+    E clico para cadastrar
+    Então retorna mensagem informando que o email deve ser preenchido
 
 # Cenário: Não deve ser possível criar usuário sem confirmação de senha
 

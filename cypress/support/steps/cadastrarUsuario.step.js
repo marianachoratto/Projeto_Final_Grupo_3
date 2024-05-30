@@ -37,6 +37,10 @@ Given('que acessei a funcionalidade de cadastro', function () {
     cy.visit('/register')
 });
 
+When('informo um nome {string}', (name) => {
+    createUser.typeName(name)
+})
+
 When('informo um nome inválido {string}', (name) => {
     createUser.typeName(name)
 });
@@ -114,4 +118,8 @@ Then('retorna mensagem informando o limite de caracteres', () => {
 
 Then('retorna mensagem informando que o nome deve ser preenchido', () => {
     cy.get(createUser.spanName).contains('Informe o nome.')
+})
+
+Then('retorna mensagem informando que o email deve ser preenchido', () => {
+    cy.get(createUser.spanEmail).contains('Informe o e-mail.')
 })
