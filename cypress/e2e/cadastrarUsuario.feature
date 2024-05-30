@@ -123,4 +123,10 @@ Esquema do Cenário: Não deve ser possível cadastrar com emails inválidos
     |emailinvalido@| Informe um e-mail válido. |
     |emailcom61caracteresemailcom61caracteresemailcomm@dominio.com| O e-mail deve ter no máximo 60 dígitos. |
 
-# Cenário: Deve ser possível cadastrar um usuário com email de letras maiúscula
+Cenário: Deve ser possível cadastrar um usuário com email de letras maiúscula
+    Quando informo um nome válido
+    E informo um email válido com letras maiúsculas
+    E informo uma senha válida
+    E confirmo a senha
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado

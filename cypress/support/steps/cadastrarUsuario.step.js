@@ -55,6 +55,11 @@ When('informo um email com 60 caracteres', () => {
     createUser.typeEmail(email)
 })
 
+When('informo um email válido com letras maiúsculas', () => {
+    email = 'EMAILVALIDO@DOMINIO.COM'
+    createUser.typeEmail(email)
+})
+
 When('informo uma senha {string}', (password) => {
     createUser.typePassword(password)
 })
