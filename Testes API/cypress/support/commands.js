@@ -30,38 +30,7 @@ let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
 
-Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
-  return cy
-    .request({
-      method: "POST",
-      url: apiUrl + "api/auth/login",
-      body: {
-        email: email,
-        password: password,
-      },
-    })
-    .then(function (resposta) {
-      token = resposta.body.accessToken;
-
-      cy.request({
-        method: "PATCH",
-        url: apiUrl + "api/users/admin",
-        auth: {
-          bearer: token,
-        },
-      });
-    })
-    .then(function (resposta) {
-      cy.request({
-        method: "DELETE",
-        url: apiUrl + `api/users/${idNovoUsuario}`,
-        auth: {
-          bearer: token,
-        },
-      });
-    });
-});
-
+// Commands de Usuários
 Cypress.Commands.add("cadastrarUsuario", () => {
   return cy
     .request({
@@ -143,3 +112,38 @@ Cypress.Commands.add("excluirUsuarioSimples", function (userid, token) {
     },
   });
 });
+
+Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
+  return cy
+    .request({
+      method: "POST",
+      url: apiUrl + "api/auth/login",
+      body: {
+        email: email,
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      token = resposta.body.accessToken;
+
+      cy.request({
+        method: "PATCH",
+        url: apiUrl + "api/users/admin",
+        auth: {
+          bearer: token,
+        },
+      });
+    })
+    .then(function (resposta) {
+      cy.request({
+        method: "DELETE",
+        url: apiUrl + `api/users/${idNovoUsuario}`,
+        auth: {
+          bearer: token,
+        },
+      });
+    });
+});
+
+// Commands de filme
+Cypress.Commands.add("deletarFilme", (email, password) => {});
