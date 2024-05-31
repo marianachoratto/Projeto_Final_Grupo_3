@@ -80,6 +80,30 @@ Cypress.Commands.add("cadastrarUsuario", () => {
     });
 });
 
+Cypress.Commands.add("CadastrarEPromoverAdmin", (email, password) => {
+  return cy
+    .request({
+      method: "POST",
+      url: apiUrl + "api/users",
+      body: {
+        name: "faker " + faker.person.firstName(),
+        email: faker.internet.email(),
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      token = resposta.body.accessToken;
+
+      cy.request({
+        method: "PATCH",
+        url: apiUrl + "api/users/admin",
+        auth: {
+          bearer: token,
+        },
+      });
+    });
+});
+
 Cypress.Commands.add("promoverCritico", function (tokenid) {
   cy.request({
     method: "PATCH",
@@ -93,31 +117,31 @@ Cypress.Commands.add("promoverCritico", function (tokenid) {
 Cypress.Commands.add("promoverAdmin", function (tokenid) {
   cy.request({
     method: "PATCH",
-    url: apiUrl +"api/users/admin",
+    url: apiUrl + "api/users/admin",
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
   });
 });
 
-Cypress.Commands.add('loginValido', function (email, password) {
+Cypress.Commands.add("loginValido", function (email, password) {
   cy.request({
-      method: "POST",
-      url: apiUrl + "api/auth/login",
-      body: {
-        email: email,
-        password: password
-      },
-    })
-})
+    method: "POST",
+    url: apiUrl + "api/auth/login",
+    body: {
+      email: email,
+      password: password,
+    },
+  });
+});
 
-Cypress.Commands.add('excluirUsuario', function (userid, tokenid) {
-  cy.log('Excluir usuário');
+Cypress.Commands.add("excluirUsuario", function (userid, tokenid) {
+  cy.log("Excluir usuário");
   cy.request({
-    method: 'DELETE',
-    url: 'https://raromdb-3c39614e42d4.herokuapp.com/api/users/' + userid,
+    method: "DELETE",
+    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/" + userid,
     headers: {
-      Authorization: `Bearer ${tokenid}`
-    }
-  })
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
 });
