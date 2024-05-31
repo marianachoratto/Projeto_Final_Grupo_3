@@ -2,38 +2,46 @@
 
 Funcionalidade: Gerenciar conta
 
-Contexto: o usuário deve ter acesso à sua página de informações
+Contexto: O usuário deve ter acesso à sua página de informações
     Dado que entrei no perfil do meu usuário já cadastrado
-    E que acessei a funcionalidade de gerenciamento de contas
+    E que acessei a funcionalidade de gerenciamento de conta
 
-
+@criarUsuario
 Cenário: As informações do usuário devem estar corretas na seção de gerenciar conta
     Então o nome cadastrado deve estar correto
     E o email deve estar correto
     E o usuário deve ser do tipo comum
- 
-Cenário: Dever ser possível alterar nome
-    Quando altero o nome cadastrado
-    E confirmo a operação 
-    Então terei minhas informações atualizadas
+
+@criarUsuario
+Cenário: Deve ser possível alterar os próprios dados
+    Quando acessar a opção Gerenciar Conta
+    E informar um novo nome, uma nova senha e confirmar a operação
+    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+    E verificarei meus dados alterados na tela
+
+Cenário: Deve ser possível alterar apenas o nome
+    Quando acessar a opção Gerenciar Conta
+    E informar um novo nome
+    E confirmar a operação
+    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+    E verificarei meus dados alterados na tela
+
+Cenário: Deve ser possível alterar apenas a senha
+    Quando acessar a opção Gerenciar Conta
+    E habilitar a alteração de senha
+    E informar uma senha "123456" e confirmá-la
+    E confirmar a operação
+    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+
+Cenário: Não deve ser possível alterar o e-mail
+    Quando acessar a opção Gerenciar Conta
+    Então o campo e-mail deve estar desabilitado a edição
+
+Cenário: Para o usuário comum não deve ser possível alterar o tipo de usuário
+    Quando acessar a opção Gerenciar Conta
+    Então o campo tipo de usuário deve estar desabilitado a edição
 
 
-Cenário: Deve ser possível alterar senha
-    Quando clico no botão de alterar senha
-    E altero a senha cadastrada
-    E confirmo a operação
-    Então terei minhas informações atualizadas
-
-Cenário: Deve ser possível alterar nome e senha ao mesmo tempo
-    Quando altero o nome cadastrado
-    Quando clico no botão de alterar senha
-    E altero a senha cadastrada
-    E confirmo a operação
-    Então terei minhas informações atualizadas
- 
-Cenário: Não deve ser possível alterar o email
-    Quando tento alterar o email cadastrado
-    Então não é possível alterá-lo
 
 
 Cenário: Não deve ser possível alterar senha sem clicar no botão

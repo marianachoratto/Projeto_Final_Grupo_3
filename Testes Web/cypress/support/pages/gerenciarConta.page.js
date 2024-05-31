@@ -7,6 +7,9 @@ export default class AccountPage {
     inputConfirmarSenha = '[placeholder="Confirmar senha"]';
     inputError = '.input-error';
     tipoUsuario = 'select.profile-input';
+    userComum = '[value="0"]';
+    userAdmin = '[value="1"]';
+    userCritico = '[value="2"]';
     buttonSalvar = '.account-save-button';
     buttonAlterarSenha = '.account-password-button';
     buttonOk = '.modal-actions';
@@ -36,6 +39,18 @@ export default class AccountPage {
   
     getTipoUsuario() {
         return cy.get(this.tipoUsuario);
+    }
+
+    getUserComum() {
+        return cy.get(this.userComum);
+    }
+
+    getUserAdmin() {
+        return cy.get(this.userAdmin);
+    }
+
+    getUserCritico() {
+        return cy.get(this.userCritico);
     }
 
     getModal() {
