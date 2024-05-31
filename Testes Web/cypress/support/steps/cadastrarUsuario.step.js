@@ -16,7 +16,7 @@ let email;
 let password;
 
 Before({ tags: "@createUser" }, () => {
-  cy.fixture("usuario.json").then(function (newuser) {
+  cy.fixture("usuario.json").then((newuser) => {
     cy.request({
       method: "POST",
       url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users",
