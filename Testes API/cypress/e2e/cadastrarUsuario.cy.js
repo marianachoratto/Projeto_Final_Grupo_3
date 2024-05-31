@@ -263,4 +263,24 @@ describe('Cenários de falha', () => {
         })
     }) 
 
+    it('Não é possível cadastrar usuário informando email inválido', () => {
+        let name = faker.person.lastName()
+        let email = 'padraoinvalido'
+        let password = '123456'
+        cy.request({
+            method: 'POST',
+            url: '/api/users',
+            body: {
+                "name": name,
+                "email": email,
+                "password": password
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+            expect(response.body.message).to.include('email must be an email')
+            expect(response.body.error).to.eq('Bad Request')
+        })
+    })
+
 })
