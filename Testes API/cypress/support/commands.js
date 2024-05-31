@@ -23,3 +23,34 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('excluirUsuario', (userid, tokenid) => {
+    cy.request({
+        method: 'DELETE',
+        url: '/api/users/' + userid,
+        headers: {
+            Authorization: `Bearer ${tokenid}`
+        }
+    })
+});
+
+Cypress.Commands.add('loginValido', (email, password) => {
+    cy.request({
+        method: "POST",
+        url: '/api/auth/login',
+        body: {
+            email: email,
+            password: password
+        },
+    })
+})
+
+Cypress.Commands.add("promoverAdmin", (tokenid) => {
+    cy.request({
+        method: "PATCH",
+        url: '/api/users/admin',
+        headers: {
+            Authorization: `Bearer ${tokenid}`,
+        },
+    });
+});

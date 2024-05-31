@@ -20,7 +20,6 @@ let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
-let tokenid;
 
 Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
   return cy
@@ -90,7 +89,7 @@ Cypress.Commands.add("promoverCritico", function (tokenid) {
   });
 });
 
-Cypress.Commands.add("promoverAdmin", function (tokenid) {
+Cypress.Commands.add("promoverAdmin", (tokenid) => {
   cy.request({
     method: "PATCH",
     url: apiUrl +"api/users/admin",
@@ -100,7 +99,7 @@ Cypress.Commands.add("promoverAdmin", function (tokenid) {
   });
 });
 
-Cypress.Commands.add('loginValido', function (email, password) {
+Cypress.Commands.add('loginValido', (email, password) => {
   cy.request({
       method: "POST",
       url: apiUrl + "api/auth/login",
@@ -111,8 +110,7 @@ Cypress.Commands.add('loginValido', function (email, password) {
     })
 })
 
-Cypress.Commands.add('excluirUsuario', function (userid, tokenid) {
-  cy.log('Excluir usuário');
+Cypress.Commands.add('excluirUsuario', (userid, tokenid) => {
   cy.request({
     method: 'DELETE',
     url: 'https://raromdb-3c39614e42d4.herokuapp.com/api/users/' + userid,
