@@ -41,7 +41,7 @@ Cenário: Não deve ser possível criar usuário com nome maior que 100 caracter
     E clico para cadastrar
     Então retorna mensagem informando o limite de caracteres
     
- Cenário: Não deve ser possível criar usuário sem informar um nome
+Cenário: Não deve ser possível criar usuário sem informar um nome
     Quando informo um email válido
     E informo uma senha válida
     E confirmo a senha
