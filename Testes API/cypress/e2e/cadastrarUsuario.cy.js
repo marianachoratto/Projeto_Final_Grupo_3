@@ -174,10 +174,10 @@ describe('Testes criação de usuário', () => {
 })
 
 describe('Cenários de falha', () => {
-    let password = '123456'
     it('Não é possível cadastrar usuário sem informar nome', () => {
         let name = ''
         let emailValido = faker.random.alpha({ count: 7 }).toLowerCase() + '@dominio.com'
+        let password = '123456'
         cy.request({
             method: 'POST',
             url: '/api/users',
@@ -194,4 +194,73 @@ describe('Cenários de falha', () => {
             expect(response.body.error).to.eq('Bad Request')
         })
     })
+
+    it('Não é possível cadastrar usuário sem informar email', () => {
+        let name = faker.person.lastName()
+        let email = ''
+        let password = '123456'
+        cy.request({
+            method: 'POST',
+            url: '/api/users',
+            body: {
+                "name": name,
+                "email": email,
+                "password": password
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+            expect(response.body.message).to.include('email must be longer than or equal to 5 characters')
+            expect(response.body.message).to.include('email must be an email')
+            expect(response.body.message).to.include('email should not be empty')
+            expect(response.body.error).to.eq('Bad Request')
+        })
+    })
+
+    it('Não é possível cadastrar usuário sem informar senha', () => {
+        let name = faker.person.lastName()
+        let emailValido = faker.random.alpha({ count: 7 }).toLowerCase() + '@dominio.com'
+        let password = ''
+        cy.request({
+            method: 'POST',
+            url: '/api/users',
+            body: {
+                "name": name,
+                "email": emailValido,
+                "password": password
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+            expect(response.body.message).to.include('password must be longer than or equal to 6 characters')
+            expect(response.body.message).to.include('password should not be empty')
+            expect(response.body.error).to.eq('Bad Request')
+        })
+    })
+    it('Não é possível cadastrar usuário sem preencher formulário', () => {
+        let name = ''
+        let emailValido = ''
+        let password = ''
+        cy.request({
+            method: 'POST',
+            url: '/api/users',
+            body: {
+                "name": name,
+                "email": emailValido,
+                "password": password
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+            expect(response.body.error).to.eq('Bad Request')
+            expect(response.body.message).to.include('email must be longer than or equal to 5 characters')
+            expect(response.body.message).to.include('email must be an email')
+            expect(response.body.message).to.include('email should not be empty')
+            expect(response.body.message).to.include('password must be longer than or equal to 6 characters')
+            expect(response.body.message).to.include('password should not be empty')
+            expect(response.body.message).to.include('name should not be empty')
+            expect(response.body.message).to.include('name must be longer than or equal to 1 characters')
+        })
+    }) 
+
 })
