@@ -5,7 +5,6 @@ let userid
 
 describe('Testes criação de usuário', () => {
     let password = '123456'
-
     afterEach(() => {
         cy.get('@email').then((email) => {
             cy.loginValido(email, password)
@@ -149,7 +148,7 @@ describe('Testes criação de usuário', () => {
         })
     })
 
-    it.only('Não é possível cadastrar usuário informando e-mail já cadastrado', () => {
+    it('Não é possível cadastrar usuário informando e-mail já cadastrado', () => {
         let name = faker.person.lastName()
         let emailValido = faker.random.alpha({ count: 7 }).toLowerCase() + '@dominio.com'
         let password = "123456"
@@ -172,4 +171,27 @@ describe('Testes criação de usuário', () => {
             })
         })
     })
-}) 
+})
+
+describe('Cenários de falha', () => {
+    let password = '123456'
+    it('Não é possível cadastrar usuário sem informar nome', () => {
+        let name = ''
+        let emailValido = faker.random.alpha({ count: 7 }).toLowerCase() + '@dominio.com'
+        cy.request({
+            method: 'POST',
+            url: '/api/users',
+            body: {
+                "name": name,
+                "email": emailValido,
+                "password": password
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+            expect(response.body.message).to.include('name should not be empty')
+            expect(response.body.message).to.include('name must be longer than or equal to 1 characters')
+            expect(response.body.error).to.eq('Bad Request')
+        })
+    })
+})
