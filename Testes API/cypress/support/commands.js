@@ -23,3 +23,123 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import { faker } from "@faker-js/faker";
+const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com/";
+let email;
+let password = faker.internet.password(6);
+let idNovoUsuario;
+let nome;
+
+Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
+  return cy
+    .request({
+      method: "POST",
+      url: apiUrl + "api/auth/login",
+      body: {
+        email: email,
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      token = resposta.body.accessToken;
+
+      cy.request({
+        method: "PATCH",
+        url: apiUrl + "api/users/admin",
+        auth: {
+          bearer: token,
+        },
+      });
+    })
+    .then(function (resposta) {
+      cy.request({
+        method: "DELETE",
+        url: apiUrl + `api/users/${idNovoUsuario}`,
+        auth: {
+          bearer: token,
+        },
+      });
+    });
+});
+
+Cypress.Commands.add("cadastrarUsuario", () => {
+  return cy
+    .request({
+      method: "POST",
+      url: apiUrl + "api/users",
+      body: {
+        name: "faker " + faker.person.firstName(),
+        email: faker.internet.email(),
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      idNovoUsuario = resposta.body.id;
+
+      nome = resposta.body.name;
+      email = resposta.body.email;
+
+      return cy.wrap({
+        nome: nome,
+        email: email,
+        id: idNovoUsuario,
+        password: password,
+      });
+    });
+});
+
+Cypress.Commands.add("cadastrarEPromoverAdmin", () => {
+  return cy
+    .request({
+      method: "POST",
+      url: apiUrl + "api/users",
+      body: {
+        name: "faker " + faker.person.firstName(),
+        email: faker.internet.email(),
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      idNovoUsuario = resposta.body.id;
+      nome = resposta.body.name;
+      email = resposta.body.email;
+    })
+    .then((resposta) => {
+      cy.request({
+        method: "POST",
+        url: apiUrl + "api/auth/login",
+        body: {
+          email: email,
+          password: password,
+        },
+      });
+    })
+    .then((resposta) => {
+      let token = resposta.body.accessToken;
+      cy.request({
+        method: "PATCH",
+        url: apiUrl + "api/users/admin",
+        auth: {
+          bearer: token,
+        },
+      }).then((resposta) => {
+        return {
+          id: idNovoUsuario,
+          email: email,
+          password: password,
+          token: token,
+        };
+      });
+    });
+});
+
+Cypress.Commands.add("excluirUsuarioSimples", function (userid, token) {
+  cy.log("Excluir usuário");
+  cy.request({
+    method: "DELETE",
+    url: apiUrl + "api/users/" + userid,
+    auth: {
+      bearer: token,
+    },
+  });
+});
