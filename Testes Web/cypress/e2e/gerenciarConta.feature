@@ -4,7 +4,7 @@ Funcionalidade: Gerenciar conta
 
 Contexto: o usuário deve ter acesso à sua página de informações
     Dado que entrei no perfil do meu usuário já cadastrado
-    E estou na página do gerenciamento de contas
+    E que acessei a funcionalidade de gerenciamento de contas
 
 
 Cenário: As informações do usuário devem estar corretas na seção de gerenciar conta
