@@ -24,6 +24,15 @@ Cenário: Não é possível cadastrar usuário com email repetido
     E clico para cadastrar
     Então o usuário não é criado
 
+@deleteUser
+Cenário: Deve ser possível criar usuário com nome até 100 caracteres
+    Quando informo um nome com 100 caracteres
+    E informo um email válido
+    E informo uma senha válida
+    E confirmo a senha
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado
+
 Cenário: Não deve ser possível criar usuário com nome maior que 100 caracteres
     Quando informo um nome com mais de 100 caracteres
     E informo um email válido
@@ -40,7 +49,7 @@ Cenário: Não deve ser possível criar usuário com nome maior que 100 caracter
     Então retorna mensagem informando que o nome deve ser preenchido
 
 @deleteUser
-Esquema do Cenário: Deve ser possível criar usuário com nome entre 1 a 100 caracteres
+Esquema do Cenário: Validando nomes de usuário
     Quando informo um nome "<nome>"
     E informo um email válido
     E informo uma senha válida
@@ -48,11 +57,10 @@ Esquema do Cenário: Deve ser possível criar usuário com nome entre 1 a 100 ca
     E clico para cadastrar
     Então um usuário do tipo comum será gerado
     Exemplos:
-    | nome                                                                                                                                                                                                     |
-    |nomecom100caracteresnomecom100caracteresnomecom100caracteresnomecom100caracteresnomecom100caracteres|
+    | nome                                     |           
     |12348@#$¨%@@$¨&BVSFVSFVdcsdj<HRSARY##¨%$&*|
-    | ´ |
-    | 1 |
+    | ´                                        |
+    | 1                                        |
 
 @deleteUser
 Cenário: Deve ser possível criar senha com 6 caracteres
@@ -118,12 +126,13 @@ Esquema do Cenário: Não deve ser possível cadastrar com emails inválidos
     E clico para cadastrar
     Então retornará mensagem de email inválido "<mensagem>"
     Exemplos:
-    | email | mensagem |
-    |emailinvalido.com| Informe um e-mail válido. |
-    |@mail.com| Informe um e-mail válido. |
-    |emailinvalido@| Informe um e-mail válido. |
-    |emailcom61caracteresemailcom61caracteresemailcomm@dominio.com| O e-mail deve ter no máximo 60 dígitos. |
+    | email                                                        | mensagem                                |
+    | emailinvalido.com                                            | Informe um e-mail válido.               |
+    | @mail.com                                                    | Informe um e-mail válido.               |
+    | emailinvalido@                                               | Informe um e-mail válido.               |
+    |emailcom61caracteresemailcom61caracteresemailcomm@dominio.com | O e-mail deve ter no máximo 60 dígitos. |
 
+@deleteUser
 Cenário: Deve ser possível cadastrar um usuário com email de letras maiúscula
     Quando informo um nome válido
     E informo um email válido com letras maiúsculas

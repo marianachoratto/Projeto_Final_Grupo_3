@@ -17,19 +17,6 @@ export default class CreateUser {
     labelPassword = ':nth-child(3) > label'
     labelConfirmPassword = ':nth-child(4) > label'
 
-    paginaCriacao() {
-        cy.get(this.title).should('have.text', "Cadastre-se").should('be.visible');
-        cy.get(this.span).should('have.text', "Crie uma conta para poder acessar Raromdb.").should('be.visible');
-        cy.get(this.labelName).should('have.text', "Nome:").should('be.visible');
-        cy.get(this.inputName).should('be.enabled')
-        cy.get(this.labelEmail).should('have.text', "E-mail:").should('be.visible');
-        cy.get(this.inputEmail).should('be.enabled')
-        cy.get(this.labelPassword).should('have.text', "Senha:").should('be.visible');
-        cy.get(this.inputPassword).should('be.enabled')
-        cy.get(this.labelConfirmPassword).should('have.text', "Confirmar senha:").should('be.visible');
-        cy.get(this.inputConfirmPassword).should('be.enabled')
-        cy.get(this.buttomSubmit).should('be.enabled').should('have.text', "Cadastrar")
-    }
     typeName(name) {
         cy.get(this.inputName).type(name)
     }

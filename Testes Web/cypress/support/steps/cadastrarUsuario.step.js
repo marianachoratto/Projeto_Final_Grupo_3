@@ -60,7 +60,7 @@ When("informo um email com 60 caracteres", () => {
 });
 
 When("informo um email válido com letras maiúsculas", () => {
-  email = "EMAILVALIDO@DOMINIO.COM";
+  email = "EMAILVALIDO50@DOMINIO.COM";
   createUser.typeEmail(email);
 });
 
@@ -92,6 +92,11 @@ When("informo um nome com mais de 100 caracteres", () => {
   const name101 = faker.random.alpha({ count: 101 });
   createUser.typeName(name101);
 });
+
+When('informo um nome com 100 caracteres', () => {
+  const name100 = faker.random.alpha({ count: 100 });
+  createUser.typeName(name100);
+})
 
 When("informo uma senha válida", () => {
   password = "123456";
@@ -140,33 +145,39 @@ Then("o usuário não é criado", () => {
   cy.wait("@criar")
     .its("response")
     .then((response) => {
-      expect(response.statusCode).to.eq(409);
-      cy.get(createUser.modalSucess).contains("Falha no cadastro.");
-      cy.get(createUser.modalRegistration).contains(
-        "E-mail já cadastrado. Utilize outro e-mail"
-      );
+      expect(response.statusCode).to.eq(409)
+      cy.get(createUser.modalSucess).contains("Falha no cadastro.")
+      cy.get(createUser.modalRegistration).contains("E-mail já cadastrado. Utilize outro e-mail")
     });
 });
 
-Then("um usuário do tipo comum será gerado", () => {
-  cy.wait("@criar")
-    .its("response")
-    .then((response) => {
-      expect(response.body.type).to.eq(0);
-      cy.get(createUser.modalSucess).contains("Sucesso");
-      cy.get(createUser.modalRegistration).contains("Cadastro realizado!");
-      userid = response.body.id;
-    });
-});
+Then('um usuário do tipo comum será gerado', () => {
+  cy.wait('@criar').its('response')
+      .then((response) => {
+          expect(response.body.type).to.eq(0)
+          expect(response.body.active).to.eq(true)
+          cy.get(createUser.modalSucess).contains('Sucesso')
+          cy.get(createUser.modalRegistration).contains('Cadastro realizado!')
+          userid = response.body.id;
+      })
+})
 
 Then("os inputs estão habilitados e instruções visíveis", () => {
-  createUser.paginaCriacao();
+  cy.get(createUser.title).should('have.text', "Cadastre-se").should('be.visible');
+  cy.get(createUser.span).should('have.text', "Crie uma conta para poder acessar Raromdb.").should('be.visible');
+  cy.get(createUser.labelName).should('have.text', "Nome:").should('be.visible');
+  cy.get(createUser.inputName).should('be.enabled')
+  cy.get(createUser.labelEmail).should('have.text', "E-mail:").should('be.visible');
+  cy.get(createUser.inputEmail).should('be.enabled')
+  cy.get(createUser.labelPassword).should('have.text', "Senha:").should('be.visible');
+  cy.get(createUser.inputPassword).should('be.enabled')
+  cy.get(createUser.labelConfirmPassword).should('have.text', "Confirmar senha:").should('be.visible');
+  cy.get(createUser.inputConfirmPassword).should('be.enabled')
+  cy.get(createUser.buttomSubmit).should('be.enabled').should('have.text', "Cadastrar")
 });
 
 Then("retorna mensagem informando o limite de caracteres", () => {
-  cy.get(createUser.spanName).contains(
-    "O nome deve ter no máximo 100 dígitos."
-  );
+  cy.get(createUser.spanName).contains("O nome deve ter no máximo 100 dígitos.");
 });
 
 Then("retorna mensagem informando que o nome deve ser preenchido", () => {
