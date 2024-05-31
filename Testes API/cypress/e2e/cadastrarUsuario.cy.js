@@ -61,4 +61,26 @@ describe('Testes criação de usuário', () => {
             cy.wrap(emailValido).as("email")
         })
     })
+
+    it('Criar conta informando e-mail com 5 dígitos deve retornar 201', () => {
+        let name = faker.person.firstName()
+        let emailValido = 'u@g.p'
+        cy.request({
+            method: 'POST',
+            url: '/api/users',
+            body: {
+                "name": name,
+                "email": emailValido,
+                "password": password
+            }
+        }).then((response) => {
+            expect(response.status).to.eq(201);
+            expect(response.body.name).to.eq(name);
+            expect(response.body.email).to.eq(emailValido);
+            expect(response.body.type).to.eq(0)
+            expect(response.body.active).to.eq(true)
+            userid = response.body.id;
+            cy.wrap(emailValido).as("email")
+        })
+    })
 }) 
