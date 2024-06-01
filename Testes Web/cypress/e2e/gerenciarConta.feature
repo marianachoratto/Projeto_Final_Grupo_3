@@ -14,22 +14,22 @@ Cenário: As informações do usuário devem estar corretas na seção de gerenc
 
 @criarUsuario
 Cenário: Deve ser possível alterar os próprios dados
-    Quando acessar a opção Gerenciar Conta
-    E informar um novo nome, uma nova senha e confirmar a operação
-    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
-    E verificarei meus dados alterados na tela
-
-Cenário: Deve ser possível alterar apenas o nome
-    Quando acessar a opção Gerenciar Conta
-    E informar um novo nome
+    Quando informar um novo nome
+    E habilitar a alteração de senha
+    E informar uma nova senha e confirmá-la
     E confirmar a operação
     Então visualizarei a mensagem de sucesso "Informações atualizadas!"
-    E verificarei meus dados alterados na tela
+    E verificarei meus nome alterado na tela
+
+Cenário: Deve ser possível alterar apenas o nome
+    Quando informar um novo nome
+    E confirmar a operação
+    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+    E verificarei meus nome alterado na tela
 
 Cenário: Deve ser possível alterar apenas a senha
-    Quando acessar a opção Gerenciar Conta
-    E habilitar a alteração de senha
-    E informar uma senha "123456" e confirmá-la
+    Quando habilitar a alteração de senha
+    E informar uma nova senha e confirmá-la
     E confirmar a operação
     Então visualizarei a mensagem de sucesso "Informações atualizadas!"
 
