@@ -139,7 +139,7 @@ Cypress.Commands.add("excluirUsuario", function (userid, tokenid) {
   cy.log("Excluir usuário");
   cy.request({
     method: "DELETE",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/" + userid,
+    url: apiUrl + "/api/users/" + userid,
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
