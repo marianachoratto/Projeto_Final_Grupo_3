@@ -13,4 +13,10 @@ cd nomeDaPasta
 
 5- Para o cypress funcionar, você tem que fazer o npx cypress open na pasta que ele está instalado, então sempre checar no terminal a pasta que você está.
 
-6- Os pushs para a Main vão ser feito após seu trabalho passar pela vistoria de 2 colegas. Quando acabar, colocar o card no Trello para "Em revisão" 
+6- Nas dailys vamos fazer os merges. 
+
+7- O cartão da sua tarefa só deve ser movido após a revisão de 2 colegas.
+
+8- Na revisão, o colega vai indicar o erro e a alteração será feita por quem fez o código. 
+
+9-As dailys serão feitas sempre que possível APÓS A AULA
