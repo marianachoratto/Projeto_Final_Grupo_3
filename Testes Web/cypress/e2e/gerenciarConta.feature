@@ -9,7 +9,7 @@ Contexto: O usuário deve ter acesso à sua página de informações
 Cenário: As informações do usuário devem estar corretas na seção de gerenciar conta
     Quando acessar a opção Gerenciar Conta
     Então o nome e email do usuário devem estar visíveis
-    E o usuário deve ser do tipo comum
+    E o usuário deve ser do tipo Comum
 
 @criarUsuario
 Cenário: Não deve ser possível editar informações se o usuário não estiver autenticado
@@ -82,7 +82,7 @@ Esquema do Cenário: Não deve ser possível alterar senha se a confirmação de
     Então visualizarei o alerta "As senhas devem ser iguais."
     Exemplos:
     | senha  | confirmação |
-    | 123456 |   78910111  |
+    | 123456 |   0123456   |
     | UVWXYZ |    ABCDEF   |
 
 @criarUsuario
@@ -145,3 +145,25 @@ Cenário: Não deve ser possível alterar nome informando espaço em branco (ape
     E informar um espaço em branco no nome
     E confirmar a operação
     Então visualizarei a mensagem de erro "Não foi possível atualizar os dados."
+
+@criarUsuario
+Cenário: Usuário crítico consegue atualizar seus próprios dados e visualizar tipo de usuário
+    Dado que meu perfil foi promovido a Crítico
+    Quando acessar a opção Gerenciar Conta
+    E habilitar a alteração de senha
+    E informar um novo nome, uma nova senha e confirmá-la
+    E confirmar a operação
+    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+    E verificarei meu nome alterado na tela
+    E o usuário deve ser do tipo Crítico
+
+@criarUsuario
+Cenário: Usuário administrador consegue atualizar seus próprios dados e visualizar tipo de usuário
+    Dado que meu perfil foi promovido a Administrador
+    Quando acessar a opção Gerenciar Conta
+    E habilitar a alteração de senha
+    E informar um novo nome, uma nova senha e confirmá-la
+    E confirmar a operação
+    Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+    E verificarei meu nome alterado na tela
+    E o usuário deve ser do tipo Administrador

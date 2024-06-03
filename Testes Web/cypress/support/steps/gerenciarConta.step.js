@@ -48,7 +48,7 @@ Then("o nome e email do usuário devem estar visíveis", function () {
     })
 });
 
-Then("o usuário deve ser do tipo comum", function () {
+Then("o usuário deve ser do tipo Comum", function () {
     cy.get('@tipoUser').then((type) => {
         accountPage.getTipoUsuario().invoke('val').should('equal', `${type}`);
         accountPage.getUserComum().invoke('text').should('equal', 'Comum');
