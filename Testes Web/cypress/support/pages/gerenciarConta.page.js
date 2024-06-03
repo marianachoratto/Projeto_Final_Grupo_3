@@ -66,6 +66,14 @@ export default class AccountPage {
         return cy.get(this.modal);
     }
   
+    getModalTitulo() {
+        return cy.get(this.modalTitulo);
+    }
+
+    getModalMensagem() {
+        return cy.get(this.modalMensagem);
+    }
+
     getInputError() {
         return cy.get(this.inputError);
     }
@@ -91,7 +99,6 @@ export default class AccountPage {
     }
 
     atualizar(nome, senha) {
-        this.clickButtonAlterarSenha();
         this.limparNome();
         this.typeNome(nome);
         this.typeSenha(senha);

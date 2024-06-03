@@ -67,7 +67,7 @@ Esquema do Cenário: Deve ser possível alterar apenas a senha, informando valor
     Exemplos:
     |    senha     |
     | ABCDEFGHIJKL |
-    |    123456    |
+    |    012345    |
 
 @criarUsuario
 Cenário: Deve ser possível alterar nome e senha na mesma operação
@@ -87,7 +87,7 @@ Esquema do Cenário: Não deve ser possível alterar senha se a confirmação de
     Então visualizarei o alerta "As senhas devem ser iguais."
     Exemplos:
     | senha  | confirmação |
-    | 123456 |   0123456   |
+    | 012345 |   1234567   |
     | UVWXYZ |    ABCDEF   |
 
 @criarUsuario
@@ -96,7 +96,7 @@ Esquema do Cenário: Não deve ser possível alterar senha menor que 6 dígitos
     E habilitar a alteração de senha
     E informar uma senha '<senha>' e confirmá-la
     E confirmar a operação
-    Então visualizarei os alertas "A senha deve ter pelo menos 6 dígitos"
+    Então visualizarei o alerta "A senha deve ter pelo menos 6 dígitos"
     Exemplos:
     | senha |
     |  ABC  |
@@ -119,8 +119,7 @@ Cenário: Não deve ser possível alterar senha sem informar um valor de senha
     Quando acessar a opção Gerenciar Conta
     E habilitar a alteração de senha
     E confirmar a operação
-    Então visualizarei o alerta "Campo obrigatório"
-    E visualizarei o alerta "As senhas devem ser iguais."
+    Então visualizarei os alertas "Campo obrigatório" e "As senhas devem ser iguais."
 
 @criarUsuario
 Cenário: Não deve ser possível alterar senha informando espaços em branco (apertar barra de espaço)
