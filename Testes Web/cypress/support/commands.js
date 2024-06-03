@@ -73,7 +73,7 @@ Cypress.Commands.add("cadastrarUsuario", (password) => {
     });
 });
 
-Cypress.Commands.add("CadastrarEPromoverAdmin", (email, password) => {
+Cypress.Commands.add("CadastrarEPromoverAdmin", (password) => {
   return cy
     .request({
       method: "POST",
@@ -100,7 +100,7 @@ Cypress.Commands.add("CadastrarEPromoverAdmin", (email, password) => {
 Cypress.Commands.add("promoverCritico", function (tokenid) {
   cy.request({
     method: "PATCH",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/apply",
+    url: apiUrl + "api/users/apply",
     headers: {
       Authorization: `Bearer ${tokenid} `,
     },

@@ -15,6 +15,7 @@ const profilePage = new ProfilePage();
 const loginPage = new LoginPage();
 
 let dadosUser
+let tokenid
 
 Before({ tags: "@criarUsuario" }, () => {
     cy.visit('/login');
@@ -24,12 +25,41 @@ Before({ tags: "@criarUsuario" }, () => {
     });
 });
 
+After({ tags: "@deletarUsuario" }, () => {
+    cy.loginValido(dadosUser.email, '123456').then((response) => {
+        tokenid = response.body.accessToken;
+        cy.promoverAdmin(tokenid);
+        cy.excluirUsuario(dadosUser.id, tokenid);
+    });
+});
+
 Given("que entrei no perfil do meu usuário já cadastrado", function () {
     profilePage.clickButtonPerfil();
 });
 
+Given("que meu perfil foi promovido a Crítico", function () {
+    profilePage.clickButtonLogout();
 
+    cy.loginValido(dadosUser.email, '123456').then((response) => {
+        cy.wrap(response.body.accessToken).as('token');
+    });
 
+    cy.get('@token').then((token) => {
+        cy.promoverCritico(token);
+    });
+});
+
+Given("que meu perfil foi promovido a Administrador", function () {
+    profilePage.clickButtonLogout();
+
+    cy.loginValido(dadosUser.email, '123456').then((response) => {
+        cy.wrap(response.body.accessToken).as('token');
+    });
+
+    cy.get('@token').then((token) => {
+        cy.promoverAdmin(token);
+    });
+});
 
 When("acessar a opção Gerenciar Conta", function () {
     profilePage.clickButtonGerenciar();
@@ -83,8 +113,32 @@ When('informar uma senha {string} diferente da confirmação {string}', function
     accountPage.typeConfirmarSenha(confirmação);
 });
 
+When('informar espaços em branco na senha', function () {
+    accountPage.typeSenha('       ');
+    accountPage.typeConfirmarSenha('       ');
+});
 
+When("informar um nome maior que 100 caracteres", function () {
+    const nome101 = faker.string.alpha(101);
+    accountPage.limparNome();
+    accountPage.typeNome(nome101);
+});
 
+When("limpar o campo Nome", function () {
+    accountPage.limparNome();
+});
+
+When("informar um espaço em branco no nome", function () {
+    accountPage.limparNome();
+    accountPage.typeNome(' ');
+});
+
+When("fizer login novamente e acessar a opção Gerenciar Conta", function () {
+    cy.visit('/login');
+    loginPage.login(dadosUser.email, '123456');
+    profilePage.clickButtonPerfil();
+    profilePage.clickButtonGerenciar();
+});
 
 Then("as iniciais, nome e email do usuário devem estar visíveis", function () {
     profilePage.getIniciais().should('be.visible');
@@ -170,4 +224,14 @@ Then('visualizarei a mensagem de erro {string}', function (text) {
 Then('visualizarei os alertas {string} e {string}', function (text1, text2) {
     accountPage.alerta(0, text1);
     accountPage.alerta(1, text2);
+});
+
+Then("o usuário deve ser do tipo Crítico", function () {
+    accountPage.getTipoUsuario().invoke('val').should('equal', '2');
+    accountPage.getUserCritico().invoke('text').should('equal', 'Crítico(a)');
+});
+
+Then("o usuário deve ser do tipo Administrador", function () {
+    accountPage.getTipoUsuario().invoke('val').should('equal', '1');
+    accountPage.getUserAdmin().invoke('text').should('equal', 'Administrador');
 });
