@@ -147,3 +147,5 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
 
 // Commands de filme
 Cypress.Commands.add("deletarFilme", (email, password) => {});
+
+// oi
