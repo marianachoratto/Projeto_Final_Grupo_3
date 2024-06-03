@@ -5,6 +5,8 @@ export default class ProfilePage {
     buttonPerfil = '[href="/profile"]';
     buttonGerenciar = '[href="/account"]';
     buttonLogout = '[href="/logout"]';
+    labelIniciais = '.profile-nickname';
+    userInfo = '.user-info' 
 
     clickButtonPerfil() {
         cy.get(this.buttonPerfil).click();
@@ -16,5 +18,13 @@ export default class ProfilePage {
       
     clickButtonLogout() {
         cy.get(this.buttonLogout).click();
+    }
+
+    getIniciais() {
+        return cy.get(this.labelIniciais);
+    }
+
+    getUserInfo() {
+        return cy.get(this.userInfo);
     }
 }

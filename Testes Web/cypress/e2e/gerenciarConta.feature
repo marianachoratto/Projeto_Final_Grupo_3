@@ -6,6 +6,10 @@ Contexto: O usuário deve ter acesso à sua página de informações
     Dado que entrei no perfil do meu usuário já cadastrado
 
 @criarUsuario
+Cenário: As informações do usuário devem estar corretas na página de perfil
+    Então as iniciais, nome e email do usuário devem estar visíveis
+
+@criarUsuario
 Cenário: As informações do usuário devem estar corretas na seção de gerenciar conta
     Quando acessar a opção Gerenciar Conta
     Então o nome e email do usuário devem estar visíveis
@@ -18,17 +22,27 @@ Cenário: Não deve ser possível editar informações se o usuário não estive
     Então serei redirecionado para a página de Login automaticamente
 
 @criarUsuario
+Cenário: Não deve ser possível alterar o e-mail
+    Quando acessar a opção Gerenciar Conta
+    Então o campo E-mail deve estar desabilitado a edição
+
+@criarUsuario
+Cenário: O usuário comum não deve conseguir alterar o tipo de usuário
+    Quando acessar a opção Gerenciar Conta
+    Então o campo Tipo de usuário deve estar desabilitado a edição
+
+@criarUsuario
 Cenário: Não deve ser possível alterar senha sem clicar no botão "Alterar senha"
     Quando acessar a opção Gerenciar Conta
-    E informar uma nova senha e confirmá-la
-    Então não é possível realizar a alteração
+    Então os campos Senha e Confirmar senha deven estar desabilitados a edição
 
 @criarUsuario
 Cenário: O usuário deve conseguir cancelar uma operação de alterar senha
-    Quando habilitar a alteração de senha
+    Quando acessar a opção Gerenciar Conta
+    E habilitar a alteração de senha
     E começar a alterar a senha
     E clicar no botão de cancelar
-    Então a operação é cancelada
+    Então a alteração é cancelada
 
 @criarUsuario
 Esquema do Cenário: Deve ser possível alterar apenas o nome, informando valor de 1 a 100 dígitos
@@ -49,6 +63,7 @@ Esquema do Cenário: Deve ser possível alterar apenas a senha, informando valor
     E informar uma senha '<senha>' e confirmá-la
     E confirmar a operação
     Então visualizarei a mensagem de sucesso "Informações atualizadas!"
+    E é possível fazer login com a nova senha
     Exemplos:
     |    senha     |
     | ABCDEFGHIJKL |
@@ -62,16 +77,6 @@ Cenário: Deve ser possível alterar nome e senha na mesma operação
     E confirmar a operação
     Então visualizarei a mensagem de sucesso "Informações atualizadas!"
     E verificarei meu nome alterado na tela
-
-@criarUsuario
-Cenário: Não deve ser possível alterar o e-mail
-    Quando acessar a opção Gerenciar Conta
-    Então o campo E-mail deve estar desabilitado a edição
-
-@criarUsuario
-Cenário: O usuário comum não deve conseguir alterar o tipo de usuário
-    Quando acessar a opção Gerenciar Conta
-    Então o campo Tipo de usuário deve estar desabilitado a edição
 
 @criarUsuario
 Esquema do Cenário: Não deve ser possível alterar senha se a confirmação de senha for divergente

@@ -12,6 +12,7 @@ export default class AccountPage {
     userCritico = '[value="2"]';
     buttonSalvar = '.account-save-button';
     buttonAlterarSenha = '.account-password-button';
+    buttonCancelar = '.account-password-button-cancel'
     buttonOk = '.modal-actions';
     modal = '.modal-content';
     modalTitulo = '.modal-content h3'
@@ -53,6 +54,14 @@ export default class AccountPage {
         return cy.get(this.userCritico);
     }
 
+    getSenha() {
+        return cy.get(this.inputSenha);
+    }
+
+    getConfirmarSenha() {
+        return cy.get(this.inputConfirmarSenha);
+    }
+
     getModal() {
         return cy.get(this.modal);
     }
@@ -67,6 +76,10 @@ export default class AccountPage {
   
     clickButtonAlterarSenha() {
         cy.get(this.buttonAlterarSenha).click();
+    } 
+
+    clickButtonCancelar() {
+        cy.get(this.buttonCancelar).click();
     } 
 
     clickButtonOk() {
