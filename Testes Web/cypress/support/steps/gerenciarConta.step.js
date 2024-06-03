@@ -38,13 +38,11 @@ Given("que acessei a funcionalidade de gerenciamento de conta", function () {
     profilePage.clickButtonGerenciar();
 });
 
-Then("o nome cadastrado deve estar correto", function () {
+Then("o nome e email do usuário devem estar visíveis", function () {
     cy.get('@nome').then((nome) => {
         accountPage.getNome().invoke('val').should('equal', nome);
     })
-});
-
-Then("o email deve estar correto", function () {
+    
     cy.get('@email').then((email) => {
         accountPage.getEmail().invoke('val').should('equal', email);
     })
