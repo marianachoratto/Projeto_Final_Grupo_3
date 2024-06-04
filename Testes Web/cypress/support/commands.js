@@ -132,7 +132,7 @@ Cypress.Commands.add("excluirUsuario", function (userid, tokenid) {
   cy.log("Excluir usuário");
   cy.request({
     method: "DELETE",
-    url: apiUrl + "/api/users/" + userid,
+    url: apiUrl + "api/users/" + userid,
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
