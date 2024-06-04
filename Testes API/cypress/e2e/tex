@@ -1,0 +1,8 @@
+let lista = [{"title": "Percy Jackson",
+"genre": "Animação",
+"description": "Percy Jackson (Logan Lerman) é um jovem que enfrenta problemas na escola, devido ao que acredita ser dislexia e déficit de atenção.",
+"durationInMinutes": 122,
+"releaseYear": 2010
+}]
+
+lista[0].id
