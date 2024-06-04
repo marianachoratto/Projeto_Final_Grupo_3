@@ -33,4 +33,11 @@ export default class CreateUser {
     clickButtomSubmit() {
         cy.get(this.buttomSubmit).click()
     }
+    cadastrar(name, email, password) {
+        this.typeName(name);
+        this.typeEmail(email);
+        this.typePassword(password);
+        this.typeConfirmPassword(password);
+        this.clickButtomSubmit();
+    }
 }
