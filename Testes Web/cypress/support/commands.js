@@ -38,7 +38,26 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
     });
 });
 
-Cypress.Commands.add("cadastrarUsuario", () => {
+Cypress.Commands.add("cadastrarUsuario", (password) => {
+  return cy
+    .request({
+      method: "POST",
+      url: apiUrl + "api/users",
+      body: {
+        name: faker.person.firstName(),
+        email: faker.internet.email(),
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+
+      dadosUser = resposta.body
+
+      return cy.wrap(dadosUser);
+    });
+});
+
+Cypress.Commands.add("CadastrarEPromoverAdmin", (password) => {
   return cy
     .request({
       method: "POST",
@@ -50,16 +69,14 @@ Cypress.Commands.add("cadastrarUsuario", () => {
       },
     })
     .then(function (resposta) {
-      idNovoUsuario = resposta.body.id;
+      token = resposta.body.accessToken;
 
-      nome = resposta.body.name;
-      email = resposta.body.email;
-
-      return cy.wrap({
-        nome: nome,
-        email: email,
-        id: idNovoUsuario,
-        password: password,
+      cy.request({
+        method: "PATCH",
+        url: apiUrl + "api/users/admin",
+        auth: {
+          bearer: token,
+        },
       });
     });
 });
@@ -91,7 +108,7 @@ Cypress.Commands.add("CadastrarEPromoverAdmin", (email, password) => {
 Cypress.Commands.add("promoverCritico", function (tokenid) {
   cy.request({
     method: "PATCH",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/apply",
+    url: apiUrl + "api/users/apply",
     headers: {
       Authorization: `Bearer ${tokenid} `,
     },

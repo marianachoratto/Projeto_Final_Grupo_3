@@ -28,8 +28,8 @@ describe("Criação de Filmes", () => {
     });
 
     afterEach(function () {
-      cy.excluirUsuario(id, token);
       cy.deletarFilme(movieId, token);
+      cy.excluirUsuario(id, token);
     });
 
     it("O usuário administrador deve poder criar filmes com sucesso", () => {
@@ -289,6 +289,8 @@ describe("Criação de Filmes", () => {
     it("Não é possível criar um filme sem ser usuário administrador", function () {});
 
     it("Não deve ser possível criar filme sem nome", function () {});
+
+    it("Não deve ser possível criar filme com string vazia", function () {});
 
     it("Não deve ser possível criar filme com nome com mais de 100 caracteres", function () {});
 

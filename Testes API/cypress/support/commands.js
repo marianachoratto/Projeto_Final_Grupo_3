@@ -1,4 +1,3 @@
-
 import { faker } from "@faker-js/faker";
 const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com/";
 let email;
@@ -34,7 +33,7 @@ Cypress.Commands.add("cadastrarUsuario", () => {
     });
 });
 
-Cypress.Commands.add("loginValido", (email, password, tokenid) => {
+Cypress.Commands.add("loginValido", (email, password) => {
   cy.request({
     method: "POST",
     url: "/api/auth/login",
@@ -61,61 +60,6 @@ Cypress.Commands.add("promoverAdmin", (tokenid) => {
   });
 });
 
-// Cypress.Commands.add("cadastrarEPromoverAdmin", () => {
-//   return cy
-//     .request({
-//       method: "POST",
-//       url: apiUrl + "api/users",
-//       body: {
-//         name: "faker " + faker.person.firstName(),
-//         email: faker.internet.email(),
-//         password: password,
-//       },
-//     })
-//     .then(function (resposta) {
-//       idNovoUsuario = resposta.body.id;
-//       nome = resposta.body.name;
-//       email = resposta.body.email;
-//     })
-//     .then((resposta) => {
-//       cy.request({
-//         method: "POST",
-//         url: apiUrl + "api/auth/login",
-//         body: {
-//           email: email,
-//           password: password,
-//         },
-//       });
-//     })
-//     .then((resposta) => {
-//       let token = resposta.body.accessToken;
-//       cy.request({
-//         method: "PATCH",
-//         url: apiUrl + "api/users/admin",
-//         auth: {
-//           bearer: token,
-//         },
-//       }).then((resposta) => {
-//         return {
-//           id: idNovoUsuario,
-//           email: email,
-//           password: password,
-//           token: token,
-//         };
-//       });
-//     });
-// });
-
-// Cypress.Commands.add("excluirUsuarioSimples", function (userid, token) {
-//   cy.request({
-//     method: "DELETE",
-//     url: apiUrl + "api/users/" + userid,
-//     auth: {
-//       bearer: token,
-//     },
-//   });
-// });
-
 Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
   cy.request({
     method: "DELETE",
@@ -125,38 +69,6 @@ Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
     },
   });
 });
-
-// Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
-//   return cy
-//     .request({
-//       method: "POST",
-//       url: apiUrl + "api/auth/login",
-//       body: {
-//         email: email,
-//         password: password,
-//       },
-//     })
-//     .then(function (resposta) {
-//       token = resposta.body.accessToken;
-
-//       cy.request({
-//         method: "PATCH",
-//         url: apiUrl + "api/users/admin",
-//         auth: {
-//           bearer: token,
-//         },
-//       });
-//     })
-//     .then(function (resposta) {
-//       cy.request({
-//         method: "DELETE",
-//         url: apiUrl + `api/users/${idNovoUsuario}`,
-//         auth: {
-//           bearer: token,
-//         },
-//       });
-//     });
-// });
 
 // Commands de filme
 Cypress.Commands.add("deletarFilme", (movieId, tokenid) => {
