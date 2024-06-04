@@ -129,7 +129,6 @@ Cypress.Commands.add("loginValido", function (email, password) {
 });
 
 Cypress.Commands.add("excluirUsuario", function (userid, tokenid) {
-  cy.log("Excluir usuário");
   cy.request({
     method: "DELETE",
     url: apiUrl + "api/users/" + userid,
