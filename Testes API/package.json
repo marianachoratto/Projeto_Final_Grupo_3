@@ -8,11 +8,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
+  "dependencies": {
     "@faker-js/faker": "^8.4.1",
-    "cypress": "^13.10.0",
-    "install": "^0.13.0",
-    "npm": "^10.8.1"
+    "cypress": "^13.10.0"
   }
 }

@@ -1,4 +1,3 @@
-
 import { faker } from "@faker-js/faker";
 const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com/";
 let email;
@@ -7,38 +6,7 @@ let idNovoUsuario;
 let nome;
 let tokenid;
 
-Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
-  return cy
-    .request({
-      method: "POST",
-      url: apiUrl + "api/auth/login",
-      body: {
-        email: email,
-        password: password,
-      },
-    })
-    .then(function (resposta) {
-      token = resposta.body.accessToken;
-
-      cy.request({
-        method: "PATCH",
-        url: apiUrl + "api/users/admin",
-        auth: {
-          bearer: token,
-        },
-      });
-    })
-    .then(function (resposta) {
-      cy.request({
-        method: "DELETE",
-        url: apiUrl + `api/users/${idNovoUsuario}`,
-        auth: {
-          bearer: token,
-        },
-      });
-    });
-});
-
+// Commands de Usuários
 Cypress.Commands.add("cadastrarUsuario", () => {
   return cy
     .request({
@@ -65,44 +33,64 @@ Cypress.Commands.add("cadastrarUsuario", () => {
     });
 });
 
-Cypress.Commands.add("promoverCritico", function (tokenid) {
+Cypress.Commands.add("loginValido", (email, password) => {
   cy.request({
-    method: "PATCH",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/apply",
-    headers: {
-      Authorization: `Bearer ${tokenid} `,
+    method: "POST",
+    url: "/api/auth/login",
+    body: {
+      email: email,
+      password: password,
     },
+  }).then(function (resposta) {
+    tokenid = resposta.body.accessToken;
+
+    return {
+      token: tokenid,
+    };
   });
 });
 
-Cypress.Commands.add("promoverAdmin", function (tokenid) {
+Cypress.Commands.add("promoverAdmin", (tokenid) => {
   cy.request({
     method: "PATCH",
-    url: apiUrl +"api/users/admin",
+    url: "/api/users/admin",
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
   });
 });
 
-Cypress.Commands.add('loginValido', function (email, password) {
+Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
   cy.request({
-      method: "POST",
-      url: apiUrl + "api/auth/login",
-      body: {
-        email: email,
-        password: password
-      },
-    })
-})
-
-Cypress.Commands.add('excluirUsuario', function (userid, tokenid) {
-  cy.log('Excluir usuário');
-  cy.request({
-    method: 'DELETE',
-    url: 'https://raromdb-3c39614e42d4.herokuapp.com/api/users/' + userid,
+    method: "DELETE",
+    url: apiUrl + "api/users/" + userid,
     headers: {
-      Authorization: `Bearer ${tokenid}`
-    }
-  })
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
 });
+
+// Commands de filme
+Cypress.Commands.add("deletarFilme", (movieId, tokenid) => {
+  cy.request({
+    method: "DELETE",
+    url: apiUrl + "api/movies/" + movieId,
+    headers: {
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
+  // cy.promoverAdmin(tokenid).then(function (resposta) {
+  // });
+});
+
+Cypress.Commands.add('criarUsuario', (name, emailValido, password) => {
+  cy.request({
+      method: 'POST',
+      url: '/api/users',
+      body: {
+          "name": name,
+          "email": emailValido,
+          "password": password
+      }
+  })
+})
