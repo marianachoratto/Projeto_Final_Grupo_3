@@ -1,10 +1,5 @@
-
 import { faker } from "@faker-js/faker";
 const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com/";
-let email;
-let password = faker.internet.password(6);
-let idNovoUsuario;
-let nome;
 
 Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
   return cy
@@ -27,7 +22,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
         },
       });
     })
-    .then(function (resposta) {
+    .then(function () {
       cy.request({
         method: "DELETE",
         url: apiUrl + `api/users/${idNovoUsuario}`,
@@ -81,7 +76,7 @@ Cypress.Commands.add("CadastrarEPromoverAdmin", (password) => {
     });
 });
 
-Cypress.Commands.add("CadastrarEPromoverAdmin", (email, password) => {
+Cypress.Commands.add("CadastrarEPromoverAdmin", (password) => {
   return cy
     .request({
       method: "POST",
