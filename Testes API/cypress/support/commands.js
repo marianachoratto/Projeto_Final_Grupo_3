@@ -162,21 +162,43 @@ Cypress.Commands.add("LogarPromoverCritico", (email, password,) => {
         },
       });
     })
-  })
+})
 
-  Cypress.Commands.add("LogarPromoverADM", (email, password,) => {
-    return cy
-      .request({
-        method: "POST",
-        url: apiUrl + "api/auth/login",
-        body: {
-          email: email,
-          password: password,
+Cypress.Commands.add("LogarPromoverADM", (email, password,) => {
+  return cy.request({
+    method: "POST",
+    url: apiUrl + "api/auth/login",
+    body: {
+      email: email,
+      password: password,
+    },
+  })
+    .then(function (resposta) {
+      token = resposta.body.accessToken;
+
+      cy.request({
+        method: "PATCH",
+        url: apiUrl + "api/users/admin",
+        auth: {
+          bearer: token,
         },
-      })
+      });
+    })
+});
+
+Cypress.Commands.add("criarFilme", (email, password) => {
+  cy.fixture('novoFilme.json').then((dadosFilme) => {
+    return cy.request({
+      method: "POST",
+      url: apiUrl + "api/auth/login",
+      body: {
+        email: email,
+        password: password,
+      },
+    })
       .then(function (resposta) {
         token = resposta.body.accessToken;
-  
+
         cy.request({
           method: "PATCH",
           url: apiUrl + "api/users/admin",
@@ -184,5 +206,18 @@ Cypress.Commands.add("LogarPromoverCritico", (email, password,) => {
             bearer: token,
           },
         });
+      }).then(() => {
+
+        cy.request({
+          method: "POST",
+          url: "/api/movies",
+          body: dadosFilme,
+          headers: {
+            Authorization: "Bearer " + token
+          },
+
+        })
       })
-    })
+  })
+
+});
