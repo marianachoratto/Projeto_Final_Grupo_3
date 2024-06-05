@@ -7,6 +7,18 @@ let nome;
 let tokenid;
 
 // Commands de Usuários
+Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
+  cy.request({
+    method: "POST",
+    url: "/api/users",
+    body: {
+      name: name,
+      email: emailValido,
+      password: password,
+    },
+  });
+});
+
 Cypress.Commands.add("cadastrarUsuario", () => {
   return cy
     .request({
@@ -119,25 +131,37 @@ Cypress.Commands.add("criarFilme", (userToken) => {
     });
 });
 
-// Commands de filme
-Cypress.Commands.add("deletarFilme", (movieId, tokenid) => {
-  cy.request({
-    method: "DELETE",
-    url: apiUrl + "api/movies/" + movieId,
-    headers: {
-      Authorization: `Bearer ${tokenid}`,
-    },
-  });
-});
+Cypress.Commands.add("criarFilmeAdm", (email, password) => {
+  cy.fixture("novoFilme.json").then((dadosFilme) => {
+    return cy
+      .request({
+        method: "POST",
+        url: apiUrl + "api/auth/login",
+        body: {
+          email: email,
+          password: password,
+        },
+      })
+      .then(function (resposta) {
+        token = resposta.body.accessToken;
 
-Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
-  cy.request({
-    method: "POST",
-    url: "/api/users",
-    body: {
-      name: name,
-      email: emailValido,
-      password: password,
-    },
+        cy.request({
+          method: "PATCH",
+          url: apiUrl + "api/users/admin",
+          auth: {
+            bearer: token,
+          },
+        });
+      })
+      .then(() => {
+        cy.request({
+          method: "POST",
+          url: "/api/movies",
+          body: dadosFilme,
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+      });
   });
 });
