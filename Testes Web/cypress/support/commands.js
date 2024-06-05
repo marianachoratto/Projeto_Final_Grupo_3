@@ -5,7 +5,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
   return cy
     .request({
       method: "POST",
-      url: apiUrl + "api/auth/login",
+      url: "/api/auth/login",
       body: {
         email: email,
         password: password,
@@ -16,7 +16,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
 
       cy.request({
         method: "PATCH",
-        url: apiUrl + "api/users/admin",
+        url: "api/users/admin",
         auth: {
           bearer: token,
         },
@@ -25,7 +25,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
     .then(function () {
       cy.request({
         method: "DELETE",
-        url: apiUrl + `api/users/${idNovoUsuario}`,
+        url: `/api/users/${idNovoUsuario}`,
         auth: {
           bearer: token,
         },
@@ -37,7 +37,7 @@ Cypress.Commands.add("cadastrarUsuario", (password) => {
   return cy
     .request({
       method: "POST",
-      url: apiUrl + "api/users",
+      url: "/api/users",
       body: {
         name: faker.person.firstName(),
         email: faker.internet.email(),
@@ -45,65 +45,16 @@ Cypress.Commands.add("cadastrarUsuario", (password) => {
       },
     })
     .then(function (resposta) {
-
-      dadosUser = resposta.body
+      dadosUser = resposta.body;
 
       return cy.wrap(dadosUser);
-    });
-});
-
-Cypress.Commands.add("CadastrarEPromoverAdmin", (password) => {
-  return cy
-    .request({
-      method: "POST",
-      url: apiUrl + "api/users",
-      body: {
-        name: "faker " + faker.person.firstName(),
-        email: faker.internet.email(),
-        password: password,
-      },
-    })
-    .then(function (resposta) {
-      token = resposta.body.accessToken;
-
-      cy.request({
-        method: "PATCH",
-        url: apiUrl + "api/users/admin",
-        auth: {
-          bearer: token,
-        },
-      });
-    });
-});
-
-Cypress.Commands.add("CadastrarEPromoverAdmin", (password) => {
-  return cy
-    .request({
-      method: "POST",
-      url: apiUrl + "api/users",
-      body: {
-        name: "faker " + faker.person.firstName(),
-        email: faker.internet.email(),
-        password: password,
-      },
-    })
-    .then(function (resposta) {
-      token = resposta.body.accessToken;
-
-      cy.request({
-        method: "PATCH",
-        url: apiUrl + "api/users/admin",
-        auth: {
-          bearer: token,
-        },
-      });
     });
 });
 
 Cypress.Commands.add("promoverCritico", function (tokenid) {
   cy.request({
     method: "PATCH",
-    url: apiUrl + "api/users/apply",
+    url: "/api/users/apply",
     headers: {
       Authorization: `Bearer ${tokenid} `,
     },
@@ -113,7 +64,7 @@ Cypress.Commands.add("promoverCritico", function (tokenid) {
 Cypress.Commands.add("promoverAdmin", (tokenid) => {
   cy.request({
     method: "PATCH",
-    url: apiUrl + "api/users/admin",
+    url: "/api/users/admin",
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
@@ -123,7 +74,7 @@ Cypress.Commands.add("promoverAdmin", (tokenid) => {
 Cypress.Commands.add("loginValido", function (email, password) {
   cy.request({
     method: "POST",
-    url: apiUrl + "api/auth/login",
+    url: "/api/auth/login",
     body: {
       email: email,
       password: password,
@@ -134,7 +85,7 @@ Cypress.Commands.add("loginValido", function (email, password) {
 Cypress.Commands.add("excluirUsuario", function (userid, tokenid) {
   cy.request({
     method: "DELETE",
-    url: apiUrl + "api/users/" + userid,
+    url: "/api/users/" + userid,
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },

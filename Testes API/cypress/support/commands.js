@@ -85,6 +85,38 @@ Cypress.Commands.add("promoverCritico", function (tokenid) {
   });
 });
 
+Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
+  return cy
+    .request({
+      method: "POST",
+      url: "/api/auth/login",
+      body: {
+        email: email,
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      token = resposta.body.accessToken;
+
+      cy.request({
+        method: "PATCH",
+        url: "api/users/admin",
+        auth: {
+          bearer: token,
+        },
+      });
+    })
+    .then(function () {
+      cy.request({
+        method: "DELETE",
+        url: `/api/users/${idNovoUsuario}`,
+        auth: {
+          bearer: token,
+        },
+      });
+    });
+});
+
 // Commands de filme
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
