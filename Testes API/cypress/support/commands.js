@@ -106,7 +106,15 @@ Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
 });
 
 // Commands de filme
-Cypress.Commands.add("deletarFilme", (email, password) => {});
+Cypress.Commands.add("deletarFilme", (idFilme, token) => {
+  cy.request({
+    method: "DELETE",
+    url: apiUrl + "api/movies/" + idFilme,
+    auth: {
+      bearer: token,
+    },
+  });
+});
 
 Cypress.Commands.add("criarFilme", (userToken) => {
   return cy
