@@ -1,19 +1,10 @@
 describe("Criação de Filmes", () => {
-  describe.only("Criação de Filmes com Sucesso", function () {
+  describe("Criação de Filmes com Sucesso", function () {
     let id;
     let token;
     let email;
     let password;
     let movieId;
-
-    // let bodyFilme = {
-    //   id: 25875,
-    //   title: "Título",
-    //   genre: "Gênero",
-    //   description: "Olá",
-    //   durationInMinutes: 185,
-    //   releaseYear: 2020,
-    // };
 
     beforeEach(function () {
       cy.cadastrarUsuario().then((resposta) => {
@@ -245,7 +236,7 @@ describe("Criação de Filmes", () => {
         });
     });
 
-    it.only("Deve ser possível criar filme com duração de até 720 horas", function () {
+    it("Deve ser possível criar filme com duração de até 720 horas", function () {
       cy.request({
         method: "POST",
         url: "api/movies",
@@ -276,17 +267,145 @@ describe("Criação de Filmes", () => {
   });
 
   describe("É possível cadastrar 2 filmes iguais", function () {
-    it("É possível cadastrar 2 filmes iguais", function () {});
+    let idFilme;
+    let titleFilme;
+    let genreFilme;
+    let descriptionFilme;
+    let durationInMinutesFilme;
+    let releaseYearFilme;
+    let token;
+    let dadosUser;
 
-    it("É possível cadastrar 2 filmes iguais, mas com informações diferentes", function () {});
-  });
-
-  describe("Criação de Filmes com Falha", function () {
-    it("Não é possível criar um filme sem possuir um usuário autenticado", function () {
-      cy.visit("https://example.cypress.io");
+    before(function () {
+      cy.cadastrarUsuario().then((resposta) => {
+        dadosUser = resposta;
+        cy.loginValido(dadosUser.email, dadosUser.password).then(function (
+          resposta
+        ) {
+          token = resposta.token;
+          cy.promoverAdmin(token).then(function (resposta) {
+            cy.criarFilme(token).then(function (resposta) {
+              idFilme = resposta.id;
+              titleFilme = resposta.title;
+              genreFilme = resposta.genre;
+              descriptionFilme = resposta.description;
+              durationInMinutesFilme = resposta.durationInMinutes;
+              releaseYearFilme = resposta.releaseYear;
+            });
+          });
+        });
+      });
     });
 
-    it("Não é possível criar um filme sem ser usuário administrador", function () {});
+    after(function () {
+      cy.deletarFilme(idFilme, token);
+      cy.excluirUsuario(dadosUser.id, token);
+    });
+
+    it("É possível cadastrar 2 filmes iguais", function () {
+      cy.request({
+        method: "POST",
+        url: "api/movies",
+        auth: {
+          bearer: token,
+        },
+        body: {
+          title: titleFilme,
+          genre: genreFilme,
+          description: descriptionFilme,
+          durationInMinutes: durationInMinutesFilme,
+          releaseYear: releaseYearFilme,
+        },
+      }).then(function (resposta) {
+        expect(resposta.status).to.equal(201);
+        expect(resposta.body.id).not.be.equal(idFilme);
+        expect(resposta.body.title).to.equal(titleFilme);
+        expect(resposta.body.genre).to.equal(genreFilme);
+        expect(resposta.body.description).to.equal(descriptionFilme);
+        expect(resposta.body.durationInMinutes).to.equal(
+          durationInMinutesFilme
+        );
+        expect(resposta.body.releaseYear).to.equal(releaseYearFilme);
+      });
+    });
+
+    it("É possível cadastrar 2 filmes iguais, mas com informações diferentes", function () {
+      cy.request({
+        method: "POST",
+        url: "api/movies",
+        auth: {
+          bearer: token,
+        },
+        body: {
+          title: titleFilme,
+          genre: genreFilme,
+          description: "A descrição do filme é diferente",
+          durationInMinutes: 187,
+          releaseYear: releaseYearFilme,
+        },
+      }).then((resposta) => {
+        expect(resposta.status).to.equal(201);
+        expect(resposta.body.id).not.be.equal(idFilme);
+        expect(resposta.body.title).to.equal(titleFilme);
+        expect(resposta.body.genre).to.equal(genreFilme);
+        expect(resposta.body.description).to.equal(
+          "A descrição do filme é diferente"
+        );
+        expect(resposta.body.durationInMinutes).to.equal(187);
+        expect(resposta.body.releaseYear).to.equal(releaseYearFilme);
+      });
+    });
+  });
+
+  describe.only("Criação de Filmes com Falha", function () {
+    // Conferir, pq no swagger diz que deve retornar 400. Ou conferir com Yuri, pq no swagger não tem especificação.
+    it("Não é possível criar um filme sem possuir um usuário autenticado", function () {
+      cy.fixture("novoFilme.json").then(function (filme) {
+        cy.request({
+          method: "POST",
+          url: "api/movies",
+          body: filme,
+          failOnStatusCode: false,
+        }).then(function (resposta) {
+          expect(resposta.status).to.equal(401);
+          expect(resposta.body.error).to.equal("Unauthorized");
+          expect(resposta.body.message).to.equal("Access denied.");
+        });
+      });
+    });
+
+    it.only("Não é possível criar um filme sem ser usuário administrador", function () {
+      let dadosUser;
+      let token;
+
+      cy.cadastrarUsuario().then(function (resposta) {
+        dadosUser = resposta;
+        cy.loginValido(dadosUser.email, dadosUser.password).then(function (
+          resposta
+        ) {
+          token = resposta.token;
+
+          cy.request({
+            method: "POST",
+            url: "api/movies",
+            auth: {
+              bearer: token,
+            },
+            body: {
+              title: "Titanic",
+              genre: "Drama",
+              description: "O navio afunda.",
+              durationInMinutes: 185,
+              releaseYear: 1996,
+              failOnStatusCode: false,
+            },
+          }).then(function (resposta) {
+            expect(resposta.status).to.equal(403);
+            expect(resposta.body.message).to.equal("Forbidden");
+          });
+        });
+      });
+    });
 
     it("Não deve ser possível criar filme sem nome", function () {});
 
