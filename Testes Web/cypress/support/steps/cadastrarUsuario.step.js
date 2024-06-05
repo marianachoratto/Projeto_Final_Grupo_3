@@ -16,7 +16,7 @@ let email;
 let password;
 
 Before({ tags: "@createUser" }, () => {
-  cy.fixture("usuario.json").then(function (newuser) {
+  cy.fixture("usuario.json").then((newuser) => {
     cy.request({
       method: "POST",
       url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users",
@@ -28,8 +28,8 @@ Before({ tags: "@createUser" }, () => {
 });
 
 After({ tags: "@deleteUser" }, () => {
-  cy.fixture("usuario.json").then(function (dadosUsuario) {
-    cy.loginValido(email, password).then(function (response) {
+  cy.fixture("usuario.json").then(() => {
+    cy.loginValido(email, password).then((response) => {
       tokenid = response.body.accessToken;
       cy.promoverAdmin(tokenid);
       cy.excluirUsuario(userid, tokenid);
@@ -37,7 +37,7 @@ After({ tags: "@deleteUser" }, () => {
   });
 });
 
-Given("que acessei a funcionalidade de cadastro", function () {
+Given("que acessei a funcionalidade de cadastro", () => {
   cy.visit("/register");
 });
 
@@ -60,7 +60,7 @@ When("informo um email com 60 caracteres", () => {
 });
 
 When("informo um email válido com letras maiúsculas", () => {
-  email = "EMAILVALIDO50@DOMINIO.COM";
+  email = "EMAILVALIDO500@DOMINIO.COM";
   createUser.typeEmail(email);
 });
 
@@ -83,6 +83,11 @@ When("informo um nome válido", () => {
   createUser.typeName(name);
 });
 
+When('informo um nome com apenas espaços vazios', () => {
+  const name = '      ';
+  createUser.typeName(name); 
+})
+
 When("informo um email válido", () => {
   email = faker.internet.email();
   createUser.typeEmail(email);
@@ -98,11 +103,17 @@ When('informo um nome com 100 caracteres', () => {
   createUser.typeName(name100);
 })
 
-When("informo uma senha válida", () => {
+When('informo uma senha válida', () => {
   password = "123456";
   createUser.typePassword(password);
   cy.wrap(password).as("confirmPassword");
 });
+
+When('informo uma senha com apenas espaços vazios', () => {
+  password = "       ";
+  createUser.typePassword(password);
+  cy.wrap(password).as("confirmPassword");
+})
 
 When("informo uma senha com 6 caracteres", () => {
   password = "a!@#5ç";
@@ -195,6 +206,10 @@ Then("retornará erro no formulário {string}", (mensagem) => {
 Then("retorna mensagem informando que o email deve ser preenchido", () => {
   cy.get(createUser.spanEmail).contains("Informe o e-mail.");
 });
+
+Then('retorna mensagem informando que a senha deve ser preenchida', () => {
+  cy.get(createUser.spanPassword).contains('Informe a senha')
+})
 
 Then("retornará mensagem de email inválido {string}", (mensagem) => {
   cy.get(createUser.spanEmail).contains(mensagem);

@@ -118,6 +118,22 @@ Cenário: Não deve ser possível criar um usuário sem email
     E clico para cadastrar
     Então retorna mensagem informando que o email deve ser preenchido
 
+Cenário: Não deve ser possível criar um usuário informando nome com apenas espaços vazios
+    Quando informo um nome com apenas espaços vazios
+    E informo um email válido
+    E informo uma senha válida
+    E confirmo a senha
+    E clico para cadastrar
+    Então retorna mensagem informando que o nome deve ser preenchido
+
+Cenário: Não deve ser possível criar um usuário informando senha com apenas espaços vazios
+    Quando informo um nome válido
+    E informo um email válido
+    E informo uma senha com apenas espaços vazios
+    E confirmo a senha
+    E clico para cadastrar
+    Então retorna mensagem informando que a senha deve ser preenchida
+
 Esquema do Cenário: Não deve ser possível cadastrar com emails inválidos
     Quando informo um nome válido
     E informo um email inválido "<email>"
