@@ -121,7 +121,7 @@ describe('Qualquer tipo de usuario pode ver a lista de filmes', () => {
       })
     })
   });
-
+});
 
 describe('Qualquer tipo de usuario pode ver a lista de filmes e escolher a ordem da lista pelas notas', () => {
   let dadosUser;
