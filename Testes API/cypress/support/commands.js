@@ -145,7 +145,78 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
     });
 });
 
-// Commands de filme
-Cypress.Commands.add("deletarFilme", (email, password) => {});
+Cypress.Commands.add("loginValido", (email, password) => {
+  cy.request({
+    method: "POST",
+    url: "/api/auth/login",
+    body: {
+      email: email,
+      password: password,
+    },
+  }).then(function (resposta) {
+    tokenid = resposta.body.accessToken;
 
-// oi
+    return {
+      token: tokenid,
+    };
+  });
+});
+
+Cypress.Commands.add("promoverAdmin", (tokenid) => {
+  cy.request({
+    method: "PATCH",
+    url: "/api/users/admin",
+    headers: {
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
+});
+
+Cypress.Commands.add("promoverCritico", function (tokenid) {
+  cy.request({
+    method: "PATCH",
+    url: apiUrl + "api/users/apply",
+    headers: {
+      Authorization: `Bearer ${tokenid} `,
+    },
+  });
+});
+
+// Commands de filme
+Cypress.Commands.add("deletarFilme", (idFilme, token) => {
+  cy.request({
+    method: "DELETE",
+    url: apiUrl + "api/movies/" + idFilme,
+    auth: {
+      bearer: token,
+    },
+  });
+});
+
+Cypress.Commands.add("criarFilme", (userToken) => {
+  return cy
+    .request({
+      method: "POST",
+      url: "/api/movies",
+      auth: {
+        bearer: userToken,
+      },
+      body: {
+        title: faker.internet.userName(),
+        genre: faker.internet.password(8),
+        description: faker.internet.email(),
+        durationInMinutes: 100,
+        releaseYear: 2022,
+      },
+    })
+    .then((resposta) => {
+      return {
+        id: resposta.body.id,
+        title: resposta.body.title,
+        genre: resposta.body.genre,
+        description: resposta.body.description,
+        durationInMinutes: 100,
+        releaseYear: 2022,
+      };
+    });
+});
