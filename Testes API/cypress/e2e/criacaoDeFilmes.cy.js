@@ -1,19 +1,10 @@
 describe("Criação de Filmes", () => {
-  describe.only("Criação de Filmes com Sucesso", function () {
+  describe("Criação de Filmes com Sucesso", function () {
     let id;
     let token;
     let email;
     let password;
     let movieId;
-
-    // let bodyFilme = {
-    //   id: 25875,
-    //   title: "Título",
-    //   genre: "Gênero",
-    //   description: "Olá",
-    //   durationInMinutes: 185,
-    //   releaseYear: 2020,
-    // };
 
     beforeEach(function () {
       cy.cadastrarUsuario().then((resposta) => {
@@ -21,7 +12,7 @@ describe("Criação de Filmes", () => {
         email = resposta.email;
         password = resposta.password;
         cy.loginValido(email, password).then(function (resposta) {
-          token = resposta.token;
+          token = resposta.body.accessToken;
           cy.promoverAdmin(token);
         });
       });
@@ -245,7 +236,7 @@ describe("Criação de Filmes", () => {
         });
     });
 
-    it.only("Deve ser possível criar filme com duração de até 720 horas", function () {
+    it("Deve ser possível criar filme com duração de até 720 horas", function () {
       cy.request({
         method: "POST",
         url: "api/movies",
