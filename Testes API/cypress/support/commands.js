@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com/";
+const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com";
 let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
