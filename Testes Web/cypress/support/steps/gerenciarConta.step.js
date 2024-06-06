@@ -8,6 +8,12 @@ const accountPage = new AccountPage();
 const profilePage = new ProfilePage();
 const loginPage = new LoginPage();
 
+let name
+let email
+let password
+let id
+let type 
+
 Before({ tags: "@criarUsuario" }, () => {
     name= faker.person.firstName();
     email= faker.internet.email().toLowerCase();
