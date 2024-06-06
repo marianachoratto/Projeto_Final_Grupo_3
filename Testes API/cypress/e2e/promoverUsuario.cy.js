@@ -1,4 +1,4 @@
-describe('Promoção de usuário', () => {
+describe('Promoção de usuários', () => {
     let id;
     let token;
     let name
@@ -70,7 +70,7 @@ describe('Promoção de usuário', () => {
             expect(response.body.type).to.eq(1)
             expect(response.body.active).to.eq(true)
         })
-    }); 
+    });
 
     it('É possível promover usuário crítico para usuário admin', () => {
         cy.promoverCritico(token);
@@ -97,7 +97,7 @@ describe('Promoção de usuário', () => {
             expect(response.body.type).to.eq(1)
             expect(response.body.active).to.eq(true)
         })
-    }); 
+    });
 
     it('É possível promover usuário admin para usuário crítico', () => {
         cy.promoverAdmin(token);
@@ -124,6 +124,17 @@ describe('Promoção de usuário', () => {
             expect(response.body.type).to.eq(2)
             expect(response.body.active).to.eq(true)
         })
-    }); 
+    });
+
+    it('Não é possível promover usuário deslogado para crítico', () => {
+        cy.request({
+            method: "PATCH",
+            url: "api/users/apply",
+            failOnStatusCode: false,
+        }
+        ).then((response) => {
+            expect(response.status).to.eq(401)
+        });
+    })
 })
 
