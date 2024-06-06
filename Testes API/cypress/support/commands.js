@@ -4,6 +4,7 @@ let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
+let filmeid;
 
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
@@ -154,15 +155,15 @@ Cypress.Commands.add("criarFilme", (tokenid) => {
     });
 });
 //Review 
-Cypress.Commands.add("criarReviewNota5",(tokenid)=>{
-     cy.request({
+Cypress.Commands.add("criarReviewNota5",(tokenid, filmeid)=>{  
+  cy.request({
         method: "POST",
         url: "/api/users/review",
         auth: {
             bearer: tokenid,
         },
         body:{
-            "movieId": 1,
+            "movieId": filmeid,
             "score": 5,
             "reviewText": "Absolut Cinema",
         }
