@@ -400,7 +400,7 @@ describe("Criação de Filmes", () => {
       });
     });
 
-    describe.only("Filmes com falha e hooks de before e after", function () {
+    describe("Filmes com falha e hooks de before e after", function () {
       let id;
       let token;
       beforeEach(function () {
@@ -578,6 +578,7 @@ describe("Criação de Filmes", () => {
         });
       });
 
+      // Bug
       it("Não deve ser possível criar filme com espaços ao invés do nome", function () {
         cy.request({
           method: "POST",
@@ -607,6 +608,7 @@ describe("Criação de Filmes", () => {
         });
       });
 
+      // Bug
       it("Não deve ser possível criar filme com espaços ao invés do genero", function () {
         cy.request({
           method: "POST",
