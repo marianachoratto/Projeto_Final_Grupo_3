@@ -60,7 +60,7 @@ When("informo um email com 60 caracteres", () => {
 });
 
 When("informo um email válido com letras maiúsculas", () => {
-  email = "EMAILVALIDO500@DOMINIO.COM";
+  email = faker.internet.email().toUpperCase()
   createUser.typeEmail(email);
 });
 
