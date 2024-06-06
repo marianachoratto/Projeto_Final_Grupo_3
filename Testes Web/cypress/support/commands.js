@@ -1,6 +1,11 @@
 import { faker } from "@faker-js/faker";
 const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com";
 
+let email;
+let password = faker.internet.password(6);
+let idNovoUsuario;
+let nome;
+
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
   cy.request({
@@ -74,7 +79,7 @@ Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
 Cypress.Commands.add("promoverCritico", function (tokenid) {
   cy.request({
     method: "PATCH",
-    url: apiUrl + "api/users/apply",
+    url: apiUrl + "/api/users/apply",
     headers: {
       Authorization: `Bearer ${tokenid} `,
     },
@@ -96,7 +101,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
 
       cy.request({
         method: "PATCH",
-        url: apiUrl + "api/users/admin",
+        url: apiUrl + "/api/users/admin",
         auth: {
           bearer: token,
         },
@@ -117,7 +122,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
     method: "DELETE",
-    url: apiUrl + "api/movies/" + idFilme,
+    url: apiUrl + "/api/movies/" + idFilme,
     auth: {
       bearer: token,
     },
