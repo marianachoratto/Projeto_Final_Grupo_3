@@ -28,7 +28,7 @@ export default class CreateUser {
         cy.get(this.inputPassword).type(password)
     }
     typeConfirmPassword(password) {
-        cy.get(this.inputConfirmPassword).type(password)
+        cy.get(this.inputConfirmPassword).type(password,   { force: true })
     }
     clickButtomSubmit() {
         cy.get(this.buttomSubmit).click()
