@@ -136,5 +136,16 @@ describe('Promoção de usuários', () => {
             expect(response.status).to.eq(401)
         });
     })
+
+    it('Não é possível promover usuário deslogado para admin', () => {
+        cy.request({
+            method: "PATCH",
+            url: "api/users/admin",
+            failOnStatusCode: false,
+        }
+        ).then((response) => {
+            expect(response.status).to.eq(401)
+        });
+    })
 })
 
