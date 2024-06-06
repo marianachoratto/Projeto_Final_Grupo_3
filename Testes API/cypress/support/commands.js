@@ -96,14 +96,14 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
       },
     })
     .then(function (resposta) {
-      token = resposta.body.accessToken;
+      tokenid = resposta.body.accessToken;
 
       cy.request({
         method: "PATCH",
         url: "api/users/admin",
-        auth: {
-          bearer: token,
-        },
+        headers: {
+            Authorization: `Bearer ${tokenid}`,
+          }
       });
     })
     .then(function () {
@@ -111,30 +111,29 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
         method: "DELETE",
         url: `/api/users/${idNovoUsuario}`,
         auth: {
-          bearer: token,
+          bearer: tokenid,
         },
       });
     });
 });
 
 // Commands de filme
-Cypress.Commands.add("deletarFilme", (idFilme, token) => {
+Cypress.Commands.add("deletarFilme", (idFilme, tokenid) => {
   cy.request({
     method: "DELETE",
     url: "api/movies/" + idFilme,
-    auth: {
-      bearer: token,
-    },
+    headers: {
+        Authorization: `Bearer ${tokenid}`,
+      },
   });
 });
 
-Cypress.Commands.add("criarFilme", (userToken) => {
-  return cy
-    .request({
+Cypress.Commands.add("criarFilme", (tokenid) => {
+  return cy.request({
       method: "POST",
       url: "/api/movies",
-      auth: {
-        bearer: userToken,
+      headers: {
+        Authorization: `Bearer ${tokenid}`,
       },
       body: {
         title: faker.internet.userName(),
@@ -143,8 +142,7 @@ Cypress.Commands.add("criarFilme", (userToken) => {
         durationInMinutes: 100,
         releaseYear: 2022,
       },
-    })
-    .then((resposta) => {
+    }).then((resposta) => {
       return {
         id: resposta.body.id,
         title: resposta.body.title,
@@ -155,38 +153,18 @@ Cypress.Commands.add("criarFilme", (userToken) => {
       };
     });
 });
-
-Cypress.Commands.add("criarFilmeAdm", (email, password) => {
-  cy.fixture("novoFilme.json").then((dadosFilme) => {
-    return cy
-      .request({
+//Review 
+Cypress.Commands.add("criarReviewNota5",(tokenid)=>{
+     cy.request({
         method: "POST",
-        url: "/api/auth/login",
-        body: {
-          email: email,
-          password: password,
+        url: "/api/users/review",
+        auth: {
+            bearer: tokenid,
         },
-      })
-      .then(function (resposta) {
-        token = resposta.body.accessToken;
-
-        cy.request({
-          method: "PATCH",
-          url: "/api/users/admin",
-          auth: {
-            bearer: token,
-          },
-        });
-      })
-      .then(() => {
-        cy.request({
-          method: "POST",
-          url: "/api/movies",
-          body: dadosFilme,
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-      });
-  });
+        body:{
+            "movieId": 1,
+            "score": 5,
+            "reviewText": "Absolut Cinema",
+        }
+    });
 });
