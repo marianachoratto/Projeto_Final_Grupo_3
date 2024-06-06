@@ -71,4 +71,31 @@ describe('Promoção de usuário', () => {
             expect(response.body.active).to.eq(true)
         })
     }); 
+
+    it('É possível promover usuário crítico para usuário admin', () => {
+        cy.promoverCritico(token);
+        cy.request({
+            method: "PATCH",
+            url: "api/users/admin",
+            headers: {
+                Authorization: `Bearer ${token} `,
+            },
+        }).then((response) => {
+            expect(response.status).to.eq(204)
+        });
+
+        cy.request({
+            method: "GET",
+            url: "api/users/" + id,
+            headers: {
+                Authorization: `Bearer ${token} `,
+            },
+        }).then((response) => {
+            expect(response.body.id).to.eq(id)
+            expect(response.body.name).to.eq(name)
+            expect(response.body.email).to.eq(email)
+            expect(response.body.type).to.eq(1)
+            expect(response.body.active).to.eq(true)
+        })
+    }); 
 })
