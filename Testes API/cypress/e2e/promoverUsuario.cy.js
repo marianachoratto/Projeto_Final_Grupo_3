@@ -7,7 +7,7 @@ describe('Promoção de usuário', () => {
     beforeEach(() => {
         cy.cadastrarUsuario().then((resposta) => {
             id = resposta.id;
-            name = resposta.name;
+            name = resposta.nome;
             email = resposta.email;
             password = resposta.password;
             cy.loginValido(email, password).then((resposta) => {
@@ -39,10 +39,36 @@ describe('Promoção de usuário', () => {
             },
         }).then((response) => {
             expect(response.body.id).to.eq(id)
-            expect(response.body.nome).to.eq(name)
+            expect(response.body.name).to.eq(name)
             expect(response.body.email).to.eq(email)
             expect(response.body.type).to.eq(2)
             expect(response.body.active).to.eq(true)
         })
     });
+
+    it('É possível promover usuário comum para usuário admin', () => {
+        cy.request({
+            method: "PATCH",
+            url: "api/users/admin",
+            headers: {
+                Authorization: `Bearer ${token} `,
+            },
+        }).then((response) => {
+            expect(response.status).to.eq(204)
+        });
+
+        cy.request({
+            method: "GET",
+            url: "api/users/" + id,
+            headers: {
+                Authorization: `Bearer ${token} `,
+            },
+        }).then((response) => {
+            expect(response.body.id).to.eq(id)
+            expect(response.body.name).to.eq(name)
+            expect(response.body.email).to.eq(email)
+            expect(response.body.type).to.eq(1)
+            expect(response.body.active).to.eq(true)
+        })
+    }); 
 })
