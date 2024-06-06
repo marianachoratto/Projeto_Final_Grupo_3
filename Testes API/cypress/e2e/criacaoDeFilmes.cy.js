@@ -12,7 +12,7 @@ describe("Criação de Filmes", () => {
         email = resposta.email;
         password = resposta.password;
         cy.loginValido(email, password).then(function (resposta) {
-          token = resposta.token;
+          token = resposta.body.accessToken;
           cy.promoverAdmin(token);
         });
       });
