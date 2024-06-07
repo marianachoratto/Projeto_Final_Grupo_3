@@ -408,6 +408,40 @@ describe("Criação de Filmes", () => {
       });
     });
 
+    it.only("Não é possível criar um filme sendo um usuário crítico", function () {
+      let dadosUser;
+      let token;
+
+      cy.cadastrarUsuario().then(function (resposta) {
+        dadosUser = resposta;
+        cy.loginValido(dadosUser.email, dadosUser.password).then(function (
+          resposta
+        ) {
+          token = resposta.body.accessToken;
+          cy.promoverCritico(token).then(function (resposta) {
+            cy.request({
+              method: "POST",
+              url: "api/movies",
+              auth: {
+                bearer: token,
+              },
+              body: {
+                title: "Titanic",
+                genre: "Drama",
+                description: "O navio afunda.",
+                durationInMinutes: 185,
+                releaseYear: 1996,
+              },
+              failOnStatusCode: false,
+            }).then(function (resposta) {
+              expect(resposta.status).to.equal(403);
+              expect(resposta.body.message).to.equal("Forbidden");
+            });
+          });
+        });
+      });
+    });
+
     describe("Filmes com falha e hooks de before e after", function () {
       let id;
       let token;
