@@ -23,7 +23,7 @@ describe("Criação de Filmes", () => {
       cy.excluirUsuario(id, token);
     });
 
-    it("O usuário administrador deve poder criar filmes com sucesso", () => {
+    it("O usuário administrador deve poder criar filmes com sucesso e verificar se ele está na lista", () => {
       cy.fixture("novoFilme.json").then(function (filme) {
         cy.request({
           method: "POST",
@@ -47,7 +47,15 @@ describe("Criação de Filmes", () => {
           .then(function (resposta) {
             movieId = resposta.body.id;
 
-            console.log(movieId);
+            cy.request({
+              method: "GET",
+              url: `/api/movies/${movieId}`,
+              auth: {
+                bearer: token,
+              },
+            }).then(function (resposta) {
+              expect(resposta.body.id).to.equal(movieId);
+            });
           });
       });
     });
@@ -579,7 +587,7 @@ describe("Criação de Filmes", () => {
       });
 
       // Bug
-      it("Não deve ser possível criar filme com espaços ao invés do nome", function () {
+      it.only("Não deve ser possível criar filme com espaços ao invés do nome", function () {
         cy.request({
           method: "POST",
           url: "api/movies",
@@ -594,22 +602,28 @@ describe("Criação de Filmes", () => {
             releaseYear: 1996,
           },
           failOnStatusCode: false,
-        }).then(function (resposta) {
-          expect(resposta.status).to.equal(400);
-          expect(resposta.body.error).to.equal("Bad Request");
-          expect(resposta.body.message).to.be.an("array");
-          expect(resposta.body.message).to.have.length(2);
-          expect(resposta.body.message[0]).to.equal(
-            "title must be longer than or equal to 1 characters"
-          );
-          expect(resposta.body.message[1]).to.equal(
-            "title should not be empty"
-          );
-        });
+        })
+          .then(function (resposta) {
+            expect(resposta.status).to.equal(400);
+            expect(resposta.body.error).to.equal("Bad Request");
+            expect(resposta.body.message).to.be.an("array");
+            expect(resposta.body.message).to.have.length(2);
+            expect(resposta.body.message[0]).to.equal(
+              "title must be longer than or equal to 1 characters"
+            );
+            expect(resposta.body.message[1]).to.equal(
+              "title should not be empty"
+            );
+          })
+          .then(function (resposta) {
+            let movieId = resposta.body.id;
+
+            cy.deletarFilme(movieId, token);
+          });
       });
 
       // Bug
-      it("Não deve ser possível criar filme com espaços ao invés do genero", function () {
+      it.only("Não deve ser possível criar filme com espaços ao invés do genero", function () {
         cy.request({
           method: "POST",
           url: "api/movies",
@@ -624,18 +638,24 @@ describe("Criação de Filmes", () => {
             releaseYear: 1996,
           },
           failOnStatusCode: false,
-        }).then(function (resposta) {
-          expect(resposta.status).to.equal(400);
-          expect(resposta.body.error).to.equal("Bad Request");
-          expect(resposta.body.message).to.be.an("array");
-          expect(resposta.body.message).to.have.length(2);
-          expect(resposta.body.message[0]).to.equal(
-            "title must be longer than or equal to 1 characters"
-          );
-          expect(resposta.body.message[1]).to.equal(
-            "title should not be empty"
-          );
-        });
+        })
+          .then(function (resposta) {
+            expect(resposta.status).to.equal(400);
+            expect(resposta.body.error).to.equal("Bad Request");
+            expect(resposta.body.message).to.be.an("array");
+            expect(resposta.body.message).to.have.length(2);
+            expect(resposta.body.message[0]).to.equal(
+              "title must be longer than or equal to 1 characters"
+            );
+            expect(resposta.body.message[1]).to.equal(
+              "title should not be empty"
+            );
+          })
+          .then(function (resposta) {
+            let movieId = resposta.body.id;
+
+            cy.deletarFilme(movieId, token);
+          });
       });
 
       it("Não deve ser possível criar filme com espaços ao invés de descrição", function () {
