@@ -4,7 +4,9 @@ let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
+let token;
 let filmeid;
+
 
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
