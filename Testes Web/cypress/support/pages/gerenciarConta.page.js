@@ -1,114 +1,111 @@
 export default class AccountPage {
-    URL = "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/account";
-    
-    inputNome = '[placeholder="Nome"]';
-    inputEmail = '[placeholder="E-mail"]';
-    inputSenha = '[placeholder="Senha"]';
-    inputConfirmarSenha = '[placeholder="Confirmar senha"]';
-    inputError = '.input-error';
-    tipoUsuario = 'select.profile-input';
-    userComum = '[value="0"]';
-    userAdmin = '[value="1"]';
-    userCritico = '[value="2"]';
-    buttonSalvar = '.account-save-button';
-    buttonAlterarSenha = '.account-password-button';
-    buttonCancelar = '.account-password-button-cancel'
-    buttonOk = '.modal-actions';
-    modal = '.modal-content';
-    modalTitulo = '.modal-content h3'
-    modalMensagem = '.modal-content .error-message'
-  
-    typeNome(nome) {
-        cy.get(this.inputNome).type(nome);
-    }
-  
-    typeSenha(senha) {
-        cy.get(this.inputSenha).type(senha);
-    }
-  
-    typeConfirmarSenha(senha) {
-        cy.get(this.inputConfirmarSenha).type(senha);
-    }
+  inputNome = '[placeholder="Nome"]';
+  inputEmail = '[placeholder="E-mail"]';
+  inputSenha = '[placeholder="Senha"]';
+  inputConfirmarSenha = '[placeholder="Confirmar senha"]';
+  inputError = ".input-error";
+  tipoUsuario = "select.profile-input";
+  userComum = '[value="0"]';
+  userAdmin = '[value="1"]';
+  userCritico = '[value="2"]';
+  buttonSalvar = ".account-save-button";
+  buttonAlterarSenha = ".account-password-button";
+  buttonCancelar = ".account-password-button-cancel";
+  buttonOk = ".modal-actions";
+  modal = ".modal-content";
+  modalTitulo = ".modal-content h3";
+  modalMensagem = ".modal-content .error-message";
 
-    getNome() {
-        return cy.get(this.inputNome);
-    }
+  typeNome(nome) {
+    cy.get(this.inputNome).type(nome);
+  }
 
-    getEmail() {
-        return cy.get(this.inputEmail);
-    }
-  
-    getTipoUsuario() {
-        return cy.get(this.tipoUsuario);
-    }
+  typeSenha(senha) {
+    cy.get(this.inputSenha).type(senha);
+  }
 
-    getUserComum() {
-        return cy.get(this.userComum);
-    }
+  typeConfirmarSenha(senha) {
+    cy.get(this.inputConfirmarSenha).type(senha);
+  }
 
-    getUserAdmin() {
-        return cy.get(this.userAdmin);
-    }
+  getNome() {
+    return cy.get(this.inputNome);
+  }
 
-    getUserCritico() {
-        return cy.get(this.userCritico);
-    }
+  getEmail() {
+    return cy.get(this.inputEmail);
+  }
 
-    getSenha() {
-        return cy.get(this.inputSenha);
-    }
+  getTipoUsuario() {
+    return cy.get(this.tipoUsuario);
+  }
 
-    getConfirmarSenha() {
-        return cy.get(this.inputConfirmarSenha);
-    }
+  getUserComum() {
+    return cy.get(this.userComum);
+  }
 
-    getModal() {
-        return cy.get(this.modal);
-    }
-  
-    getModalTitulo() {
-        return cy.get(this.modalTitulo);
-    }
+  getUserAdmin() {
+    return cy.get(this.userAdmin);
+  }
 
-    getModalMensagem() {
-        return cy.get(this.modalMensagem);
-    }
+  getUserCritico() {
+    return cy.get(this.userCritico);
+  }
 
-    getInputError() {
-        return cy.get(this.inputError);
-    }
+  getSenha() {
+    return cy.get(this.inputSenha);
+  }
 
-    clickButtonSalvar() {
-        cy.get(this.buttonSalvar).click();
-    }
-  
-    clickButtonAlterarSenha() {
-        cy.get(this.buttonAlterarSenha).click();
-    } 
+  getConfirmarSenha() {
+    return cy.get(this.inputConfirmarSenha);
+  }
 
-    clickButtonCancelar() {
-        cy.get(this.buttonCancelar).click();
-    } 
+  getModal() {
+    return cy.get(this.modal);
+  }
 
-    clickButtonOk() {
-        cy.get(this.buttonOk).click();
-    } 
+  getModalTitulo() {
+    return cy.get(this.modalTitulo);
+  }
 
-    limparNome() {
-        cy.get(this.inputNome).clear();
-    }
+  getModalMensagem() {
+    return cy.get(this.modalMensagem);
+  }
 
-    atualizar(nome, senha) {
-        this.limparNome();
-        this.typeNome(nome);
-        this.typeSenha(senha);
-        this.typeConfirmarSenha(senha);
-        this.clickButtonSalvar();
-    }
+  getInputError() {
+    return cy.get(this.inputError);
+  }
 
-    alerta(posição, text) {
-        this.getInputError().should('be.visible');
-        this.getInputError().eq(posição).invoke('text').should('contain', text);
-    }
+  clickButtonSalvar() {
+    cy.get(this.buttonSalvar).click();
+  }
+
+  clickButtonAlterarSenha() {
+    cy.get(this.buttonAlterarSenha).click();
+  }
+
+  clickButtonCancelar() {
+    cy.get(this.buttonCancelar).click();
+  }
+
+  clickButtonOk() {
+    cy.get(this.buttonOk).click();
+  }
+
+  limparNome() {
+    cy.get(this.inputNome).clear();
+  }
+
+  atualizar(nome, senha) {
+    this.limparNome();
+    this.typeNome(nome);
+    this.typeSenha(senha);
+    this.typeConfirmarSenha(senha);
+    this.clickButtonSalvar();
+  }
+
+  alerta(posição, text) {
+    this.getInputError().should("be.visible");
+    this.getInputError().eq(posição).invoke("text").should("contain", text);
+  }
 }
-  
