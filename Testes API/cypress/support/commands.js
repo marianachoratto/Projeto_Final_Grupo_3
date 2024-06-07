@@ -4,6 +4,7 @@ let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
+let token;
 
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
@@ -64,6 +65,52 @@ Cypress.Commands.add("promoverAdmin", (tokenid) => {
     },
   });
 });
+
+// Cypress.Commands.add("logarTornarAdminCriarFilme", (email, password) => {
+//   let token;
+
+//   cy.request({
+//     method: "POST",
+//     url: "/api/auth/login",
+//     body: {
+//       email: email,
+//       password: password,
+//     },
+//   })
+//     .then((resposta) => {
+//       token = resposta.body.accessToken;
+
+//       cy.request({
+//         method: "PATCH",
+//         url: "/api/users/admin",
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//     })
+//     .then(function (resposta) {
+//       cy.fixture("novoFilme.json").then(function (filme) {
+//         cy.request({
+//           method: "POST",
+//           url: "/api/movies",
+//           auth: {
+//             bearer: token,
+//           },
+//           fixture: filme,
+//         }).then((resposta) => {
+//           return {
+//             id: resposta.body.id,
+//             title: resposta.body.title,
+//             genre: resposta.body.genre,
+//             description: resposta.body.description,
+//             durationInMinutes: resposta.body.durationInMinutes,
+//             releaseYear: resposta.body.releaseYear,
+//             token: token,
+//           };
+//         });
+//       });
+//     });
+// });
 
 Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
   cy.request({
@@ -189,6 +236,7 @@ Cypress.Commands.add("criarFilme", (userToken) => {
 });
 
 Cypress.Commands.add("criarFilmeAdm", (email, password) => {
+  let token;
   cy.fixture("novoFilme.json").then((dadosFilme) => {
     return cy
       .request({
@@ -218,6 +266,16 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
           headers: {
             Authorization: "Bearer " + token,
           },
+        }).then(function (resposta) {
+          return {
+            id: resposta.body.id,
+            title: resposta.body.title,
+            genre: resposta.body.genre,
+            description: resposta.body.description,
+            durationInMinutes: resposta.body.durationInMinutes,
+            releaseYear: resposta.body.releaseYear,
+            token: token,
+          };
         });
       });
   });
