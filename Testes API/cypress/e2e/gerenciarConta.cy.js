@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker";
 describe("Gerenciar Conta", () => {
     
     describe("Atualização do próprio usuário com sucesso", () => {
-        
         let name
         let email
         let password
@@ -220,7 +219,6 @@ describe("Gerenciar Conta", () => {
             cy.cadastrarUsuario().then((response) => {
                 user1 = response;
             });
-
             cy.cadastrarUsuario().then((response) => {
                 user2 = response;
             });
@@ -307,10 +305,10 @@ describe("Gerenciar Conta", () => {
     });
 
     describe("Atualizações não autorizadas", () => {
-        
         let id
         let email
         let password
+        let token
 
         beforeEach(() => {
             cy.cadastrarUsuario().then((response) => {
@@ -339,6 +337,32 @@ describe("Gerenciar Conta", () => {
                 expect(response.body.error).to.equal("Unauthorized");
             });
         });
+
+        it('Não é possível atualizar usuário informando string vazia no nome', () => {
+            cy.loginValido(email, password).then((response) => {
+                token = response.body.accessToken
+
+                cy.request({
+                    method: "PUT",
+                    url: "api/users/" + id,
+                    auth: {
+                        bearer: token,
+                    },
+                    body: {
+                        name: "",
+                        password: "123456"
+                    },
+                    failOnStatusCode: false,
+                }).then((response) => {
+                    expect(response.status).to.equal(400);
+                    expect(response.body.message[0]).to.equal("password must be longer than or equal to 6 characters");
+                    expect(response.body.error).to.equal("Bad Request");
+                });
+            })
+        });
+
+        
+
 
 
 
@@ -376,16 +400,17 @@ describe("Gerenciar Conta", () => {
 
 // usuário não autenticado não tem permissão para editar informações
 
-// não é possível atualizar usuário sem preencher formulário//informando nome vazio// informando senha vazia
+// Não é possível atualizar usuário informando string vazia no nome
 
 // não é possível atualizar nome com mais de 100 caracteres
 
-// não é possível atualizar nome com menos de 1 caractere
+// não é possível atualizar nome informando espaço em branco
+
+
+// Não é possível atualizar usuário informando string vazia na senha
 
 // não é possível atualizar senha com menos de 6 caracteres
 
 // não é possível atualizar senha com mais de 12 caracteres
-
-// não é possível atualizar nome informando espaço em branco
 
 // não é possível atualizar senha informando espaço em branco
