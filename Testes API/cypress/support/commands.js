@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com/";
+const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com";
 let email;
 let password = faker.internet.password(6);
 let idNovoUsuario;
@@ -85,6 +85,38 @@ Cypress.Commands.add("promoverCritico", function (tokenid) {
       Authorization: `Bearer ${tokenid} `,
     },
   });
+});
+
+Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
+  return cy
+    .request({
+      method: "POST",
+      url: "/api/auth/login",
+      body: {
+        email: email,
+        password: password,
+      },
+    })
+    .then(function (resposta) {
+      token = resposta.body.accessToken;
+
+      cy.request({
+        method: "PATCH",
+        url: "api/users/admin",
+        auth: {
+          bearer: token,
+        },
+      });
+    })
+    .then(function () {
+      cy.request({
+        method: "DELETE",
+        url: `/api/users/${idNovoUsuario}`,
+        auth: {
+          bearer: token,
+        },
+      });
+    });
 });
 
 Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
