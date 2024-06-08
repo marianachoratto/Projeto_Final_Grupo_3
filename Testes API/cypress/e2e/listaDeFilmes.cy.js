@@ -28,7 +28,8 @@ describe('Qualquer tipo de usuario pode ver a lista de filmes', () => {
             cy.excluirUsuario(userid, tokenid);
         });
     })
-    it('É possivel ver a lista de filmes estando sem logar', () => {
+    after('É possivel ver a lista de filmes estando sem logar', () => {
+        cy.reload();
         cy.request({
             method: "GET",
             url: "api/movies",

@@ -171,3 +171,11 @@ Cypress.Commands.add("criarReviewNota5",(tokenid, filmeid)=>{
         }
     });
 });
+
+//Procurar pelo filme pelo id
+Cypress.Commands.add("procurarPeloId",(filmeid)=>{
+  cy.request({
+    method: "GET",
+    url: `/api/movies/${filmeid}`
+  })
+})
