@@ -11,6 +11,6 @@ export default class MoviePage {
     novaAvaliacao = '.stars'
     textoNovaAvaliacao = 'textarea'
     botaoEnviarAvaliacao = '.rate-movie > button'
-    botaoLoginAvaliacao = '.rate-movie > [href="/login"]'
+    botaoLoginAvaliacao = '.rate-movie > a'
     tituloAvaliacoes = '.user-reviews-section > h2'
 }

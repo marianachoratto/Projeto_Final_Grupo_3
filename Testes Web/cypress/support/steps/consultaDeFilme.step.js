@@ -184,6 +184,6 @@ Then('tenho uma opção de realizar login para avaliar filme', () => {
     cy.get(pageMovie.tituloNovaAvaliacao).should('be.visible')
     cy.get(pageMovie.novaAvaliacao).should('be.visible')
     cy.get(pageMovie.textoNovaAvaliacao).should('be.disabled')
-    // cy.get(pageMovie.botaoLoginAvaliacao).should('be.enabled')    
+    cy.get(pageMovie.botaoLoginAvaliacao).should('be.visible')
 })
 
