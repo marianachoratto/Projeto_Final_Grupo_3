@@ -5,7 +5,6 @@ let password = faker.internet.password(6);
 let idNovoUsuario;
 let nome;
 let token;
-let movieBody;
 
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
@@ -224,38 +223,3 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
       });
   });
 });
-
-Cypress.Commands.add("newMovie", (movieBody, token) => {
-  cy.request({
-    method: "POST",
-    url: "/api/movies",
-    body: {
-      title: movieBody.title,
-      genre: movieBody.genre,
-      description: movieBody.description,
-      durationInMinutes: movieBody.durationInMinutes,
-      releaseYear: movieBody.releaseYear,
-    },
-    auth: {
-      bearer: token,
-    },
-  });
-});
-
-// Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
-//   cy.request({
-//     method: "PUT",
-//     url: "/api/movies/" + movieId,
-//     body: {
-//       title: movieUpdate.title,
-//       genre: movieUpdate.genre,
-//       description: movieUpdate.description,
-//       durationInMinutes: movieUpdate.durationInMinutes,
-//       releaseYear: movieUpdate.releaseYear,
-//     },
-//     auth: {
-//       bearer: token,
-//     },
-//   })
-// });
-
