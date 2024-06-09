@@ -408,7 +408,7 @@ describe("Criação de Filmes", () => {
       });
     });
 
-    it.only("Não é possível criar um filme sendo um usuário crítico", function () {
+    it("Não é possível criar um filme sendo um usuário crítico", function () {
       let dadosUser;
       let token;
 
@@ -621,7 +621,7 @@ describe("Criação de Filmes", () => {
       });
 
       // Bug
-      it.only("Não deve ser possível criar filme com espaços ao invés do nome", function () {
+      it("Não deve ser possível criar filme com espaços ao invés do nome", function () {
         cy.request({
           method: "POST",
           url: "api/movies",
@@ -657,7 +657,7 @@ describe("Criação de Filmes", () => {
       });
 
       // Bug
-      it.only("Não deve ser possível criar filme com espaços ao invés do genero", function () {
+      it("Não deve ser possível criar filme com espaços ao invés do genero", function () {
         cy.request({
           method: "POST",
           url: "api/movies",
