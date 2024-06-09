@@ -21,6 +21,7 @@ let password;
 Before(() => {
   cy.intercept("POST", "/api/auth/login").as("logarUsuario");
   cy.intercept("GET", "/api/users/*").as("getUser");
+  cy.intercept("POST", "/api/users/review").as("enviandoComentario");
 
   cy.cadastrarUsuario().then((resposta) => {
     userid = resposta.id;
@@ -41,8 +42,8 @@ Before(() => {
 //   cy.excluirUsuario(userid, token);
 // });
 
-Given(
-  "que estou na página de filmes de um filme previamente cadastrado",
+Given();
+"que estou na página de filmes de um filme previamente cadastrado",
   function () {
     cy.intercept(
       "GET",
@@ -51,8 +52,7 @@ Given(
         fixture: "listReview.json",
       }
     ).as("listReviews");
-  }
-);
+  };
 
 When("tento escrever a avaliação de um filme não estando logado", function () {
   cy.get(moviePage.textoNovaAvaliacao).should("be.disabled");
@@ -97,4 +97,6 @@ Given("que estou logado como usuário comum", function () {
 When("escrevo a avaliação de um filme", function () {
   cy.get(moviePage.textoNovaAvaliacao).type("Não gostei do filme");
   cy.get(moviePage.estrelas).eq(1).click();
+  cy.get(moviePage.botaoEnviarAvaliacao).click();
+  cy.wait("@enviandoComentario");
 });
