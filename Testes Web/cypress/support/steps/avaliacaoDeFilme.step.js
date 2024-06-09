@@ -17,11 +17,13 @@ let token1;
 let token2;
 let textoReview;
 let numEstrelas;
+let avaliacaoDoFilme;
 
 Before(() => {
   cy.intercept("POST", "/api/auth/login").as("logarUsuario");
   cy.intercept("GET", "/api/users/*").as("getUser");
   cy.intercept("POST", "/api/users/review").as("enviandoComentario");
+  cy.intercept("GET", "/api/movies/*").as("getFilmes");
   // cy.intercept("GET", "/api/movies/*").as("getMovies");
 
   cy.cadastrarUsuario().then((resposta) => {
@@ -93,6 +95,7 @@ Given("que estou logado como usuário comum", function () {
     cy.visit(
       "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/" + movieId
     );
+    cy.wait("@getFilmes");
   });
 });
 
@@ -176,4 +179,74 @@ When("escrevo uma review, mas não dou uma nota ao filme", function () {
 Then("aparece a mensagem {string} e {string}", function (mensagem1, mensagem2) {
   cy.contains("h3", mensagem1).should("be.visible");
   cy.contains("p", mensagem2).should("be.visible");
+});
+
+When("depois faço outra avaliação do mesmo filme", function () {
+  cy.get(moviePage.textoNovaAvaliacao).clear();
+  textoReview = "Nem vi o tempo passar no cinema";
+  numEstrelas = 4;
+  moviePage.escrevendoAvaliacao(textoReview, numEstrelas);
+  cy.wait("@enviandoComentario");
+});
+
+Then("a review anterior será atualizada", function () {
+  let numEstrelasCerto = numEstrelas + 1;
+
+  cy.get(moviePage.divCardsAvaliacaoUsuario)
+    .find(moviePage.cardAvaliacaoUsuario)
+    .its("length")
+    .should("equal", 1);
+  cy.get(moviePage.divEstrelasdaReview)
+    .find(moviePage.estrelasDadas)
+    .its("length")
+    .should("equal", numEstrelasCerto);
+  cy.get(moviePage.divTextoDaReview)
+    .invoke("text")
+    .should("equal", textoReview);
+});
+
+When("faço uma review com 500 caracteres", function () {
+  avaliacaoDoFilme = "";
+  for (let index = 0; index <= 499; index++) {
+    avaliacaoDoFilme += "a";
+  }
+  numEstrelas = 0;
+
+  moviePage.escrevendoAvaliacao(avaliacaoDoFilme, numEstrelas);
+});
+
+Then("a avaliação é recebida com sucesso", function () {
+  let numEstrelasCerto = numEstrelas + 1;
+
+  cy.get(moviePage.divCardsAvaliacaoUsuario)
+    .find(moviePage.cardAvaliacaoUsuario)
+    .its("length")
+    .should("equal", 1);
+  cy.get(moviePage.divEstrelasdaReview)
+    .find(moviePage.estrelasDadas)
+    .its("length")
+    .should("equal", numEstrelasCerto);
+  cy.get(moviePage.divTextoDaReview)
+    .invoke("text")
+    .should("equal", avaliacaoDoFilme);
+});
+
+When("faço uma review com 501 caracteres", function () {
+  avaliacaoDoFilme = "";
+  for (let index = 0; index <= 500; index++) {
+    avaliacaoDoFilme += "a";
+  }
+  numEstrelas = 0;
+
+  moviePage.escrevendoAvaliacao(avaliacaoDoFilme, numEstrelas);
+});
+
+Then("a review não é adicionada à lista de reviews", function () {
+  cy.get(moviePage.divCardsAvaliacaoUsuario)
+    .find(moviePage.cardAvaliacaoUsuario)
+    .should("not.exist");
+  // .its("length")
+  // .should("equal", 0);
+
+  cy.get(moviePage.textoNovaAvaliacao).should("be.enabled");
 });

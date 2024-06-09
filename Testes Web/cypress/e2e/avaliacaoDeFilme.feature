@@ -43,10 +43,22 @@ Cenário: Não deve ser possível o usuário consegui avaliar um filme sem escol
 
 # Cenário: Após avaliar o filme, a avaliação deve aparecer imediatamente para o usuário
 
-# Cenário: Um usuário não pode fazer duas avaliações do mesmo filme, apenas atualizá-la
+@ignore
+Cenário: Um usuário não pode fazer duas avaliações do mesmo filme, apenas atualizá-la
+    Dado que estou logado como usuário comum
+    Quando escrevo a avaliação de um filme
+    E depois faço outra avaliação do mesmo filme
+    Então a review anterior será atualizada
 
-# Cenário: É possível uma review ter até 500 caracteres
+@ignore
+Cenário: É possível uma review ter até 500 caracteres
+    Dado que estou logado como usuário comum
+    Quando faço uma review com 500 caracteres
+    Então a avaliação é recebida com sucesso
 
-# Cenário: Não é possível uma review ter mais que 500 caracteres
+Cenário: Não é possível uma review ter mais que 500 caracteres
+    Dado que estou logado como usuário comum
+    Quando faço uma review com 501 caracteres
+    Então a review não é adicionada à lista de reviews
 
 # Esquema do Cenário: Usuário deve poder fechar a mensagem de erro ao avaliar um filme 
