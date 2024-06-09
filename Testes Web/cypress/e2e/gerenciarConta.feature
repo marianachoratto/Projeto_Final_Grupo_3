@@ -24,23 +24,23 @@ Cenário: Não deve ser possível editar informações se o usuário não estive
 @criarUsuario @deletarUsuario
 Cenário: Não deve ser possível alterar o e-mail
     Quando acessar a opção Gerenciar Conta
-    Então o campo E-mail deve estar desabilitado a edição
+    Então a edição no campo E-mail deve estar desabilitada
 
 @criarUsuario @deletarUsuario
 Cenário: O usuário comum não deve conseguir alterar o tipo de usuário
     Quando acessar a opção Gerenciar Conta
-    Então o campo Tipo de usuário deve estar desabilitado a edição
+    Então deve estar desabilitada a edição no campo Tipo de usuário
 
 @criarUsuario @deletarUsuario
 Cenário: Não deve ser possível alterar senha sem clicar no botão "Alterar senha"
     Quando acessar a opção Gerenciar Conta
-    Então os campos Senha e Confirmar senha deven estar desabilitados a edição
+    Então devem estar desabilitados para a edição o campo Senha e Confirmar Senha
 
 @criarUsuario @deletarUsuario
 Cenário: O usuário deve conseguir cancelar uma operação de alterar senha
     Quando acessar a opção Gerenciar Conta
     E habilitar a alteração de senha
-    E começar a alterar a senha
+    E alterar a senha
     E clicar no botão de cancelar
     Então a alteração é cancelada
 
@@ -60,7 +60,7 @@ Esquema do Cenário: Deve ser possível alterar apenas o nome, informando valor 
 Esquema do Cenário: Deve ser possível alterar apenas a senha, informando valor de 6 a 12 dígitos
     Quando acessar a opção Gerenciar Conta
     E habilitar a alteração de senha
-    E informar uma senha '<senha>' e confirmá-la
+    E informar uma senha '<senha>'
     E confirmar a operação
     Então visualizarei a mensagem de sucesso "Informações atualizadas!"
     E é possível fazer login com a nova senha
@@ -94,7 +94,7 @@ Esquema do Cenário: Não deve ser possível alterar senha se a confirmação de
 Esquema do Cenário: Não deve ser possível alterar senha menor que 6 dígitos
     Quando acessar a opção Gerenciar Conta
     E habilitar a alteração de senha
-    E informar uma senha '<senha>' e confirmá-la
+    E informar uma senha '<senha>'
     E confirmar a operação
     Então visualizarei o alerta "A senha deve ter pelo menos 6 dígitos"
     Exemplos:
@@ -106,7 +106,7 @@ Esquema do Cenário: Não deve ser possível alterar senha menor que 6 dígitos
 Esquema do Cenário: Não deve ser possível alterar senha maior que 12 dígitos
     Quando acessar a opção Gerenciar Conta
     E habilitar a alteração de senha
-    E informar uma senha '<senha>' e confirmá-la
+    E informar uma senha '<senha>'
     E confirmar a operação
     Então visualizarei a mensagem de erro "Não foi possível atualizar os dados."
     Exemplos:
