@@ -7,21 +7,25 @@ Cenário: Visualizando filme com usuário deslogado
     Quando quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
     E tenho uma opção de realizar login para avaliar filme
+    E as reviews publicadas estão visíveis
 
 Cenário: Visualizando filme com usuário comum
     Dado que acesso filme com usuário comum
     Quando quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
     E consigo ver uma opção para avaliar o filme
+    E as reviews publicadas estão visíveis
 
 Cenário: Visualizando filme com usuário crítico
     Dado que acesso filme com usuário crítico
     Quando quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
     E consigo ver uma opção para avaliar o filme
+    E as reviews publicadas estão visíveis
 
 Cenário: Visualizando filme com usuário admin
     Dado que acesso filme com usuário admin
     Quando quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
     E consigo ver uma opção para avaliar o filme
+    E as reviews publicadas estão visíveis

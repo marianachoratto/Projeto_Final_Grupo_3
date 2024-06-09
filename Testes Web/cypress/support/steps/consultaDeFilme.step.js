@@ -187,3 +187,21 @@ Then('tenho uma opção de realizar login para avaliar filme', () => {
     cy.get(pageMovie.botaoLoginAvaliacao).should('be.visible')
 })
 
+Then('as reviews publicadas estão visíveis', () => {
+    cy.get(pageMovie.tituloAvaliacoes).should('be.visible')
+    cy.get(pageMovie.sessaoAvaliacoes).should('be.visible')
+    cy.get(pageMovie.nomeUsuario1).should('be.visible').should('have.text', "admin")
+    cy.get(pageMovie.nomeUsuario2).should('be.visible').should('have.text', "critico")
+    cy.get(pageMovie.nomeUsuario3).should('be.visible').should('have.text', "comum")
+    cy.get(pageMovie.avaliacaoUsuario1).should('be.visible').should('have.text', "filme mediano")
+    cy.get(pageMovie.avaliacaoUsuario2).should('be.visible').should('have.text', "mais ou menos")
+    cy.get(pageMovie.avaliacaoUsuario3).should('be.visible').should('have.text', "curti muito")
+
+    cy.get(pageMovie.sessaoAvaliacoes) 
+    .find(pageMovie.notaUsuario1) 
+    .its("length") 
+    .should("equal", 3);
+
+
+})
+
