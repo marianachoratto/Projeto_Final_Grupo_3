@@ -1,0 +1,48 @@
+{
+  "id": 7954,
+  "title": "Example",
+  "genre": "religioso",
+  "description": "Caminhando pela fé",
+  "reviews": [
+    {
+      "id": 32,
+      "reviewText": "so deus na causa",
+      "reviewType": 1,
+      "score": 3,
+      "updatedAt": "2024-06-07T01:14:20.870Z",
+      "user": {
+        "id": 1006,
+        "name": "admin",
+        "type": 1
+      }
+    },
+    {
+      "id": 66,
+      "reviewText": "mais ou menos",
+      "reviewType": 2,
+      "score": 2,
+      "updatedAt": "2024-06-07",
+      "user": {
+        "id": 1012,
+        "name": "critico",
+        "type": 2
+      }
+    },
+    {
+      "id": 99,
+      "reviewText": "curti muito",
+      "reviewType": 0,
+      "score": 5,
+      "updatedAt": "2024-06-07T03:42:42.596Z",
+      "user": {
+        "id": 1012,
+        "name": "comum",
+        "type": 0
+      }
+    }
+  ],
+  "audienceScore": 5,
+  "criticScore": 2,
+  "durationInMinutes": 106,
+  "releaseYear": 2005
+}
