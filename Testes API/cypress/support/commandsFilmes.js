@@ -118,3 +118,25 @@ Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
   });
   cy.wrap(movieUpdate);
 });
+
+Cypress.Commands.add("criarReviewNota5", (tokenid, filmeid) => {
+  cy.request({
+    method: "POST",
+    url: "/api/users/review",
+    auth: {
+      bearer: tokenid,
+    },
+    body: {
+      movieId: filmeid,
+      score: 5,
+      reviewText: "Absolut Cinema",
+    },
+  });
+});
+
+Cypress.Commands.add("procurarPeloId", (filmeid) => {
+  cy.request({
+    method: "GET",
+    url: `/api/movies/${filmeid}`,
+  });
+});
