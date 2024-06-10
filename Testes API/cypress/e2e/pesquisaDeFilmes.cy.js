@@ -5,7 +5,7 @@ describe("Acesso a pesquisa de filmes", () => {
     let token
     let movie
 
-    beforeEach(() => { //cria um filme com user adm que é excluído, e cria um novo user a ser utilizado nos cenários
+    beforeEach(() => { 
         cy.cadastrarUsuario().then((response) => {
             user = response;
             cy.criarFilmeAdm(user.email, user.password).then((response) =>{
@@ -14,6 +14,7 @@ describe("Acesso a pesquisa de filmes", () => {
                 cy.excluirUsuario(user.id, token);
             });
         });      
+
         cy.cadastrarUsuario().then((response) => {
             user = response;
         });
@@ -104,6 +105,7 @@ describe("Acesso a pesquisa de filmes", () => {
     });
 });
 
+
 describe("Pesquisa de filme", () => {
     let user
     let token
@@ -131,8 +133,8 @@ describe("Pesquisa de filme", () => {
         cy.excluirUsuario(user.id, token);
     });
     
-    describe("Pesquisas de filme com sucesso", () => {
-        it('Deve ser possível encontrar filme informando o título completo e visualizar suas informações', () => {
+    describe("Pesquisa de filme com resultado", () => {
+        it('Deve ser possível encontrar filme informando o título completo', () => {
             cy.request({
                 method: "GET",
                 url: "/api/movies/search?title=" + movie.title,
@@ -201,8 +203,7 @@ describe("Pesquisa de filme", () => {
         });
     });
 
-    describe("Pesquisas de filme não encontrado", () => {
-    
+    describe("Pesquisa de filme não encontrado", () => {
         it('Deve retornar lista vazia ao pesquisar um título não cadastrado', () => {
             cy.request({
                 method: "GET",
@@ -230,7 +231,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.id,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.not.contain(movie.title);
+                expect(response.body).to.not.contain(movie);
             });
         });
     
@@ -240,7 +241,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.genre,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.not.contain(movie.title);
+                expect(response.body).to.not.contain(movie);
             });
         });
     
@@ -250,8 +251,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.description,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.not.contain(movie.title);
-                expect(response.body).to.not.contain(movie.description);
+                expect(response.body).to.not.contain(movie);
             });
         });
     
@@ -261,161 +261,170 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.releaseYear,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.not.contain(movie.title);
+                expect(response.body).to.not.contain(movie);
             });
         });
     });
 });
 
 
+describe("Pesquisa de filme atualizado", () => {
+    let user
+    let token
+    let movie
+    let movieUpdate
+    let movieBody
+
+    before(() => {
+        cy.fixture('movie1').then((response) => {
+            movieBody = response;
+            cy.cadastrarUsuario().then((response) => {
+                user = response;
+                cy.loginValido(user.email, user.password).then((response) => {
+                    token = response.body.accessToken;
+                    cy.promoverAdmin(token);
+                    cy.newMovie(movieBody, token).then((response) => {
+                        movie = response.body;
+                    });
+                    cy.fixture('movie2').then((response) => {
+                        movieBody = response;
+                        cy.updateMovie(movie.id, movieBody, token).then((response) =>{
+                            movieUpdate = response;
+                        });
+                    });
+                });
+            });
+        });            
+    });
+
+    after(() => {
+        cy.deletarFilme(movie.id, token);
+        cy.excluirUsuario(user.id, token);
+    });
+
+    it('Deve ser possível encontrar filme informando título atualizado', () => {
+        cy.request({
+            method: "GET",
+            url: "/api/movies/search?title=" + movieUpdate.title,
+        }).then((response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body[0].id).to.equal(movie.id);
+            expect(response.body[0].title).to.equal(movieUpdate.title);
+            expect(response.body[0].genre).to.equal(movieUpdate.genre);
+            expect(response.body[0].description).to.equal(movieUpdate.description);
+            expect(response.body[0].durationInMinutes).to.equal(movieUpdate.durationInMinutes);
+            expect(response.body[0].releaseYear).to.equal(movieUpdate.releaseYear);
+            expect(response.body[0].totalRating).to.equal(null);
+        });
+    });
+
+    it('Não deve ser possível encontrar filme informando título anterior', () => {
+        cy.request({
+            method: "GET",
+            url: "/api/movies/search?title=" + movie.title,
+        }).then((response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body).to.be.empty;
+        });
+    });
+});    
 
 
-    // describe("Pesquisa de filmes que contém o mesmo título", () => {
+describe("Pesquisa de filmes com títulos contendo o mesmo texto", () => {
+    let user
+    let token
+    let movie1
+    let movie2
+    let movieBody1
+    let movieBody2
+
+    before(() => {
+        cy.fixture('movie1').then((response) => {
+            movieBody1 = response;
+        }); 
+        cy.fixture('movie2').then((response) => {
+            movieBody2 = response;
+        }); 
+        cy.cadastrarUsuario().then((response) => {
+            user = response;
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.newMovie(movieBody1, token).then((response) => {
+                    movie1 = response.body;
+                });
+                cy.newMovie(movieBody2, token).then((response) => {
+                    movie2 = response.body;
+                });
+            });
+        });
+    });
+
+    after(() => {
+        cy.deletarFilme(movie1.id, token);
+        cy.deletarFilme(movie2.id, token);
+        cy.excluirUsuario(user.id, token);
+    });
     
-    //     let movieBody
-    //     let movie
-
-    //     beforeEach(() => {
-    //         cy.fixture('movie1').then((response) => {
-    //             movieBody = response
-    //             cy.cadastrarUsuario().then((response) => {
-    //                 const email = response.email;
-    //                 const password = response.password;
-    //                 const id = response.id;
-    //                 cy.loginValido(email, password).then((response) => {
-    //                     const token = response.body.accessToken;
-    //                     cy.promoverAdmin(token);
-    //                     cy.newMovie(movieBody, token).then((response) => {
-    //                         movie = response.body;
-    //                     });
-    //                    cy.excluirUsuario(id, token);
-    //                 });
-    //             });
-    //         });            
-    //     });
-
-    //     afterEach(() => {
-    //         cy.cadastrarUsuario().then((response) => {
-    //             const email = response.email;
-    //             const password = response.password;
-    //             const id = response.id;
-    //             cy.loginValido(email, password).then((response) => {
-    //                 const token = response.body.accessToken;
-    //                 cy.promoverAdmin(token);
-    //                 cy.deletarFilme(movie.id, token);
-    //                 cy.excluirUsuario(id, token);
-    //             });
-    //         });
-    //     });
-
-    //     it('Deve ser possível encontrar filme com títulos iguais', () => {});
-
-    // });
+    it('Deve ser possível encontrar filmes com títulos que contém o mesmo texto', () => {
+        cy.request({
+            method: "GET",
+            url: "/api/movies/search?title=" + "'Kingsman",
+        }).then((response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body.length).to.equal(2);
+            expect(response.body[0].title).to.equal(movie1.title);
+            expect(response.body[1].title).to.equal(movie2.title);
+        });
+    });
+});    
 
 
+describe("Pesquisa de filme com título com 100 caracteres", () => {
+    let user
+    let token
+    let movie
+    const movieBody = 
+    {
+        title: faker.string.alpha(100),
+        genre: "Gênero do filme",
+        description: "Descrição do filme",
+        durationInMinutes: 120,
+        releaseYear: 2024
+    }
 
+    before(() => {
+        cy.cadastrarUsuario().then((response) => {
+            user = response;
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.newMovie(movieBody, token).then((response) => {
+                    movie = response.body;
+                });
+            });
+        });           
+    });
 
-//     describe("Acesso à pesquisa de filmes", () => {
+    after(() => {
+        cy.deletarFilme(movie.id, token);
+        cy.excluirUsuario(user.id, token);
+    });
     
-//         let movieBody
-//         let movie
-
-//         beforeEach(() => {
-//             cy.fixture('movie1').then((response) => {
-//                 movieBody = response
-//                 cy.cadastrarUsuario().then((response) => {
-//                     const email = response.email;
-//                     const password = response.password;
-//                     const id = response.id;
-//                     cy.loginValido(email, password).then((response) => {
-//                         const token = response.body.accessToken;
-//                         cy.promoverAdmin(token);
-//                         cy.newMovie(movieBody, token).then((response) => {
-//                             movie = response.body;
-//                         });
-//                        cy.excluirUsuario(id, token);
-//                     });
-//                 });
-//             });            
-//         });
-
-//         afterEach(() => {
-//             cy.cadastrarUsuario().then((response) => {
-//                 const email = response.email;
-//                 const password = response.password;
-//                 const id = response.id;
-//                 cy.loginValido(email, password).then((response) => {
-//                     const token = response.body.accessToken;
-//                     cy.promoverAdmin(token);
-//                     cy.deletarFilme(movie.id, token);
-//                     cy.excluirUsuario(id, token);
-//                 });
-//             });
-//         });
-
-//         it('Usuário não autenticado no sistema consegue acessar a pesquisa de filme', () => {
-//             cy.request({
-//                 method: "GET",
-//                 url: "/api/movies/search?title=" + movie.title,
-//             }).then((response) => {
-//                 expect(response.status).to.equal(200);
-//                 expect(response.body[0]).to.contain(movie);
-//             });
-//         });
-
-//         it('Usuário comum consegue acessar a pesquisa de filme', () => { });
-
-//         it('Usuário crítico consegue acessar a pesquisa de filme', () => { });
-
-//         it('Usuário administrador consegue acessar a pesquisa de filme', () => { });
-//     });
-
-
-
-// Deve ser possível encontrar filme informando o título completo
-// Deve ser possível encontrar filme informando título em caixa alta
-// Deve ser possível encontrar filme informando título em caixa baixa
-// Deve ser possível encontrar filme informando título parcial
-// Deve ser possível encontrar filme informando título com caracteres especiais
-
-// Deve retornar lista vazia ao pesquisar um título não cadastrado
-// Não deve ser possível encontrar um filme pelo ID
-// Não deve ser possível encontrar um filme pelo gênero
-// Não deve ser possível encontrar um filme pela descrição
-// Não deve ser possível encontrar um filme pelo ano de lançamento
-// Não deve ser possível encontrar um filme deletado
-
-
-
-// Deve ser possível encontrar filmes com títulos iguais **** separado - before criar 2 filmes
-
-
-// Deve ser possível encontrar filme pelo título atualizado
-// Não deve ser possível encontrar filme informando título anterior
-
-
-// usuário não autenticado no sistema consegue acessar a pesquisa de filme
-// usuário comum consegue acessar a pesquisa de filme
-// usuário critico consegue acessar a pesquisa de filme
-// usuário adm consegue acessar a pesquisa de filme
-
-
-
-// let movieUpdate
-// let movie2
-
-// it('Deve ser possível encontrar filme que foi atualizado', () => {
-//     cy.fixture('movie2').then((response) => {
-//         movie2 = response;
-//         cy.updateMovie(movie.id, movie2, token).then((response) =>{
-//             movieUpdate = response;
-//         });
-//     });
-//     cy.request({
-//         method: "GET",
-//         url: "/api/movies/search?title=" + "Kingsman 1: Serviço Secret0!",
-//     }).then((response) => {
-//         expect(response.status).to.equal(200);
-//         expect(response.body[0].title).to.equal(movieUpdate.title);
-//     });
-// });
+   
+    it('Deve ser possível encontrar filme com título com 100 caracteres', () => {
+        cy.request({
+            method: "GET",
+            url: "/api/movies/search?title=" + movie.title,
+        }).then((response) => {
+            expect(response.status).to.equal(200);
+            expect(response.body[0].id).to.equal(movie.id);
+            expect(response.body[0].title).to.equal(movie.title);
+            expect(response.body[0].genre).to.equal(movie.genre);
+            expect(response.body[0].description).to.equal(movie.description);
+            expect(response.body[0].durationInMinutes).to.equal(movie.durationInMinutes);
+            expect(response.body[0].releaseYear).to.equal(movie.releaseYear);
+            expect(response.body[0].totalRating).to.equal(null);
+        });
+    });
+});
