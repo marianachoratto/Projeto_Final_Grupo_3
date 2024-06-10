@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker";
+let token
+
 
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
@@ -118,3 +120,55 @@ Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
   });
   cy.wrap(movieUpdate);
 });
+
+Cypress.Commands.add("reviewMovie1", (token, movieId) => {
+  cy.request({
+    method: "POST",
+    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: {
+      movieId: movieId,
+      score: 2,
+      reviewText: "Filme muito bom. Vale a pena o ingresso!",
+    },
+  });
+
+  Cypress.Commands.add("reviewMovie2", (token, movieId) => {
+    cy.request({
+      method: "POST",
+      url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      body: {
+        movieId: movieId,
+        score: 4,
+        reviewText: "Filme bem maneiro!",
+      },
+    })
+  })
+});
+
+Cypress.Commands.add("criarReviewNota5",(tokenid, filmeid)=>{
+  cy.request({
+        method: "POST",
+        url: "/api/users/review",
+        auth: {
+            bearer: tokenid,
+        },
+        body:{
+            "movieId": filmeid,
+            "score": 5,
+            "reviewText": "Absolut Cinema",
+        }
+    });
+});
+
+Cypress.Commands.add("procurarPeloId",(filmeid)=>{
+  cy.request({
+    method: "GET",
+    url: '/api/movies/' + filmeid
+  })
+})
