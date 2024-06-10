@@ -7,3 +7,5 @@ Test Teardown    Teardown
 
 
 *** Test Cases ***
+Teste 01
+    Log To Console    oi
