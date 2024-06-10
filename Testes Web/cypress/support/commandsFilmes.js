@@ -1,9 +1,10 @@
 import { faker } from "@faker-js/faker";
+const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com";
 
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
     method: "DELETE",
-    url: "api/movies/" + idFilme,
+    url: apiUrl + "/api/movies/" + idFilme,
     auth: {
       bearer: token,
     },
@@ -14,7 +15,7 @@ Cypress.Commands.add("criarFilme", (userToken) => {
   return cy
     .request({
       method: "POST",
-      url: "/api/movies",
+      url: apiUrl + "/api/movies",
       auth: {
         bearer: userToken,
       },
@@ -44,7 +45,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
     return cy
       .request({
         method: "POST",
-        url: "/api/auth/login",
+        url: apiUrl + "/api/auth/login",
         body: {
           email: email,
           password: password,
@@ -55,7 +56,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
 
         cy.request({
           method: "PATCH",
-          url: "/api/users/admin",
+          url: apiUrl + "/api/users/admin",
           auth: {
             bearer: token,
           },
@@ -64,7 +65,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
       .then(() => {
         cy.request({
           method: "POST",
-          url: "/api/movies",
+          url: apiUrl + "/api/movies",
           body: dadosFilme,
           headers: {
             Authorization: "Bearer " + token,

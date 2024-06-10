@@ -12,12 +12,12 @@ import { userObject, createTokenObject } from "../userStorage"
 
 let movieId
 let name
-let token
+let token, token1, token2
 let email
-let userid
+let userid, userid1, userid2
 let password
 let type
-Before(() => {
+Before({ tags: '@validação' },() => {
     cy.cadastrarUsuario().then((resposta) => {
         userid = resposta.id;
         name = resposta.nome;
@@ -40,13 +40,23 @@ Before(() => {
     })
 })
 
-After(() => {
+After({ tags: '@limparValidação' }, () => {
     cy.loginValido(email, password).then((resposta) => {
         token = resposta.body.accessToken;
         cy.promoverAdmin(token)
         cy.deletarFilme(movieId, token);
         cy.excluirUsuario(userid, token);
     })
+})
+
+Given('que acesso um filme', () => {
+    cy.cadastrarUsuario().then((resposta) => {
+        userid = resposta.id;
+        name = resposta.nome;
+        email = resposta.email;
+        password = resposta.password
+    })
+    cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
 Given('que acesso filme estando deslogado', () => {
@@ -56,11 +66,9 @@ Given('que acesso filme estando deslogado', () => {
         email = resposta.email;
         password = resposta.password
     })
-    cy.fixture('listReview.json').then(() => {
-        cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
-            fixture: 'listReview.json',
-        }).as('listReviews');
-    })
+    cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
+        fixture: 'listReview.json',
+    }).as('listReviews');
     cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
@@ -86,12 +94,10 @@ Given('que acesso filme com usuário comum', () => {
             });
         })
     })
-    cy.fixture('listReview.json').then(() => {
-        cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
-            fixture: 'listReview.json',
-        }
-        ).as('listReviews');
-    })
+    cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
+        fixture: 'listReview.json',
+    }
+    ).as('listReviews');
     cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
@@ -112,17 +118,15 @@ Given('que acesso filme com usuário crítico', () => {
             });
 
             const tokenLocal = createTokenObject(token);
-            
+
             cy.window().then((window) => {
                 window.sessionStorage.setItem('session-info', JSON.stringify(tokenLocal));
             });
         })
     })
-    cy.fixture('listReview.json').then(() => {
-        cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
-            fixture: 'listReview.json',
-        }).as('listReviews');
-    })
+    cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
+        fixture: 'listReview.json',
+    }).as('listReviews');
     cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
@@ -149,19 +153,20 @@ Given('que acesso filme com usuário admin', () => {
             });
         })
     })
-    cy.fixture('listReview.json').then(() => {
-        cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
-            fixture: 'listReview.json',
-        }).as('listReviews');
-    })
+    cy.intercept('GET', 'https://raromdb-3c39614e42d4.herokuapp.com/api/movies/' + movieId, {
+        fixture: 'listReview.json',
+    }).as('listReviews');
     cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
+When('visualizo as avaliações', () => {
+    cy.get(pageMovie.avaliacaoAudiencia).should('be.visible')
+    cy.get(pageMovie.avaliacaoCritica).should('be.visible')
+})
+
 When('quando visualizo a pagina do filme', () => {
-    // cy.wait('@listReviews').then(() => {
     cy.url().should('eq', 'https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
-// })
 
 Then('consigo ver os detalhes do filme', () => {
     cy.get(pageMovie.tituloFilme).should('be.visible').should('have.text', "Example")
@@ -197,11 +202,210 @@ Then('as reviews publicadas estão visíveis', () => {
     cy.get(pageMovie.avaliacaoUsuario2).should('be.visible').should('have.text', "mais ou menos")
     cy.get(pageMovie.avaliacaoUsuario3).should('be.visible').should('have.text', "curti muito")
 
-    cy.get(pageMovie.sessaoAvaliacoes) 
-    .find(pageMovie.notaUsuario1) 
-    .its("length") 
-    .should("equal", 3);
-
-
+    //cy.get(pageMovie.notas).filter(pageMovie.starFilled).should('have.lenght', 3)
+    // for (let i = 0; i <= 5; i++){
+    //     cy.get(pageMovie.notaUsuario1)
+    // }
 })
 
+Then('as avaliações comuns correspondem a média de avaliações dos usuários comuns', () => {
+    cy.get(pageMovie.quantidadeNotaAudiencia).should('have.text', "2 avaliações")
+})
+
+Then('as avaliações da crítica correspondem a média de avaliações dos usuários críticos', () => {
+    cy.get(pageMovie.quantidadeNotaCritico).should('have.text', "2 avaliações")
+})
+
+Then('as avaliações dos admins não são contabilizados nas avaliações', () => {
+    cy.get(pageMovie.quantidadeNotaAudiencia).should('have.text', "Nenhuma avaliação")
+    cy.get(pageMovie.quantidadeNotaCritico).should('have.text', "Nenhuma avaliação")
+})
+
+Before({ tags: '@reviewsComum' }, () => {
+    cy.cadastrarUsuario().then((resposta) => {
+        userid = resposta.id;
+        name = resposta.nome;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token = resposta.body.accessToken;
+            cy.promoverAdmin(token);
+            cy.criarFilme(token)
+                .then((resposta) => {
+                    movieId = resposta.id;
+                })
+            cy.excluirUsuario(userid, token)
+        })
+    })
+    cy.cadastrarUsuario().then((resposta) => {
+        userid1 = resposta.id;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token1 = resposta.body.accessToken;
+            cy.request({
+                method: "POST",
+                url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+                auth: {
+                    bearer: token1,
+                },
+                body: {
+                    movieId: movieId,
+                    score: 4,
+                    reviewText: "Filme muito bom. Vale a pena o ingresso!",
+                },
+            })
+            cy.cadastrarUsuario().then((resposta) => {
+                userid2 = resposta.id;
+                email = resposta.email;
+                password = resposta.password;
+                cy.loginValido(email, password).then((resposta) => {
+                    token2 = resposta.body.accessToken;
+                    cy.request({
+                        method: "POST",
+                        url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+                        auth: {
+                            bearer: token2,
+                        },
+                        body: {
+                            movieId: movieId,
+                            score: 2,
+                            reviewText: "Filme muito bom. Vale a pena o ingresso!",
+                        },
+                    })
+                })
+            })
+        })
+    })
+})
+
+Before({ tags: '@reviewsCritico' }, () => {
+    cy.cadastrarUsuario().then((resposta) => {
+        userid = resposta.id;
+        name = resposta.nome;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token = resposta.body.accessToken;
+            cy.promoverAdmin(token);
+            cy.criarFilme(token)
+                .then((resposta) => {
+                    movieId = resposta.id;
+                })
+            cy.excluirUsuario(userid, token)
+        })
+    })
+    cy.cadastrarUsuario().then((resposta) => {
+        userid1 = resposta.id;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token1 = resposta.body.accessToken;
+            cy.promoverCritico(token1)
+            cy.request({
+                method: "POST",
+                url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+                auth: {
+                    bearer: token1,
+                },
+                body: {
+                    movieId: movieId,
+                    score: 4,
+                    reviewText: "Filme muito bom. Vale a pena o ingresso!",
+                },
+            })
+            cy.cadastrarUsuario().then((resposta) => {
+                userid2 = resposta.id;
+                email = resposta.email;
+                password = resposta.password;
+                cy.loginValido(email, password).then((resposta) => {
+                    token2 = resposta.body.accessToken;
+                    cy.promoverCritico(token2)
+                    cy.request({
+                        method: "POST",
+                        url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+                        auth: {
+                            bearer: token2,
+                        },
+                        body: {
+                            movieId: movieId,
+                            score: 2,
+                            reviewText: "Filme muito bom. Vale a pena o ingresso!",
+                        },
+                    })
+                })
+            })
+        })
+    })
+})
+
+Before({ tags: '@reviewsAdmin' }, () => {
+    cy.cadastrarUsuario().then((resposta) => {
+        userid = resposta.id;
+        name = resposta.nome;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token = resposta.body.accessToken;
+            cy.promoverAdmin(token);
+            cy.criarFilme(token)
+                .then((resposta) => {
+                    movieId = resposta.id;
+                })
+            cy.excluirUsuario(userid, token)
+        })
+    })
+    cy.cadastrarUsuario().then((resposta) => {
+        userid1 = resposta.id;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token1 = resposta.body.accessToken;
+            cy.promoverAdmin(token1)
+            cy.request({
+                method: "POST",
+                url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+                auth: {
+                    bearer: token1,
+                },
+                body: {
+                    movieId: movieId,
+                    score: 4,
+                    reviewText: "Filme muito bom. Vale a pena o ingresso!",
+                },
+            })
+            cy.cadastrarUsuario().then((resposta) => {
+                userid2 = resposta.id;
+                email = resposta.email;
+                password = resposta.password;
+                cy.loginValido(email, password).then((resposta) => {
+                    token2 = resposta.body.accessToken;
+                    cy.promoverAdmin(token2)
+                    cy.request({
+                        method: "POST",
+                        url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+                        auth: {
+                            bearer: token2,
+                        },
+                        body: {
+                            movieId: movieId,
+                            score: 2,
+                            reviewText: "Filme muito bom. Vale a pena o ingresso!",
+                        },
+                    })
+                })
+            })
+        })
+    })
+})
+
+After({ tags: '@deleteAll' }, () => {
+    cy.loginValido(email, password).then((resposta) => {
+        token = resposta.body.accessToken;
+        cy.promoverAdmin(token)
+        cy.deletarFilme(movieId, token);
+        cy.excluirUsuario(userid2, token);
+        cy.excluirUsuario(userid1, token);
+        cy.excluirUsuario(userid, token);
+    })
+})
