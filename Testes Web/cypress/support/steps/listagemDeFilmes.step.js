@@ -50,7 +50,7 @@ Before({tags: "@login"}, ()=>{
     cy.visit('');
     pageLista.getLogin();
     pageLogin.login(email,password);
-    cy.wait(2);
+    cy.wait(2000);
 })
 
 After({ tags: "@deleteUser" }, () => {
@@ -62,3 +62,20 @@ After({ tags: "@deleteUser" }, () => {
         });
     });
 });
+
+When('que existem mais de seis filmes cadastrados', () =>{
+    cy.intercept('GET','https://raromdb-3c39614e42d4.herokuapp.com/api/movies',{
+        statusCode:200,
+        body: [
+            {
+                "id": 23,
+                "title": "Jonathan o retorno",
+                "genre": "Terror",
+                "description": "damno in bos cultura depereo cultellus viriliter adfectus cruentus audio confero",
+                "totalRating": 3,
+                "durationInMinutes": 120,
+                "releaseYear": 2000
+            }]
+    })
+
+})
