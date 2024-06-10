@@ -10,7 +10,7 @@ let token;
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
   cy.request({
     method: "POST",
-    url: "/api/users",
+    url: apiUrl + "/api/users",
     body: {
       name: name,
       email: emailValido,
@@ -23,7 +23,7 @@ Cypress.Commands.add("cadastrarUsuario", () => {
   return cy
     .request({
       method: "POST",
-      url: "/api/users",
+      url: apiUrl + "/api/users",
       body: {
         name: "faker " + faker.person.firstName(),
         email: faker.internet.email(),
@@ -48,7 +48,7 @@ Cypress.Commands.add("cadastrarUsuario", () => {
 Cypress.Commands.add("loginValido", (email, password) => {
   cy.request({
     method: "POST",
-    url: "/api/auth/login",
+    url: apiUrl + "/api/auth/login",
     body: {
       email: email,
       password: password,
@@ -59,7 +59,7 @@ Cypress.Commands.add("loginValido", (email, password) => {
 Cypress.Commands.add("promoverAdmin", (tokenid) => {
   cy.request({
     method: "PATCH",
-    url: "/api/users/admin",
+    url: apiUrl + "/api/users/admin",
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
@@ -69,7 +69,7 @@ Cypress.Commands.add("promoverAdmin", (tokenid) => {
 Cypress.Commands.add("excluirUsuario", (userid, tokenid) => {
   cy.request({
     method: "DELETE",
-    url: "/api/users/" + userid,
+    url: apiUrl + "/api/users/" + userid,
     headers: {
       Authorization: `Bearer ${tokenid}`,
     },
