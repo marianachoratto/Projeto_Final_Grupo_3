@@ -1,6 +1,7 @@
 #language: pt
 
-Funcionalidade: Consulta filme
+Funcionalidade: Consulta de informações detalhadas de filmes
+
 
 @validação @limparValidação
 Cenário: Visualizando filme com usuário deslogado
@@ -47,7 +48,7 @@ Cenário: Validando reviews críticos
     Então as avaliações da crítica correspondem a média de avaliações dos usuários críticos
 
 @reviewsAdmin @deleteAll
-Cenário: Validando reviews críticos
+Cenário: Validando reviews admins
     Dado que acesso um filme
     Quando visualizo as avaliações
     Então as avaliações dos admins não são contabilizados nas avaliações    
