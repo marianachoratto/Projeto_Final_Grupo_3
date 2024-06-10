@@ -1,6 +1,7 @@
 #language: pt
 
-Funcionalidade: Consulta filme
+Funcionalidade: Consulta de informações detalhadas de filmes
+
 
 @validação @limparValidação
 Cenário: Visualizando filme com usuário deslogado
