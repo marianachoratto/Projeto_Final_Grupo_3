@@ -2,14 +2,10 @@ import { faker } from "@faker-js/faker";
 
 describe("Acesso a pesquisa de filmes", () => {
     let user
-    let userComum
-    let userCritico
-    let userAdm
     let token
-    let tokenAdm
     let movie
 
-    before(() => {
+    beforeEach(() => { //cria um filme com user adm que é excluído, e cria um novo user a ser utilizado nos cenários
         cy.cadastrarUsuario().then((response) => {
             user = response;
             cy.criarFilmeAdm(user.email, user.password).then((response) =>{
@@ -19,23 +15,16 @@ describe("Acesso a pesquisa de filmes", () => {
             });
         });      
         cy.cadastrarUsuario().then((response) => {
-            userComum = response;
-        });
-        cy.cadastrarUsuario().then((response) => {
-            userCritico = response;
-        });
-        cy.cadastrarUsuario().then((response) => {
-            userAdm = response;
+            user = response;
         });
     });
 
-    after(() => {
-        cy.loginValido(userAdm.email, userAdm.password).then((response) => {
-            tokenAdm = response.body.accessToken;
+    afterEach(() => {
+        cy.loginValido(user.email, user.password).then((response) => {
+            token = response.body.accessToken;
+            cy.promoverAdmin(token);            
             cy.deletarFilme(movie.id, token);
-            cy.excluirUsuario(userComum.id, token);
-            cy.excluirUsuario(userCritico.id, token);
-            cy.excluirUsuario(userAdm.id, tokenAdm);
+            cy.excluirUsuario(user.id, token);
         });
     });
 
@@ -56,7 +45,7 @@ describe("Acesso a pesquisa de filmes", () => {
     });
 
     it('Usuário Comum consegue acessar a pesquisa de filmes', () => {      
-        cy.loginValido(userComum.email, userComum.password).then((response) => {
+        cy.loginValido(user.email, user.password).then((response) => {
             token = response.body.accessToken;
             cy.request({
                 method: "GET",
@@ -75,7 +64,7 @@ describe("Acesso a pesquisa de filmes", () => {
     });
 
     it('Usuário Critico consegue acessar a pesquisa de filmes', () => {      
-        cy.loginValido(userCritico.email, userCritico.password).then((response) => {
+        cy.loginValido(user.email, user.password).then((response) => {
             token = response.body.accessToken;
             cy.promoverCritico(token);
             cy.request({
@@ -95,8 +84,8 @@ describe("Acesso a pesquisa de filmes", () => {
     });
    
     it('Usuário Administrador consegue acessar a pesquisa de filmes', () => {      
-        cy.loginValido(userCritico.email, userCritico.password).then((response) => {
-            tokenAdm = response.body.accessToken;
+        cy.loginValido(user.email, user.password).then((response) => {
+            token = response.body.accessToken;
             cy.promoverAdmin(token);
             cy.request({
                 method: "GET",
