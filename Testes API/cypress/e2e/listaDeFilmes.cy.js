@@ -5,7 +5,7 @@ describe("Qualquer tipo de usuario pode ver a lista de filmes", () => {
   let password = "123456";
   let tokenid;
   let userid;
-
+  let filmeid
   beforeEach(() => {
     cy.criarUsuario(name, emailValido, password).then((response) => {
       userid = response.body.id;
