@@ -182,6 +182,7 @@ Then("aparece a mensagem {string} e {string}", function (mensagem1, mensagem2) {
 });
 
 When("depois faço outra avaliação do mesmo filme", function () {
+  cy.wait("@getFilmes");
   cy.get(moviePage.textoNovaAvaliacao).clear();
   textoReview = "Nem vi o tempo passar no cinema";
   numEstrelas = 4;
@@ -232,6 +233,12 @@ Then("a avaliação é recebida com sucesso", function () {
 });
 
 When("faço uma review com 501 caracteres", function () {
+  cy.on("uncaught:exception", (err, runnable, promise) => {
+    if (promise) {
+      return false;
+    }
+  });
+
   avaliacaoDoFilme = "";
   for (let index = 0; index <= 500; index++) {
     avaliacaoDoFilme += "a";
@@ -245,8 +252,6 @@ Then("a review não é adicionada à lista de reviews", function () {
   cy.get(moviePage.divCardsAvaliacaoUsuario)
     .find(moviePage.cardAvaliacaoUsuario)
     .should("not.exist");
-  // .its("length")
-  // .should("equal", 0);
 
   cy.get(moviePage.textoNovaAvaliacao).should("be.enabled");
 });

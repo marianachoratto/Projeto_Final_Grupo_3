@@ -12,8 +12,7 @@ export default class MoviePage {
   // card avaliação do usuario
   tituloNovaAvaliacao = ".movie-details-container > :nth-child(2)";
   novaAvaliacao = ".stars";
-  // textoNovaAvaliacao = "textarea";
-  textoNovaAvaliacao = '[placeholder="O que você acha deste filme ?"]';
+  textoNovaAvaliacao = "textarea";
   botaoEnviarAvaliacao = ".rate-movie > button";
   botaoLoginAvaliacao = ".rate-movie > a";
   tituloAvaliacoes = ".user-reviews-section > h2";
