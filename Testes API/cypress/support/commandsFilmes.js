@@ -101,19 +101,20 @@ Cypress.Commands.add("newMovie", (movieBody, token) => {
   });
 });
 
-// Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
-//   cy.request({
-//     method: "PUT",
-//     url: "/api/movies/" + movieId,
-//     body: {
-//       title: movieUpdate.title,
-//       genre: movieUpdate.genre,
-//       description: movieUpdate.description,
-//       durationInMinutes: movieUpdate.durationInMinutes,
-//       releaseYear: movieUpdate.releaseYear,
-//     },
-//     auth: {
-//       bearer: token,
-//     },
-//   })
-// });
+Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
+  cy.request({
+    method: "PUT",
+    url: "/api/movies/" + movieId,
+    body: {
+      title: movieUpdate.title,
+      genre: movieUpdate.genre,
+      description: movieUpdate.description,
+      durationInMinutes: movieUpdate.durationInMinutes,
+      releaseYear: movieUpdate.releaseYear,
+    },
+    auth: {
+      bearer: token,
+    },
+  });
+  cy.wrap(movieUpdate);
+});
