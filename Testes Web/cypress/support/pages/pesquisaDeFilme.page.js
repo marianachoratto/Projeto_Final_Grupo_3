@@ -7,6 +7,10 @@ export default class SearchPage {
     buttonRegistro = '[href="/register"]';
     barraNav = '.navbar-content';
     movieList = '.carousel-data';
+    movieCard = '.movie-card';
+    moviePoster = '.movie-poster';
+    movieTitle = 'h3.movie-title';
+    movieDescription = 'p';
 
     typeSearch(texto) {
         cy.get(this.inputSearch).type(texto);
@@ -15,4 +19,28 @@ export default class SearchPage {
     clickButtonSearch() {
         cy.get(this.buttonSearch).click();
     }
+
+    // getMovieCard(posição, text) {
+    //     return cy.get(this.movieCard).eq(posição).should("contain", text);
+    // }
+
+    getMoviePoster(posição) {
+        return cy.get(this.moviePoster).eq(posição).should("be.visible");
+    }
+
+    getMovieTitle(posição, text) {
+        return cy.get(this.movieTitle).eq(posição).should("contain", text);
+    }
+
+    getMovieDescription(posição, text) {
+        return cy.get(this.movieDescription).eq(posição).should("contain", text);
+    }
+
+    verificarMovieCard(posição, titulo, descricao) {
+        this.getMoviePoster(posição);
+        this.getMovieTitle(posição, titulo);
+        this.getMovieDescription(posição, descricao);
+    }
+
+
 }

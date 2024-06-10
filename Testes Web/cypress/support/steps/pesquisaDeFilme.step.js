@@ -65,6 +65,12 @@ When("informar parte do título na barra de busca", function () {
 
 
 
-Then("visualizarei o filme correspondente na tela", function () {});
+Then("visualizarei o filme correspondente na tela", function () {
+    //searchPage.getMovieCard(0, movie2.title.substring(0, 19));
+    searchPage.verificarMovieCard(0, movie2.title.substring(0, 19), movie2.description.substring(0, 49));
+});
 
-Then("visualizarei todos os filmes que contém o texto pesquisado", function () {});
+Then("visualizarei todos os filmes que contém o texto pesquisado", function () {
+    searchPage.verificarMovieCard(0, movie1.title.substring(0, 19), movie1.description.substring(0, 49));
+    searchPage.verificarMovieCard(1, movie2.title.substring(0, 19), movie2.description.substring(0, 49));
+});
