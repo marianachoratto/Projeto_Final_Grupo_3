@@ -84,3 +84,20 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
       });
   });
 });
+
+Cypress.Commands.add("newMovie", (movieBody, token) => {
+  cy.request({
+    method: "POST",
+    url: apiUrl + "/api/movies",
+    body: {
+      title: movieBody.title,
+      genre: movieBody.genre,
+      description: movieBody.description,
+      durationInMinutes: movieBody.durationInMinutes,
+      releaseYear: movieBody.releaseYear,
+    },
+    auth: {
+      bearer: token,
+    },
+  });
+});

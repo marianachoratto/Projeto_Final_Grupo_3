@@ -1,6 +1,6 @@
 export default class SearchPage {
     inputSearch = '.search-input';
-    buttonSearch = 'search-button';
+    buttonSearch = '.search-button';
     buttonHome = '.link-logo';
     buttonFilmes = '[href="/"]';
     buttonLogin = '[href="/login"]';
