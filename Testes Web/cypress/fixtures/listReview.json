@@ -6,10 +6,10 @@
   "reviews": [
     {
       "id": 32,
-      "reviewText": "so deus na causa",
+      "reviewText": "filme mediano",
       "reviewType": 1,
       "score": 3,
-      "updatedAt": "2024-06-07T01:14:20.870Z",
+      "updatedAt": "2024-06-07T09:14:20.870Z",
       "user": {
         "id": 1006,
         "name": "admin",
@@ -21,7 +21,7 @@
       "reviewText": "mais ou menos",
       "reviewType": 2,
       "score": 2,
-      "updatedAt": "2024-06-07",
+      "updatedAt": "2024-09-03",
       "user": {
         "id": 1012,
         "name": "critico",
@@ -33,7 +33,7 @@
       "reviewText": "curti muito",
       "reviewType": 0,
       "score": 5,
-      "updatedAt": "2024-06-07T03:42:42.596Z",
+      "updatedAt": "2024-06-12T11:42:42.596Z",
       "user": {
         "id": 1012,
         "name": "comum",

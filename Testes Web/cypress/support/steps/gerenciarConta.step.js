@@ -14,22 +14,31 @@ const accountPage = new AccountPage();
 const profilePage = new ProfilePage();
 const loginPage = new LoginPage();
 
-let dadosUser;
-let tokenid;
+let name;
+let email;
+let password;
+let id;
+let type;
 
 Before({ tags: "@criarUsuario" }, () => {
+  name = faker.person.firstName();
+  email = faker.internet.email().toLowerCase();
+  password = faker.internet.password(6);
+
   cy.visit("/login");
-  cy.cadastrarUsuario("123456").then((response) => {
-    dadosUser = response;
-    loginPage.login(dadosUser.email, "123456");
+  cy.criarUsuario(name, email, password).then((response) => {
+    id = response.body.id;
+    type = response.body.type;
+
+    loginPage.login(email, password);
   });
 });
 
 After({ tags: "@deletarUsuario" }, () => {
-  cy.loginValido(dadosUser.email, "123456").then((response) => {
-    tokenid = response.body.accessToken;
-    cy.promoverAdmin(tokenid);
-    cy.excluirUsuario(dadosUser.id, tokenid);
+  cy.loginValido(email, password).then((response) => {
+    token = response.body.accessToken;
+    cy.promoverAdmin(token);
+    cy.excluirUsuario(id, token);
   });
 });
 
@@ -40,11 +49,8 @@ Given("que entrei no perfil do meu usuário já cadastrado", function () {
 Given("que meu perfil foi promovido a Crítico", function () {
   profilePage.clickButtonLogout();
 
-  cy.loginValido(dadosUser.email, "123456").then((response) => {
-    cy.wrap(response.body.accessToken).as("token");
-  });
-
-  cy.get("@token").then((token) => {
+  cy.loginValido(email, password).then((response) => {
+    token = response.body.accessToken;
     cy.promoverCritico(token);
   });
 });
@@ -52,11 +58,8 @@ Given("que meu perfil foi promovido a Crítico", function () {
 Given("que meu perfil foi promovido a Administrador", function () {
   profilePage.clickButtonLogout();
 
-  cy.loginValido(dadosUser.email, "123456").then((response) => {
-    cy.wrap(response.body.accessToken).as("token");
-  });
-
-  cy.get("@token").then((token) => {
+  cy.loginValido(email, password).then((response) => {
+    token = response.body.accessToken;
     cy.promoverAdmin(token);
   });
 });
@@ -77,7 +80,7 @@ When("habilitar a alteração de senha", function () {
   accountPage.clickButtonAlterarSenha();
 });
 
-When("começar a alterar a senha", function () {
+When("alterar a senha", function () {
   accountPage.typeSenha("ABCDEFG");
   accountPage.typeConfirmarSenha("ABCDEFG");
 });
@@ -93,11 +96,11 @@ When("informar um novo nome {string}", function (nome) {
 });
 
 When("confirmar a operação", function () {
-  cy.intercept("PUT", "api/users/" + dadosUser.id).as("updateUser");
+  cy.intercept("PUT", "api/users/" + id).as("updateUser");
   accountPage.clickButtonSalvar();
 });
 
-When("informar uma senha {string} e confirmá-la", function (senha) {
+When("informar uma senha {string}", function (senha) {
   accountPage.typeSenha(senha);
   accountPage.typeConfirmarSenha(senha);
   cy.wrap(senha).as("novaSenha");
@@ -138,27 +141,24 @@ When("informar um espaço em branco no nome", function () {
 
 When("fizer login novamente e acessar a opção Gerenciar Conta", function () {
   cy.visit("/login");
-  loginPage.login(dadosUser.email, "123456");
+  loginPage.login(email, password);
   profilePage.clickButtonPerfil();
   profilePage.clickButtonGerenciar();
 });
 
 Then("as iniciais, nome e email do usuário devem estar visíveis", function () {
   profilePage.getIniciais().should("be.visible");
-  profilePage.getUserInfo().invoke("text").should("contain", dadosUser.name);
-  profilePage.getUserInfo().invoke("text").should("contain", dadosUser.email);
+  profilePage.getUserInfo().invoke("text").should("contain", name);
+  profilePage.getUserInfo().invoke("text").should("contain", email);
 });
 
 Then("o nome e email do usuário devem estar visíveis", function () {
-  accountPage.getNome().invoke("val").should("equal", dadosUser.name);
-  accountPage.getEmail().invoke("val").should("equal", dadosUser.email);
+  accountPage.getNome().invoke("val").should("equal", name);
+  accountPage.getEmail().invoke("val").should("equal", email);
 });
 
 Then("o usuário deve ser do tipo Comum", function () {
-  accountPage
-    .getTipoUsuario()
-    .invoke("val")
-    .should("equal", `${dadosUser.type}`);
+  accountPage.getTipoUsuario().invoke("val").should("equal", `${type}`);
   accountPage.getUserComum().invoke("text").should("equal", "Comum");
 });
 
@@ -168,16 +168,16 @@ Then("serei redirecionado para a página de Login automaticamente", function () 
   cy.contains("Entre com suas credenciais");
 });
 
-Then("o campo E-mail deve estar desabilitado a edição", function () {
+Then("a edição no campo E-mail deve estar desabilitada", function () {
   accountPage.getEmail().should("be.disabled");
 });
 
-Then("o campo Tipo de usuário deve estar desabilitado a edição", function () {
+Then("deve estar desabilitada a edição no campo Tipo de usuário", function () {
   accountPage.getTipoUsuario().should("be.disabled");
 });
 
 Then(
-  "os campos Senha e Confirmar senha deven estar desabilitados a edição",
+  "devem estar desabilitados para a edição o campo Senha e Confirmar Senha",
   function () {
     accountPage.getSenha().should("be.disabled");
     accountPage.getConfirmarSenha().should("be.disabled");
@@ -210,12 +210,12 @@ Then("é possível fazer login com a nova senha", function () {
   cy.visit("/login");
 
   cy.get("@novaSenha").then((senha) => {
-    loginPage.login(dadosUser.email, senha);
+    loginPage.login(email, senha);
   });
 
   profilePage.clickButtonPerfil();
-  profilePage.getUserInfo().invoke("text").should("contain", dadosUser.name);
-  profilePage.getUserInfo().invoke("text").should("contain", dadosUser.email);
+  profilePage.getUserInfo().invoke("text").should("contain", name);
+  profilePage.getUserInfo().invoke("text").should("contain", email);
 });
 
 Then("visualizarei o alerta {string}", function (text) {
