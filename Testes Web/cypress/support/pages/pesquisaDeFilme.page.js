@@ -6,6 +6,7 @@ export default class SearchPage {
     buttonLogin = '[href="/login"]';
     buttonRegistro = '[href="/register"]';
     barraNav = '.navbar-content';
+    movieList = '.carousel-data';
 
     typeSearch(texto) {
         cy.get(this.inputSearch).type(texto);
