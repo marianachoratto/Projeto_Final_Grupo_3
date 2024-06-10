@@ -24,7 +24,6 @@ Before(() => {
   cy.intercept("GET", "/api/users/*").as("getUser");
   cy.intercept("POST", "/api/users/review").as("enviandoComentario");
   cy.intercept("GET", "/api/movies/*").as("getFilmes");
-  // cy.intercept("GET", "/api/movies/*").as("getMovies");
 
   cy.cadastrarUsuario().then((resposta) => {
     userData = resposta;
@@ -255,3 +254,5 @@ Then("a review não é adicionada à lista de reviews", function () {
 
   cy.get(moviePage.textoNovaAvaliacao).should("be.enabled");
 });
+
+before(function () {});
