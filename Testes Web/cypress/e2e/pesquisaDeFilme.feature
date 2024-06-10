@@ -14,7 +14,7 @@ Esquema do Cenário: Deve ser possível encontrar filme informando o título com
     | PIRATAS DO CARIBE 2 - O BAÚ DA MORTE! |
     | piratas do caribe 2 - o baú da morte! |
 
-
+@criarFilmes @deletarFilmes
 Cenário: Deve ser possível encontrar filme informando título parcial
     Dado que acessei a página inicial
     Quando informar parte do título na barra de busca

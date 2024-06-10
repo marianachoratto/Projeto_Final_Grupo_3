@@ -44,18 +44,6 @@ Before({ tags: "@criarFilmes" }, () => {
 After({ tags: "@deletarFilmes" }, () => {
     cy.deletarFilme(movie1.id, token);
     cy.deletarFilme(movie2.id, token);
-    cy.deletarFilme(2563, token);
-    cy.deletarFilme(2564, token);
-    cy.deletarFilme(2565, token);
-    cy.deletarFilme(2566, token);
-    cy.deletarFilme(2567, token);
-    cy.deletarFilme(2568, token);
-    cy.deletarFilme(2583, token);
-    cy.deletarFilme(2584, token);
-    cy.deletarFilme(2585, token);
-    cy.deletarFilme(2586, token);
-    cy.deletarFilme(2587, token);
-    cy.deletarFilme(2588, token);
     cy.excluirUsuario(user.id, token);
 });
 
@@ -71,6 +59,12 @@ When("clicar no botão de pesquisa", function () {
     searchPage.clickButtonSearch();
 });
 
-Then("visualizarei o filme correspondente na tela", function () {
+When("informar parte do título na barra de busca", function () {
+    searchPage.typeSearch("Piratas do Caribe");
+});
 
-})
+
+
+Then("visualizarei o filme correspondente na tela", function () {});
+
+Then("visualizarei todos os filmes que contém o texto pesquisado", function () {});
