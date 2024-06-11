@@ -1,9 +1,11 @@
 export default class MoviePage {
     tituloFilme = '.movie-details-title'
     avaliacaoAudiencia = '.movie-score-info > :nth-child(1)'
-    quantidadeNotaAudiencia = '.movie-score-info > :nth-child(1) > :nth-child(3)'
-    quantidadeNotaCritico = '.movie-score-info > :nth-child(2) > :nth-child(3)'
+    quantidadeAvaliacaoAudiencia = '.movie-score-info > :nth-child(1) > :nth-child(3)'
+    quantidadeAvaliacaoCritico = '.movie-score-info > :nth-child(2) > :nth-child(3)'
     avaliacaoCritica = '.movie-score-info > :nth-child(2)'
+    mediaAudiencia = '.movie-score-info > :nth-child(1) > div > .filled'
+    mediaCritica = '.movie-score-info > :nth-child(2) > div > .filled'
     descricaoFilme = '.movie-detail-description'
     anoFilme = ':nth-child(4) > span'
     duracaoFilme = ':nth-child(5) > span'
@@ -25,10 +27,9 @@ export default class MoviePage {
     avaliacaoUsuario1 = ':nth-child(1) > p'
     avaliacaoUsuario2 = '.user-reviews-container > :nth-child(2) > p'
     avaliacaoUsuario3 = ':nth-child(3) > p'
-    notaUsuario1 = ':nth-child(1) > .user-review-info > .user-reviecard-info > .star-container-reviewcard > :nth-child(1)'
-    notaUsuario2 = ':nth-child(2) > .user-review-info > .user-reviecard-info > .star-container-reviewcard'
-    notaUsuario3 = ':nth-child(3) > .user-review-info > .user-reviecard-info > .star-container-reviewcard'
-    notas = 'star-container-reviewcard'
-    starFilled = 'filled'
+    notaUsuario1 = '.user-reviews-container > :nth-child(1) > .user-review-info > .user-reviecard-info > .star-container-reviewcard > .filled'
+    notaUsuario2 = '.user-reviews-container > :nth-child(2) > .user-review-info > .user-reviecard-info > .star-container-reviewcard > .filled'
+    
+
 
 }
