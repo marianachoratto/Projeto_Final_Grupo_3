@@ -254,5 +254,3 @@ Then("a review não é adicionada à lista de reviews", function () {
 
   cy.get(moviePage.textoNovaAvaliacao).should("be.enabled");
 });
-
-before(function () {});
