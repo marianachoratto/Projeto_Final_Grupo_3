@@ -9,7 +9,7 @@ const movieUpdate =
     releaseYear: 2015
 } 
 
-describe("Permissão para atualizar filmes", () => {
+describe("Testes de permissão para atualizar filmes", () => {
     let user
     let user1
     let token
@@ -116,6 +116,173 @@ describe("Permissão para atualizar filmes", () => {
     });
 });
 
+describe("Testes de atualização de filme", () => {
+    let user
+    let token
+    let movie
+
+    before(() => {
+        cy.cadastrarUsuario().then((response) => {
+            user = response;
+            cy.criarFilmeAdm(user.email, user.password).then((response) =>{
+                movie = response;
+                token = response.token;
+            });
+        }); 
+    });
+
+    after(() => {
+        cy.deletarFilme(movie.id, token);
+        cy.excluirUsuario(user.id, token);
+    });
+
+    describe("Atualizações permitidas", () => {
+        
+        it('Deve ser possível atualizar apenas o título, informando 1 caractere', () => {      
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.request({
+                    method: "PUT",
+                    url: "/api/movies/" + movie.id,
+                    body: { 
+                    title: "X"
+                    },
+                    auth: {
+                        bearer: token,
+                    },
+                }).then((response) => {
+                    expect(response.status).to.equal(204);
+                    cy.procurarPeloId(movie.id).then((response) => {
+                        expect(response.body.title).to.equal("X");
+                    });
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas o título, informando 100 caracteres', () => {      
+            const title100 = faker.string.alpha(100);
+
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.request({
+                    method: "PUT",
+                    url: "/api/movies/" + movie.id,
+                    body: { 
+                    title: title100
+                    },
+                    auth: {
+                        bearer: token,
+                    },
+                }).then((response) => {
+                    expect(response.status).to.equal(204);
+                    cy.procurarPeloId(movie.id).then((response) => {
+                        expect(response.body.title).to.equal(title100);
+                    });
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas o gênero, informando 1 caractere', () => {      
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.request({
+                    method: "PUT",
+                    url: "/api/movies/" + movie.id,
+                    body: { 
+                    genre: "Y"
+                    },
+                    auth: {
+                        bearer: token,
+                    },
+                }).then((response) => {
+                    expect(response.status).to.equal(204);
+                    cy.procurarPeloId(movie.id).then((response) => {
+                        expect(response.body.genre).to.equal("Y");
+                    });
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas o gênero, informando 100 caracteres', () => {      
+            const genre100 = faker.string.alpha(100);
+            
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.request({
+                    method: "PUT",
+                    url: "/api/movies/" + movie.id,
+                    body: { 
+                    genre: genre100
+                    },
+                    auth: {
+                        bearer: token,
+                    },
+                }).then((response) => {
+                    expect(response.status).to.equal(204);
+                    cy.procurarPeloId(movie.id).then((response) => {
+                        expect(response.body.genre).to.equal(genre100);
+                    });
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas a descrição, informando 1 caractere', () => {      
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.request({
+                    method: "PUT",
+                    url: "/api/movies/" + movie.id,
+                    body: { 
+                    description: "Z"
+                    },
+                    auth: {
+                        bearer: token,
+                    },
+                }).then((response) => {
+                    expect(response.status).to.equal(204);
+                    cy.procurarPeloId(movie.id).then((response) => {
+                        expect(response.body.description).to.equal("Z");
+                    });
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas a descrição, informando 500 caracteres', () => {      
+            const description500 = faker.string.alpha(500);
+
+            cy.loginValido(user.email, user.password).then((response) => {
+                token = response.body.accessToken;
+                cy.promoverAdmin(token);
+                cy.request({
+                    method: "PUT",
+                    url: "/api/movies/" + movie.id,
+                    body: { 
+                    description: description500
+                    },
+                    auth: {
+                        bearer: token,
+                    },
+                }).then((response) => {
+                    expect(response.status).to.equal(204);
+                    cy.procurarPeloId(movie.id).then((response) => {
+                        expect(response.body.description).to.equal(description500);
+                    });
+                });
+            });
+        });
+
+
+    });
+
+    
+});
+
+
 
 // Usuário deslogado não tem autorização para atualizar filme
 // Usuário comum não tem autorização para atualizar filme
@@ -123,9 +290,9 @@ describe("Permissão para atualizar filmes", () => {
 // Usuário administrador tem autorização para atualizar filme
 
 // Deve ser possível atualizar apenas o título, informando 1 caractere
-// Deve ser possível atualizar apenas o título, informando até 100 caracteres
+// Deve ser possível atualizar apenas o título, informando 100 caracteres
 // Deve ser possível atualizar apenas o gênero, informando 1 caractere
-// Deve ser possível atualizar apenas o gênero, informando até 100 caracteres
+// Deve ser possível atualizar apenas o gênero, informando 100 caracteres
 // Deve ser possível atualizar apenas a descrição, informando 1 caractere
 // Deve ser possível atualizar apenas a descrição, informando até 500 caracteres
 // Deve ser possível atualizar apenas o ano de lançamento, informando ano a partir de 1895
