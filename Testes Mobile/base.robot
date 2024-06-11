@@ -17,3 +17,6 @@ Resource     android/page/gerenciarContaPage.robot
 Resource     android/page/listagemDeFilmesPage.robot
 Resource     android/page/loginPage.robot
 Resource     android/page/pesquisaDeFilmePage.robot
+Resource     android/page/paginaCadastroeLogin.robot
+Resource     android/page/paginaFilme.robot
+Resource     android/page/paginaPrincipal.robot
