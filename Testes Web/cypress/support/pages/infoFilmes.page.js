@@ -47,6 +47,7 @@ export default class MoviePage {
   estrelasDadas = ".filled";
   divTextoDaReview = ".user-review-card > p";
 
+  
   escrevendoAvaliacao(texto, numEstrelas) {
     cy.get(this.textoNovaAvaliacao).type(texto);
     cy.get(this.estrelasDoComentário).eq(numEstrelas).click();
