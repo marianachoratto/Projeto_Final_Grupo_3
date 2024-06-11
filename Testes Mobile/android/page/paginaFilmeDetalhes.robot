@@ -3,5 +3,4 @@
 Resource    ../../base.robot
 
 *** Variables ***
-
-*** Keywords ***
+# COLOQUE TODOS OS XPATHS DA PÁGINA AQUI
