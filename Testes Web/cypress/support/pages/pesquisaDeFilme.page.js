@@ -9,6 +9,7 @@ export default class SearchPage {
     movieList = '.carousel-data';
     movieCard = '.movie-card';
     moviePoster = '.movie-poster';
+    movieScore = '.good';
     movieTitle = 'h3.movie-title';
     movieDescription = 'p';
     avisoListaVazia = '.main'
@@ -25,16 +26,21 @@ export default class SearchPage {
         return cy.get(this.moviePoster).eq(posição).should("be.visible");
     }
 
-    getMovieTitle(posição, text) {
-        return cy.get(this.movieTitle).eq(posição).should("contain", text);
+    getMovieScore(posição, nota) {
+        return cy.get(this.movieScore).eq(posição).should("contain", nota);
     }
 
-    getMovieDescription(posição, text) {
-        return cy.get(this.movieDescription).eq(posição).should("contain", text);
+    getMovieTitle(posição, titulo) {
+        return cy.get(this.movieTitle).eq(posição).should("contain", titulo);
     }
 
-    verificarMovieCard(posição, titulo, descricao) {
+    getMovieDescription(posição, descricao) {
+        return cy.get(this.movieDescription).eq(posição).should("contain", descricao);
+    }
+
+    verificarMovieCard(posição, nota, titulo, descricao) {
         this.getMoviePoster(posição);
+        this.getMovieScore(posição, nota);
         this.getMovieTitle(posição, titulo);
         this.getMovieDescription(posição, descricao);
     }
