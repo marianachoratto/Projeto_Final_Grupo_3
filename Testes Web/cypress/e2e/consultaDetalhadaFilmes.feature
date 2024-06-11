@@ -3,52 +3,82 @@
 Funcionalidade: Consulta de informações detalhadas de filmes
 
 
-@validação @limparValidação
+@reviewsUsuariosComuns
 Cenário: Visualizando filme com usuário deslogado
     Dado que acesso filme estando deslogado
-    Quando quando visualizo a pagina do filme
+    Quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
-    E tenho uma opção de realizar login para avaliar filme
-    E as reviews publicadas estão visíveis
+    
+Cenário: Visualizando opção para realizar review com usuário deslogado
+    Dado que acesso filme estando deslogado
+    Quando visualizo a pagina do filme
+    Então tenho uma opção de realizar login para avaliar filme
 
-@validação @limparValidação
+Cenário: Visualizando reviews publicadas com usuário deslogado
+    Dado que acesso filme estando deslogado
+    Quando visualizo a pagina do filme
+    Então as reviews publicadas estão visíveis
+
 Cenário: Visualizando filme com usuário comum
     Dado que acesso filme com usuário comum
-    Quando quando visualizo a pagina do filme
+    Quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
-    E consigo ver uma opção para avaliar o filme
-    E as reviews publicadas estão visíveis
 
-@validação @limparValidação
+Cenário: Visualizando opção para realizar review com usuário comum
+    Dado que acesso filme com usuário comum
+    Quando visualizo a pagina do filme
+    Então consigo ver uma opção para avaliar o filme
+
+Cenário: Visualizando reviews publicadas com usuário comum
+    Dado que acesso filme com usuário comum
+    Quando visualizo a pagina do filme
+    Então as reviews publicadas estão visíveis
+
 Cenário: Visualizando filme com usuário crítico
     Dado que acesso filme com usuário crítico
-    Quando quando visualizo a pagina do filme
-    Então consigo ver os detalhes do filme
-    E consigo ver uma opção para avaliar o filme
-    E as reviews publicadas estão visíveis
+    Quando visualizo a pagina do filme
+    Então consigo ver os detalhes do filme  
 
-@validação @limparValidação
+Cenário: Visualizando opção para realizar review com usuário crítico
+    Dado que acesso filme com usuário crítico
+    Quando visualizo a pagina do filme
+    Então consigo ver uma opção para avaliar o filme
+
+Cenário: Visualizando reviews publicadas com usuário crítico
+    Dado que acesso filme com usuário crítico
+    Quando visualizo a pagina do filme
+    Então as reviews publicadas estão visíveis
+
 Cenário: Visualizando filme com usuário admin
     Dado que acesso filme com usuário admin
-    Quando quando visualizo a pagina do filme
+    Quando visualizo a pagina do filme
     Então consigo ver os detalhes do filme
-    E consigo ver uma opção para avaliar o filme
-    E as reviews publicadas estão visíveis
+    
+Cenário: Visualizando opção para realizar review com usuário admin
+    Dado que acesso filme com usuário admin
+    Quando visualizo a pagina do filme
+    Então consigo ver uma opção para avaliar o filme
 
-@reviewsComum @deleteAll
-Cenário: Validando reviews comum
+@deleteAll
+Cenário: Visualizando reviews publicadas com usuário admin
+    Dado que acesso filme com usuário admin
+    Quando visualizo a pagina do filme
+    Então as reviews publicadas estão visíveis
+
+@reviewsUsuariosComuns @deleteAll
+Cenário: Validando reviews de usuários comuns
     Dado que acesso um filme
     Quando visualizo as avaliações
     Então as avaliações comuns correspondem a média de avaliações dos usuários comuns
 
-@reviewsCritico @deleteAll
-Cenário: Validando reviews críticos
+@reviewsUsuariosCriticos @deleteAll
+Cenário: Validando reviews  de usuários críticos
     Dado que acesso um filme
     Quando visualizo as avaliações
     Então as avaliações da crítica correspondem a média de avaliações dos usuários críticos
 
-@reviewsAdmin @deleteAll
-Cenário: Validando reviews admins
+@reviewsUsuariosAdmins @deleteAll
+Cenário: Validando reviews de usuários admins
     Dado que acesso um filme
     Quando visualizo as avaliações
     Então as avaliações dos admins não são contabilizados nas avaliações    
