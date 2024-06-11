@@ -43,6 +43,14 @@
         "totalRating": 2,
         "durationInMinutes": 120,
         "releaseYear": 2000
+    },
+    {
+        "id": 42,
+        "title": "Percy Jackson",
+        "genre": "Animação",
+        "description": "Percy Jackson (Logan Lerman) é um jovem que enfrenta problemas na escola, devido ao que acredita ser dislexia e déficit de atenção.",
+        "totalRating": 2,
+        "durationInMinutes": 122,
+        "releaseYear": 2010
     }
-   
 ]
