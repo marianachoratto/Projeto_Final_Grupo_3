@@ -133,20 +133,20 @@ Cypress.Commands.add("reviewMovie1", (token, movieId) => {
       score: 2,
       reviewText: "Filme muito bom. Vale a pena o ingresso!",
     },
-  });
+  })
+})
 
-  Cypress.Commands.add("reviewMovie2", (token, movieId) => {
-    cy.request({
-      method: "POST",
-      url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-      body: {
-        movieId: movieId,
-        score: 4,
-        reviewText: "Filme bem maneiro!",
-      },
-    })
+Cypress.Commands.add("reviewMovie2", (token, movieId) => {
+  cy.request({
+    method: "POST",
+    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    body: {
+      movieId: movieId,
+      score: 4,
+      reviewText: "Filme bem maneiro!",
+    },
   })
 })

@@ -4,7 +4,7 @@ let token, token1, token2
 let email, email1, email2, password
 let userid, userid1, userid2
 describe('Consultado informações detalhadas de filmes', () => {
-    beforeEach(() => {
+    before(() => {
         cy.cadastrarUsuario().then((resposta) => {
             userid = resposta.id;
             name = resposta.nome;
@@ -46,7 +46,7 @@ describe('Consultado informações detalhadas de filmes', () => {
             })
         })
     })
-    afterEach(() => {
+    after(() => {
         cy.loginValido(email, password).then((resposta) => {
             token = resposta.body.accessToken
             cy.promoverAdmin(token)
@@ -58,11 +58,6 @@ describe('Consultado informações detalhadas de filmes', () => {
 
     })
     it('É possível consultar detalhes de um filme com usuário deslogado', () => {
-        cy.cadastrarUsuario().then((resposta) => {
-            userid = resposta.id
-            email = resposta.email;
-            password = resposta.password;
-        })
         cy.request({
             method: "GET",
             url: 'api/movies/' + movieId
@@ -107,16 +102,7 @@ describe('Consultado informações detalhadas de filmes', () => {
         });
     })
     it('É possível consultar detalhes de um filme com usuário crítico', () => {
-        cy.cadastrarUsuario().then((resposta) => {
-            userid = resposta.id
-            email = resposta.email;
-            password = resposta.password;
-            cy.loginValido(email, password).then((resposta) => {
-                token = resposta.body.accessToken
-                cy.promoverCritico(token)
-            })
-        })
-
+        cy.promoverCritico(token)
         cy.request({
             method: "GET",
             url: 'api/movies/' + movieId,
@@ -136,16 +122,7 @@ describe('Consultado informações detalhadas de filmes', () => {
         });
     })
     it('É possível consultar detalhes de um filme com usuário admin', () => {
-        cy.cadastrarUsuario().then((resposta) => {
-            userid = resposta.id
-            email = resposta.email;
-            password = resposta.password;
-            cy.loginValido(email, password).then((resposta) => {
-                token = resposta.body.accessToken
-                cy.promoverAdmin(token)
-            })
-        })
-
+        cy.promoverAdmin(token)
         cy.request({
             method: "GET",
             url: 'api/movies/' + movieId,
@@ -165,11 +142,6 @@ describe('Consultado informações detalhadas de filmes', () => {
         });
     })
     it('Retorna todas as reviews de um filme ao realizar consulta', () => {
-        cy.cadastrarUsuario().then((resposta) => {
-            userid = resposta.id
-            email = resposta.email;
-            password = resposta.password;
-        })
         cy.request({
             method: "GET",
             url: 'api/movies/' + movieId
@@ -179,12 +151,7 @@ describe('Consultado informações detalhadas de filmes', () => {
             expect(response.body.reviews.length).to.eq(2)
         });
     })
-    it('É possível vizualizar todas as reviews de um filme', () => {
-        cy.cadastrarUsuario().then((resposta) => {
-            userid = resposta.id
-            email = resposta.email;
-            password = resposta.password;
-        })
+    it('É possível visualizar todas as reviews de um filme', () => {
         cy.request({
             method: "GET",
             url: 'api/movies/' + movieId
@@ -196,6 +163,7 @@ describe('Consultado informações detalhadas de filmes', () => {
             expect(response.body.reviews[0].reviewText).to.eq("Filme muito bom. Vale a pena o ingresso!")
             expect(response.body.reviews[0].reviewType).to.eq(0)
             expect(response.body.reviews[0].score).to.eq(2)
+            expect(response.body.reviews[0]).to.have.property('updatedAt');
 
             expect(response.status).to.eq(200)
             expect(response.body.reviews[1].user.name).to.eq(name2)
@@ -204,16 +172,11 @@ describe('Consultado informações detalhadas de filmes', () => {
             expect(response.body.reviews[1].reviewText).to.eq("Filme bem maneiro!")
             expect(response.body.reviews[1].reviewType).to.eq(0)
             expect(response.body.reviews[1].score).to.eq(4)
-
+            expect(response.body.reviews[1]).to.have.property('updatedAt');
         });
     })
     it('O score da audiência é a média das reviews de usuários comuns', () => {
         let score1, score2
-        cy.cadastrarUsuario().then((resposta) => {
-            userid = resposta.id
-            email = resposta.email;
-            password = resposta.password;
-        })
         cy.request({
             method: "GET",
             url: 'api/movies/' + movieId
