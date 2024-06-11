@@ -11,4 +11,15 @@ Test Teardown    Teardown
 
 # T02- O usuário logado pode consultar filmes
 
-# T03- Testes sobre avaliação de filme....
+# T03- É possível consultar detalhes de um filme com usuário crítico
+
+# T04- É possível consutlar detalhes de um filme como usuário administrador
+
+# T05- Ao dar refresh em filmes é retornada uma lista com todos os filmes
+
+# T06- O score da audiência é a média das reviews de usuários comuns
+
+# T07- O score da crítica é a média das reviews de usuários críticos
+
+# # Bug:
+# T08- Avaliações de administradores não devem impactar na média das reviews dos usuários comuns 
