@@ -29,7 +29,14 @@ export default class MoviePage {
     avaliacaoUsuario3 = ':nth-child(3) > p'
     notaUsuario1 = '.user-reviews-container > :nth-child(1) > .user-review-info > .user-reviecard-info > .star-container-reviewcard > .filled'
     notaUsuario2 = '.user-reviews-container > :nth-child(2) > .user-review-info > .user-reviecard-info > .star-container-reviewcard > .filled'
-    
 
 
+    verificarDadosFilme(movieTitle, movieDescription, movieGenre, movieYear, movieDuration) {
+        cy.get(this.tituloFilme).should('be.visible').should('have.text', movieTitle)
+        cy.get(this.descricaoFilme).should('be.visible').should('have.text', movieDescription)
+        cy.get(this.generoFilme).should('be.visible').should('have.text', movieGenre)
+        cy.get(this.anoFilme).should('be.visible').should('have.text', movieYear)
+        cy.get(this.duracaoFilme).should('be.visible').should('have.text', movieDuration)
+        cy.get(this.capaFilme).should('be.visible')
+    }
 }

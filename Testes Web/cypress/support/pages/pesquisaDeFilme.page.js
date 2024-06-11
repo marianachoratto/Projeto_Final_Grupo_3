@@ -22,6 +22,14 @@ export default class SearchPage {
         cy.get(this.buttonSearch).click();
     }
 
+    clickButtonLogin() {
+        cy.get(this.buttonLogin).click();
+    }
+
+    clickMovieCard(posição) {
+        cy.get(this.movieCard).eq(posição).click();
+    }
+
     getMoviePoster(posição) {
         return cy.get(this.moviePoster).eq(posição).should("be.visible");
     }
