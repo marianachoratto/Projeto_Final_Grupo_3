@@ -84,6 +84,7 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
       });
   });
 });
+
 Cypress.Commands.add("reviewMovie1", (token, movieId) => {
   cy.request({
     method: "POST",
@@ -114,3 +115,34 @@ Cypress.Commands.add("reviewMovie2", (token, movieId) => {
   })
 })
 
+Cypress.Commands.add("newMovie", (movieBody, token) => {
+  cy.request({
+    method: "POST",
+    url: apiUrl + "/api/movies",
+    body: {
+      title: movieBody.title,
+      genre: movieBody.genre,
+      description: movieBody.description,
+      durationInMinutes: movieBody.durationInMinutes,
+      releaseYear: movieBody.releaseYear,
+    },
+    auth: {
+      bearer: token,
+    },
+  });
+});
+
+Cypress.Commands.add("criarReviewNota5",(tokenid, filmeid)=>{
+  cy.request({
+        method: "POST",
+        url: apiUrl + "/api/users/review",
+        auth: {
+            bearer: tokenid,
+        },
+        body:{
+            "movieId": filmeid,
+            "score": 5,
+            "reviewText": "Absolut Cinema",
+        }
+    });
+});

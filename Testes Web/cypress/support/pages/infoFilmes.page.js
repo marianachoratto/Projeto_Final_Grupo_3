@@ -47,9 +47,20 @@ export default class MoviePage {
   estrelasDadas = ".filled";
   divTextoDaReview = ".user-review-card > p";
 
+  
   escrevendoAvaliacao(texto, numEstrelas) {
     cy.get(this.textoNovaAvaliacao).type(texto);
     cy.get(this.estrelasDoComentário).eq(numEstrelas).click();
     cy.get(this.botaoEnviarAvaliacao).click();
   }
+
+  verificarDadosFilme(movieTitle, movieDescription, movieGenre, movieYear, movieDuration) {
+    cy.get(this.tituloFilme).should('be.visible').should('have.text', movieTitle)
+    cy.get(this.descricaoFilme).should('be.visible').should('have.text', movieDescription)
+    cy.get(this.generoFilme).should('be.visible').should('have.text', movieGenre)
+    cy.get(this.anoFilme).should('be.visible').should('have.text', movieYear)
+    cy.get(this.duracaoFilme).should('be.visible').should('have.text', movieDuration)
+    cy.get(this.capaFilme).should('be.visible')
+}
+
 }
