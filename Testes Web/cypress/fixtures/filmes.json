@@ -1,0 +1,48 @@
+[
+    {
+        "id": 23,
+        "title": "Jonathan o retorno",
+        "genre": "Terror",
+        "description": "damno in bos cultura depereo cultellus viriliter adfectus cruentus audio confero",
+        "totalRating": 3,
+        "durationInMinutes": 120,
+        "releaseYear": 2000
+    },
+    {
+        "id": 27,
+        "title": "Preston o retorno",
+        "genre": "Terror",
+        "description": "adicio ratione vobis beatae adversus defendo ab",
+        "totalRating": 2,
+        "durationInMinutes": 120,
+        "releaseYear": 2000
+    },
+    {
+        "id": 28,
+        "title": "Vada o retorno",
+        "genre": "Terror",
+        "description": "strues acies arcus vaco ea architecto tempora basium",
+        "totalRating": 4,
+        "durationInMinutes": 120,
+        "releaseYear": 2000
+    },
+    {
+        "id": 29,
+        "title": "Ardith o retorno",
+        "genre": "Terror",
+        "description": "beatae supra subseco eius ducimus venia temperantia sono",
+        "totalRating": 5,
+        "durationInMinutes": 120,
+        "releaseYear": 2000
+    },
+    {
+        "id": 30,
+        "title": "Luz o retorno",
+        "genre": "Terror",
+        "description": "alias cura cursim sortitus censura timor communis depopulo tertius depromo nostrum quia",
+        "totalRating": 2,
+        "durationInMinutes": 120,
+        "releaseYear": 2000
+    }
+   
+]

@@ -13,6 +13,7 @@ export default class listagemDeFilmes {
     carouselDDireita ='.featured-movies > .carousel-container > :nth-child(3)';
     headerFilmesEmDestaque = '.featured-movies > .section-header > h3';
     headerFilmesBemAvaliados = '.top-rated-movies > .section-header > h3';
+    msgErro = 'p';
 
     getLogo (){
         return cy.get(this.linkLogin).should('be.visible').click({ multiple: true });
@@ -56,5 +57,31 @@ export default class listagemDeFilmes {
     getDdireita (){
         return cy.get(this.carouselDDireita).should('be.visible')
     };
-    
+    getDesquerda1 (){
+        return cy.get(this.carouselDEsquerda).should('be.visible').should('be.enabled').click();
+    };
+    getDdireita1 (){
+        return cy.get(this.carouselDDireita).should('be.visible').should('be.enabled').click();
+    };
+    getDesquerda2 (){
+        return cy.get(this.carouselDEsquerda).should('be.visible').should('not.be.enabled');
+    };
+    getDdireita2 (){
+        return cy.get(this.carouselDDireita).should('be.visible').should('not.be.enabled');
+    };
+    getBAesquerda1 (){
+        return cy.get(this.carouselBAsetaEsquerda).should('be.visible').should('be.enabled').click();
+    };
+    getBAdireita1 (){
+        return cy.get(this.carouselBAsetaDireita).should('be.visible').should('be.enabled').click();
+    };
+    getBAesquerda2 (){
+        return cy.get(this.carouselBAsetaEsquerda).should('be.visible').should('be.visible').should('not.be.enabled');
+    };
+    getBAdireita2 (){
+        return cy.get(this.carouselBAsetaDireita).should('be.visible').should('be.visible').should('not.be.enabled');
+    };
+    getMsgerro (){
+        return cy.get(this.msgErro).should('be.visible').should('have.text','Ops! Parece que ainda não temos nenhum filme.')
+    }
 }

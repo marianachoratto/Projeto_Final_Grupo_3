@@ -63,19 +63,41 @@ After({ tags: "@deleteUser" }, () => {
     });
 });
 
-When('que existem mais de seis filmes cadastrados', () =>{
+When('existem mais de 4 filmes cadastrados', () =>{
     cy.intercept('GET','https://raromdb-3c39614e42d4.herokuapp.com/api/movies',{
-        statusCode:200,
-        body: [
-            {
-                "id": 23,
-                "title": "Jonathan o retorno",
-                "genre": "Terror",
-                "description": "damno in bos cultura depereo cultellus viriliter adfectus cruentus audio confero",
-                "totalRating": 3,
-                "durationInMinutes": 120,
-                "releaseYear": 2000
-            }]
-    })
+       fixture: "filmes.json",
+    }).as("listaFilmes");
+    cy.intercept('GET','https://raromdb-3c39614e42d4.herokuapp.com/api/movies?sort=true',{
+        fixture: "filmes.json",
+    }).as("lista_Filmes")
+});
 
+Then('é possivel passar os carrosseis para os lados', ()=>{
+    pageLista.getDesquerda2();
+    pageLista.getDdireita1();
+    pageLista.getDdireita2();
+    pageLista.getDesquerda1();
+    pageLista.getBAesquerda2();
+    pageLista.getBAdireita1();
+    pageLista.getBAdireita2();
+    pageLista.getBAesquerda1();
+});
+
+Then('a lista dos mais bem avaliados deve estar em ordem do maior para o menor', ()=>{
+
+});
+
+Before({tags: "@loginApi"}, ()=>{
+    cy.criarFilmeAdm(email, password);
+})
+
+When('nao esxitem filmes na lista de filmes',()=>{
+    cy.intercept('GET','https://raromdb-3c39614e42d4.herokuapp.com/api/movies',{
+        fixture: "listaVazia.json",
+     }).as("listaVazia");
+})
+
+Then('uma mensagem deve avisar ao usuario', ()=>{
+    cy.wait('@listaVazia')
+    pageLista.getMsgerro();
 })
