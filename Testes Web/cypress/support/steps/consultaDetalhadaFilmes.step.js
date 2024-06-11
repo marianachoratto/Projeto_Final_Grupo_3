@@ -10,12 +10,11 @@ const loginPage = new LoginPage();
 
 
 let movieId
-let name, name1, name2
+let name1, name2
 let token, token1, token2
 let email, email1, email2
 let userid, userid1, userid2
 let password
-let type
 Before({ tags: '@reviewsUsuariosComuns' }, () => {
     cy.cadastrarUsuario().then((resposta) => {
         userid = resposta.id;
@@ -284,16 +283,20 @@ Then('as reviews publicadas estão visíveis', () => {
 })
 
 Then('as avaliações comuns correspondem a média de avaliações dos usuários comuns', () => {
-    cy.get(pageMovie.quantidadeNotaAudiencia).should('have.text', "2 avaliações")
+    cy.get(pageMovie.quantidadeAvaliacaoAudiencia).should('have.text', "2 avaliações")
+    cy.get(pageMovie.mediaAudiencia).its('length').should('eq', 3);
 })
 
 Then('as avaliações da crítica correspondem a média de avaliações dos usuários críticos', () => {
-    cy.get(pageMovie.quantidadeNotaCritico).should('have.text', "2 avaliações")
+    cy.get(pageMovie.quantidadeAvaliacaoCritico).should('have.text', "2 avaliações")
+    cy.get(pageMovie.mediaCritica).its('length').should('eq', 3);
 })
 
 Then('as avaliações dos admins não são contabilizados nas avaliações', () => {
-    cy.get(pageMovie.quantidadeNotaAudiencia).should('have.text', "Nenhuma avaliação")
-    cy.get(pageMovie.quantidadeNotaCritico).should('have.text', "Nenhuma avaliação")
+    cy.get(pageMovie.quantidadeAvaliacaoAudiencia).should('have.text', "Nenhuma avaliação")
+    cy.get(pageMovie.quantidadeAvaliacaoCritico).should('have.text', "Nenhuma avaliação")
+    cy.get(pageMovie.mediaCritica).its('length').should('eq', 0);
+    cy.get(pageMovie.mediaAudiencia).its('length').should('eq', 0);
 })
 
 

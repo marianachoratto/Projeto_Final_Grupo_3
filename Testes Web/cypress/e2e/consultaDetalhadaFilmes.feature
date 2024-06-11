@@ -63,22 +63,22 @@ Cenário: Visualizando opção para realizar review com usuário admin
 Cenário: Visualizando reviews publicadas com usuário admin
     Dado que acesso filme com usuário admin
     Quando visualizo a pagina do filme
-    E as reviews publicadas estão visíveis
+    Então as reviews publicadas estão visíveis
 
-# @reviewsUsuariosComuns @deleteAll
-# Cenário: Validando reviews de usuários comuns
-#     Dado que acesso um filme
-#     Quando visualizo as avaliações
-#     Então as avaliações comuns correspondem a média de avaliações dos usuários comuns
+@reviewsUsuariosComuns @deleteAll
+Cenário: Validando reviews de usuários comuns
+    Dado que acesso um filme
+    Quando visualizo as avaliações
+    Então as avaliações comuns correspondem a média de avaliações dos usuários comuns
 
-# @reviewsUsuariosCriticos @deleteAll
-# Cenário: Validando reviews  de usuários críticos
-#     Dado que acesso um filme
-#     Quando visualizo as avaliações
-#     Então as avaliações da crítica correspondem a média de avaliações dos usuários críticos
+@reviewsUsuariosCriticos @deleteAll
+Cenário: Validando reviews  de usuários críticos
+    Dado que acesso um filme
+    Quando visualizo as avaliações
+    Então as avaliações da crítica correspondem a média de avaliações dos usuários críticos
 
-# @reviewsUsuariosAdmins @deleteAll
-# Cenário: Validando reviews de usuários admins
-#     Dado que acesso um filme
-#     Quando visualizo as avaliações
-#     Então as avaliações dos admins não são contabilizados nas avaliações    
+@reviewsUsuariosAdmins @deleteAll
+Cenário: Validando reviews de usuários admins
+    Dado que acesso um filme
+    Quando visualizo as avaliações
+    Então as avaliações dos admins não são contabilizados nas avaliações    
