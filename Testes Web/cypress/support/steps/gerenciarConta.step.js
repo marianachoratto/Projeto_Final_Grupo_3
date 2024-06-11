@@ -176,13 +176,10 @@ Then("deve estar desabilitada a edição no campo Tipo de usuário", function ()
   accountPage.getTipoUsuario().should("be.disabled");
 });
 
-Then(
-  "devem estar desabilitados para a edição o campo Senha e Confirmar Senha",
-  function () {
-    accountPage.getSenha().should("be.disabled");
-    accountPage.getConfirmarSenha().should("be.disabled");
-  }
-);
+Then("devem estar desabilitados para a edição o campo Senha e Confirmar Senha", function () {
+  accountPage.getSenha().should("be.disabled");
+  accountPage.getConfirmarSenha().should("be.disabled");
+});
 
 Then("a alteração é cancelada", function () {
   accountPage.getSenha().should("be.disabled");

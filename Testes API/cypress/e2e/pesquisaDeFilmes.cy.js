@@ -14,7 +14,6 @@ describe("Acesso a pesquisa de filmes", () => {
                 cy.excluirUsuario(user.id, token);
             });
         });      
-
         cy.cadastrarUsuario().then((response) => {
             user = response;
         });
