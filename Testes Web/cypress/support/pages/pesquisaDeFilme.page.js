@@ -11,6 +11,7 @@ export default class SearchPage {
     moviePoster = '.movie-poster';
     movieTitle = 'h3.movie-title';
     movieDescription = 'p';
+    avisoListaVazia = '.main'
 
     typeSearch(texto) {
         cy.get(this.inputSearch).type(texto);
@@ -19,10 +20,6 @@ export default class SearchPage {
     clickButtonSearch() {
         cy.get(this.buttonSearch).click();
     }
-
-    // getMovieCard(posição, text) {
-    //     return cy.get(this.movieCard).eq(posição).should("contain", text);
-    // }
 
     getMoviePoster(posição) {
         return cy.get(this.moviePoster).eq(posição).should("be.visible");
@@ -40,6 +37,10 @@ export default class SearchPage {
         this.getMoviePoster(posição);
         this.getMovieTitle(posição, titulo);
         this.getMovieDescription(posição, descricao);
+    }
+
+    getListaVazia(text) {
+        return cy.get(this.avisoListaVazia).should("contain", text);
     }
 
 
