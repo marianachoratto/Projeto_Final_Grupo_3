@@ -9,14 +9,14 @@ import { faker } from "@faker-js/faker";
 import SearchPage from "../pages/pesquisaDeFilme.page";
 import MoviePage from "../pages/infoFilmes.page";
 import LoginPage from "../pages/login.page";
-  
+
 const searchPage = new SearchPage();
 const moviePage = new MoviePage();
 const loginPage = new LoginPage();
 
 let user
-let user1
 let token
+let user1
 let token1
 let movie1
 let movie2
@@ -93,7 +93,6 @@ Given("que fiz login sendo um usuário crítico", function () {
         token1 = response.body.accessToken;
         cy.promoverCritico(token1);
     });
-
     searchPage.clickButtonLogin();
     loginPage.login(user1.email, user1.password);
 });
@@ -103,7 +102,6 @@ Given("que fiz login sendo um usuário administrador", function () {
         token1 = response.body.accessToken;
         cy.promoverAdmin(token1);
     });
-    
     searchPage.clickButtonLogin();
     loginPage.login(user1.email, user1.password);
 });
