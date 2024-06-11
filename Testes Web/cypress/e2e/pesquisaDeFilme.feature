@@ -2,7 +2,6 @@
 
 Funcionalidade: Pesquisa de filme
 
-@criarFilmes @deletarFilmes
 Esquema do Cenário: Deve ser possível encontrar filme informando o título completo, em letras maiúsculas ou minúsculas
     Dado que acessei a página inicial
     Quando informar o título completo '<título>' na barra de busca
@@ -10,11 +9,10 @@ Esquema do Cenário: Deve ser possível encontrar filme informando o título com
     Então visualizarei o filme correspondente na tela
     Exemplos:
     | título |
-    | Piratas do Caribe 2 - O Baú da Morte! |
-    | PIRATAS DO CARIBE 2 - O BAÚ DA MORTE! |
-    | piratas do caribe 2 - o baú da morte! |
+    | Piratas do Caribe 2 - O Bau da Morte! |
+    | PIRATAS DO CARIBE 2 - O BAU DA MORTE! |
+    | piratas do caribe 2 - o bau da morte! |
 
-@criarFilmes @deletarFilmes
 Cenário: Deve ser possível encontrar filme informando título parcial
     Dado que acessei a página inicial
     Quando informar parte do título na barra de busca
