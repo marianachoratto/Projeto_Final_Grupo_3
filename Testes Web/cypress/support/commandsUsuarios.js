@@ -90,7 +90,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
   return cy
     .request({
       method: "POST",
-      url: "/api/auth/login",
+      url: apiUrl + "/api/auth/login",
       body: {
         email: email,
         password: password,
@@ -110,7 +110,7 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
     .then(function () {
       cy.request({
         method: "DELETE",
-        url: `/api/users/${idNovoUsuario}`,
+        url: apiUrl + `/api/users/${idNovoUsuario}`,
         auth: {
           bearer: token,
         },

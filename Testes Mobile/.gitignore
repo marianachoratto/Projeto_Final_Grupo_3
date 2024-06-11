@@ -3,3 +3,5 @@ log.html
 output.xml
 report.html
 interactive_console_output.xml
+config-celular.robot 
+# config-celular.robot é o arquivo que fica as configurações específicas do celular/emulador de cada aluno

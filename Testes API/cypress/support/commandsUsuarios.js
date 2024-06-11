@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
 const apiUrl = "https://raromdb-3c39614e42d4.herokuapp.com";
-let email;
-let password = faker.internet.password(6);
+let email, email1, email2;
+let password = '123456';
 let idNovoUsuario;
-let nome;
-let token;
+let nome
+let token, token1, token2
 
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
@@ -149,3 +149,25 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
       });
     });
 });
+
+Cypress.Commands.add('criarDoisUsuarios', (email1, email2, password, userid1, userid2) => {
+  cy.cadastrarUsuario().then((resposta) => {
+    userid1 = resposta.id;
+    email1 = resposta.email;
+    password = resposta.password;
+    cy.cadastrarUsuario().then((resposta) => {
+      userid2 = resposta.id;
+      email2 = resposta.email;
+      password = resposta.password;
+    })
+  })
+})
+
+Cypress.Commands.add('loginDoisUsuarios', (email1, email2, password, token1, token2) => {
+  cy.loginValido(email1, password).then((resposta) => {
+    token1 = resposta.body.accessToken
+  })
+  cy.loginValido(email2, password).then((resposta) => {
+    token2 = resposta.body.accessToken
+  })
+})

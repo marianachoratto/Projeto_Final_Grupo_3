@@ -1,10 +1,13 @@
 *** Settings ***
 
 Library      AppiumLibrary
+Library      RequestsLibrary    
+Library      FakerLibrary
 
 #Utils
 Resource     android/utils/commons.robot
 Resource     android/utils/config.robot
+Resource     android/utils/templates.robot
 
 #Pages
 Resource     android/page/avaliacaoDeFilmePage.robot
