@@ -4,6 +4,8 @@ export default class MoviePage {
   quantidadeNotaAudiencia = ".movie-score-info > :nth-child(1) > :nth-child(3)";
   quantidadeNotaCritico = ".movie-score-info > :nth-child(2) > :nth-child(3)";
   avaliacaoCritica = ".movie-score-info > :nth-child(2)";
+  mediaAudiencia = ".movie-score-info > :nth-child(1) > div > .filled";
+  mediaCritica = ".movie-score-info > :nth-child(2) > div > .filled";
   descricaoFilme = ".movie-detail-description";
   anoFilme = ":nth-child(4) > span";
   duracaoFilme = ":nth-child(5) > span";
@@ -36,7 +38,6 @@ export default class MoviePage {
     ":nth-child(3) > .user-review-info > .user-reviecard-info > .star-container-reviewcard";
   notas = "star-container-reviewcard";
   starFilled = "filled";
-
   botaoLogin = '[href="/login"]';
   estrelasDoComentário = "span.review-form-star";
   // card de avaliação já feita
