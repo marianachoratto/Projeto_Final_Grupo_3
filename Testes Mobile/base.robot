@@ -1,6 +1,8 @@
 *** Settings ***
 
 Library      AppiumLibrary
+Library      RequestsLibrary    
+Library      FakerLibrary
 
 #Utils
 Resource     android/utils/commons.robot

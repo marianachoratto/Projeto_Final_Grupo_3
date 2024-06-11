@@ -7,5 +7,5 @@ Test Teardown    Teardown
 
 
 *** Test Cases ***
-Teste 01
+T01- O usuário pode ver informações sobre o filme ao clicá-lo
     Log To Console    oi
