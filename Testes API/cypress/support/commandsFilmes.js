@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
-let token
-
+let token;
 
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
@@ -121,6 +120,27 @@ Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
   cy.wrap(movieUpdate);
 });
 
+Cypress.Commands.add("criarReviewNota5", (tokenid, filmeid) => {
+  cy.request({
+    method: "POST",
+    url: "/api/users/review",
+    auth: {
+      bearer: tokenid,
+    },
+    body: {
+      movieId: filmeid,
+      score: 5,
+      reviewText: "Absolut Cinema",
+    },
+  });
+});
+
+Cypress.Commands.add("procurarPeloId", (filmeid) => {
+  cy.request({
+    method: "GET",
+    url: `/api/movies/${filmeid}`,
+  });
+});
 Cypress.Commands.add("reviewMovie1", (token, movieId) => {
   cy.request({
     method: "POST",
@@ -133,8 +153,8 @@ Cypress.Commands.add("reviewMovie1", (token, movieId) => {
       score: 2,
       reviewText: "Filme muito bom. Vale a pena o ingresso!",
     },
-  })
-})
+  });
+});
 
 Cypress.Commands.add("reviewMovie2", (token, movieId) => {
   cy.request({
@@ -148,5 +168,5 @@ Cypress.Commands.add("reviewMovie2", (token, movieId) => {
       score: 4,
       reviewText: "Filme bem maneiro!",
     },
-  })
-})
+  });
+});
