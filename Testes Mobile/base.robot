@@ -3,11 +3,13 @@
 Library      AppiumLibrary
 Library      RequestsLibrary    
 Library      FakerLibrary
+Library      Collections
 
 #Utils
 Resource     android/utils/commons.robot
 Resource     android/utils/config.robot
 Resource     android/utils/templates.robot
+Resource     android/utils/cadastrarUsuarioApi.robot
 
 #Pages
 Resource     android/page/avaliacaoDeFilmePage.robot
