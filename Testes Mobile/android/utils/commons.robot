@@ -16,6 +16,7 @@ Espera o elemento para clicar e checa se está habilitado
 
 Espera o elemento para fazer o inputtext
     [Arguments]    ${elemento}    ${texto}
+    Espera o elemento para clicar    ${elemento} 
     Wait Until Element Is Visible    ${elemento}
     Input Text                       ${elemento}    ${texto}
 
@@ -43,3 +44,25 @@ Checa se os elementos estão habilitados
     FOR    ${elemento}    IN    @{ELEMENTOS}
         Element Should Be Enabled    ${elemento}
     END
+
+Checa se os elementos estão visíveis e habilitados
+    [Arguments]    @{ELEMENTOS}
+    FOR    ${elemento}    IN    @{ELEMENTOS}
+        Element Should Be Visible    ${elemento}
+        Element Should Be Enabled    ${elemento}
+    END
+
+Espera o elemento e verifica o texto
+    [Arguments]    ${elemento}    ${texto}
+    Wait Until Page Contains Element    ${elemento}
+    Page Should Contain Text    ${texto}
+
+Espera e informa o valor dos inputs corretos no elemento de cadastro 
+    ${emailFaker}=    FakerLibrary.Email
+    ${nomeFaker}=     FakerLibrary.Name
+    ${senhaFaker}=    FakerLibrary.Password
+    Espera o elemento para fazer o inputtext    ${INPUT_NOME}               ${nomeFaker}    
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}              ${emailFaker}  
+    Espera o elemento para fazer o inputtext    ${INPUT_SENHA}              ${senhaFaker}    
+    Espera o elemento para fazer o inputtext    ${INPUT_CONFIRMAR_SENHA}    ${senhaFaker} 
+  
