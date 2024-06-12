@@ -1,42 +1,42 @@
 import { faker } from "@faker-js/faker";
 
 const movieUpdate = {
-    title: "Título Atualizado",
-    genre: "Gênero Atualizado",
-    description: "Descrição Atualizada",
-    durationInMinutes: 100,
-    releaseYear: 2015
-} 
+  title: "Título Atualizado",
+  genre: "Gênero Atualizado",
+  description: "Descrição Atualizada",
+  durationInMinutes: 100,
+  releaseYear: 2015
+}; 
 
-let user
-let token
-let movie
+let user;
+let token;
+let movie;
 
 describe("Testes de permissão para atualizar filmes", () => {
+  
+  before(() => {
+    cy.cadastrarUsuario().then((response) => {
+      const user1 = response;
+      cy.criarFilmeAdm(user1.email, user1.password).then((response) =>{
+        movie = response;
+        const token1 = response.token;
+        cy.excluirUsuario(user1.id, token1);
+      });
 
-    before(() => {
-        cy.cadastrarUsuario().then((response) => {
-            const user1 = response;
-            cy.criarFilmeAdm(user1.email, user1.password).then((response) =>{
-                movie = response;
-                const token1 = response.token;
-                cy.excluirUsuario(user1.id, token1);
-            });
+      cy.cadastrarUsuario().then((response) => {
+        user = response;
+      });
+    }); 
+  });
 
-            cy.cadastrarUsuario().then((response) => {
-              user = response;
-            });
-        }); 
-    });
-
-    after(() => {
-      cy.loginValido(user.email, user.password).then((response) => {
-        token = response.body.accessToken;
-        cy.promoverAdmin(token);
-        cy.deletarFilme(movie.id, token);            
-        cy.excluirUsuario(user.id, token);
-      });  
-    });
+  after(() => {
+    cy.loginValido(user.email, user.password).then((response) => {
+      token = response.body.accessToken;
+      cy.promoverAdmin(token);
+      cy.deletarFilme(movie.id, token);            
+      cy.excluirUsuario(user.id, token);
+    });  
+  });
 
   it("Usuário deslogado não tem autorização para atualizar filme", () => {
     cy.request({
@@ -111,9 +111,6 @@ describe("Testes de permissão para atualizar filmes", () => {
 
 
 describe("Testes de atualização de filme", () => {
-    let user
-    let token
-    let movie
 
   before(() => {
     cy.cadastrarUsuario().then((response) => {
@@ -131,6 +128,7 @@ describe("Testes de atualização de filme", () => {
   });
 
   describe("Atualizações permitidas", () => {
+
     it("Deve ser possível atualizar apenas o título, informando 1 caractere", () => {
       cy.request({
         method: "PUT",
@@ -329,9 +327,7 @@ describe("Testes de atualização de filme", () => {
           expect(response.body.title).to.equal(movieUpdate.title);
           expect(response.body.genre).to.equal(movieUpdate.genre);
           expect(response.body.description).to.equal(movieUpdate.description);
-          expect(response.body.durationInMinutes).to.equal(
-            movieUpdate.durationInMinutes
-          );
+          expect(response.body.durationInMinutes).to.equal(movieUpdate.durationInMinutes);
           expect(response.body.releaseYear).to.equal(movieUpdate.releaseYear);
         });
       });
@@ -339,6 +335,7 @@ describe("Testes de atualização de filme", () => {
   });
 
   describe("Atualizações não permitidas", () => {
+
     it("Não deve ser possível atualizar título informando mais de 100 caracteres", () => {
       const title101 = faker.string.alpha(101);
       cy.request({
@@ -354,9 +351,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "title must be shorter than or equal to 100 characters"
-        );
+        expect(response.body.message[0]).to.equal("title must be shorter than or equal to 100 characters");
       });
     });
 
@@ -374,9 +369,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "title must be longer than or equal to 1 characters"
-        );
+        expect(response.body.message[0]).to.equal("title must be longer than or equal to 1 characters");
       });
     });
 
@@ -395,9 +388,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "title must be longer than or equal to 1 characters"
-        );
+        expect(response.body.message[0]).to.equal("title must be longer than or equal to 1 characters");
       });
     });
 
@@ -416,9 +407,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "genre must be shorter than or equal to 100 characters"
-        );
+        expect(response.body.message[0]).to.equal("genre must be shorter than or equal to 100 characters");
       });
     });
 
@@ -436,9 +425,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "genre must be longer than or equal to 1 characters"
-        );
+        expect(response.body.message[0]).to.equal("genre must be longer than or equal to 1 characters");
       });
     });
 
@@ -457,9 +444,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "genre must be longer than or equal to 1 characters"
-        );
+        expect(response.body.message[0]).to.equal("genre must be longer than or equal to 1 characters");
       });
     });
 
@@ -478,9 +463,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "description must be shorter than or equal to 500 characters"
-        );
+        expect(response.body.message[0]).to.equal("description must be shorter than or equal to 500 characters");
       });
     });
 
@@ -498,9 +481,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "description must be longer than or equal to 1 characters"
-        );
+        expect(response.body.message[0]).to.equal("description must be longer than or equal to 1 characters");
       });
     });
 
@@ -519,9 +500,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "description must be longer than or equal to 1 characters"
-        );
+        expect(response.body.message[0]).to.equal("description must be longer than or equal to 1 characters");
       });
     });
 
@@ -539,9 +518,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "releaseYear must not be less than 1895"
-        );
+        expect(response.body.message[0]).to.equal("releaseYear must not be less than 1895");
       });
     });
 
@@ -559,9 +536,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "releaseYear must not be greater than 2024"
-        );
+        expect(response.body.message[0]).to.equal("releaseYear must not be greater than 2024");
       });
     });
 
@@ -579,18 +554,10 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "releaseYear must not be greater than 2024"
-        );
-        expect(response.body.message[1]).to.equal(
-          "releaseYear must not be less than 1895"
-        );
-        expect(response.body.message[2]).to.equal(
-          "releaseYear must be an integer number"
-        );
-        expect(response.body.message[3]).to.equal(
-          "releaseYear must be a number conforming to the specified constraints"
-        );
+        expect(response.body.message[0]).to.equal("releaseYear must not be greater than 2024");
+        expect(response.body.message[1]).to.equal("releaseYear must not be less than 1895");
+        expect(response.body.message[2]).to.equal("releaseYear must be an integer number");
+        expect(response.body.message[3]).to.equal("releaseYear must be a number conforming to the specified constraints");
       });
     });
 
@@ -608,9 +575,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "releaseYear must be an integer number"
-        );
+        expect(response.body.message[0]).to.equal("releaseYear must be an integer number");
       });
     });
 
@@ -628,9 +593,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "durationInMinutes must not be less than 1"
-        );
+        expect(response.body.message[0]).to.equal("durationInMinutes must not be less than 1");
       });
     });
 
@@ -649,9 +612,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "durationInMinutes must not be greater than 43200"
-        );
+        expect(response.body.message[0]).to.equal("durationInMinutes must not be greater than 43200");
       });
     });
 
@@ -669,18 +630,10 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "durationInMinutes must not be greater than 43200"
-        );
-        expect(response.body.message[1]).to.equal(
-          "durationInMinutes must not be less than 1"
-        );
-        expect(response.body.message[2]).to.equal(
-          "durationInMinutes must be an integer number"
-        );
-        expect(response.body.message[3]).to.equal(
-          "durationInMinutes must be a number conforming to the specified constraints"
-        );
+        expect(response.body.message[0]).to.equal("durationInMinutes must not be greater than 43200");
+        expect(response.body.message[1]).to.equal("durationInMinutes must not be less than 1");
+        expect(response.body.message[2]).to.equal("durationInMinutes must be an integer number");
+        expect(response.body.message[3]).to.equal("durationInMinutes must be a number conforming to the specified constraints");
       });
     });
 
@@ -698,9 +651,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "durationInMinutes must be an integer number"
-        );
+        expect(response.body.message[0]).to.equal("durationInMinutes must be an integer number");
       });
     });
 
@@ -718,12 +669,8 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message[0]).to.equal(
-          "durationInMinutes must not be less than 1"
-        );
-        expect(response.body.message[1]).to.equal(
-          "durationInMinutes must be an integer number"
-        );
+        expect(response.body.message[0]).to.equal("durationInMinutes must not be less than 1");
+        expect(response.body.message[1]).to.equal("durationInMinutes must be an integer number");
       });
     });
 
@@ -755,9 +702,7 @@ describe("Testes de atualização de filme", () => {
       }).then((response) => {
         expect(response.status).to.equal(400);
         expect(response.body.error).to.equal("Bad Request");
-        expect(response.body.message).to.equal(
-          "Validation failed (numeric string is expected)"
-        );
+        expect(response.body.message).to.equal("Validation failed (numeric string is expected)");
       });
     });
   });
