@@ -9,38 +9,32 @@ const movieUpdate =
     releaseYear: 2015
 } 
 
+let user
+let token
+let movie
+
 describe("Testes de permissão para atualizar filmes", () => {
-    let user
-    let user1
-    let token
-    let token1
-    let movie
 
     before(() => {
         cy.cadastrarUsuario().then((response) => {
-            user1 = response;
+            const user1 = response;
             cy.criarFilmeAdm(user1.email, user1.password).then((response) =>{
                 movie = response;
-                token1 = response.token;
+                const token1 = response.token;
+                cy.excluirUsuario(user1.id, token1);
             });
         }); 
-    });
-
-    beforeEach(() => {      
+        
         cy.cadastrarUsuario().then((response) => {
             user = response;
         });
     });
 
     after(() => {
-        cy.deletarFilme(movie.id, token1);
-        cy.excluirUsuario(user1.id, token1);
-    });
-
-    afterEach(() => {
         cy.loginValido(user.email, user.password).then((response) => {
             token = response.body.accessToken;
-            cy.promoverAdmin(token);            
+            cy.promoverAdmin(token);   
+            cy.deletarFilme(movie.id, token);         
             cy.excluirUsuario(user.id, token);
         });
     });
@@ -116,10 +110,8 @@ describe("Testes de permissão para atualizar filmes", () => {
     });
 });
 
+
 describe("Testes de atualização de filme", () => {
-    let user
-    let token
-    let movie
 
     before(() => {
         cy.cadastrarUsuario().then((response) => {
