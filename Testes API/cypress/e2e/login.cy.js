@@ -54,7 +54,7 @@ describe('Cenarios de login', () => {
 })
 
 describe('Cenários de falha', () => {
-    it('Realizar login sem preencher email deve retornar 400', function () {
+    it('Não é possível realizar login sem informar email', function () {
             cy.request({
                 method: 'POST',
                 url: '/api/auth/login',
@@ -63,11 +63,61 @@ describe('Cenários de falha', () => {
                     "password": password
                 },
                 failOnStatusCode: false
-            }).then(function (response) {
+            }).then((response) => {
                 expect(response.status).to.eq(400)
                 expect(response.body.error).to.include("Bad Request")
                 expect(response.body.message).to.include("email should not be empty")
                 expect(response.body.message).to.include("email must be an email")
+            })
+        })
+
+        it('Não é possível realizar login sem informar senha', function () {
+            cy.request({
+                method: 'POST',
+                url: '/api/auth/login',
+                body: {
+                    "email": email,
+                    "password": ""
+                },
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.eq(400)
+                expect(response.body.error).to.include("Bad Request")
+                expect(response.body.message).to.include("password should not be empty")
+            })
+        })
+
+        it('Não é possível realizar login sem informar email e senha', function () {
+            cy.request({
+                method: 'POST',
+                url: '/api/auth/login',
+                body: {
+                    "email": "",
+                    "password": ""
+                },
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.eq(400)
+                expect(response.body.error).to.include("Bad Request")
+                expect(response.body.message).to.include("email should not be empty")
+                expect(response.body.message).to.include("email must be an email")  
+                expect(response.body.message).to.include("password should not be empty")
+            })
+        })
+
+        it('Não é possível realizar login informando email e senha não correspondentes', function () {
+            cy.request({
+                method: 'POST',
+                url: '/api/auth/login',
+                body: {
+                    "email": "email@email.com",
+                    "password": "senhanãocorrespondente"
+                },
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.eq(401)
+                expect(response.body.error).to.include("Unauthorized")
+                expect(response.body.message).to.include("Invalid username or password.")
             })
         })
 })
