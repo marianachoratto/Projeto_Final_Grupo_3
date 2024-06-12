@@ -7,9 +7,9 @@ Test Teardown    Teardown
 
 
 *** Test Cases ***
-# T01- O usuário pode ver informações sobre o filme ao clicá-lo
-    
-# T02- Não é possível usuário não autenticado realizar review de filmes 
+T02- Não é possível usuário não autenticado realizar review de filmes
+    Dado que estou na página inicial do aplicativo
+    Quando clico em um filme 
 
 # T03- É possível usuário autenticado realizar review de filmes
 

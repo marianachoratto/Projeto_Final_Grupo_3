@@ -18,6 +18,8 @@ Cadastrar usuario comum na API
     ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/users    json=${body}
     ${email}    Set Variable    ${RESPONSE.json()['email']}    
     Set Global Variable    ${email}
+    ${id}    Set Variable    ${RESPONSE.json()['id']}
+    Set Global Variable    ${id}
 
 Logar na API
     ${body}    Create Dictionary    email=${email}    password=123456
@@ -26,7 +28,20 @@ Logar na API
     Set Global Variable    ${token}
 
 Virar administrador na API
-    # ${body}    Create Dictionary    accessToken=${token}
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${RESPONSE}    PATCH On Session    alias=API_raromd    url=/api/users/admin    headers=${headers}
-    
+
+Virar usuário crítico na API
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${RESPONSE}    PATCH On Session    alias=API_raromd    url=/api/users/apply    headers=${headers}
+
+Deletar usuário na API
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${RESPONSE}    DELETE On Session    alias=API_raromd    url=/api/users/${id}    headers=${headers}
+
+Criar filme na API 
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${durationInMinutes}=    Convert To Integer    117
+    ${releaseYear}=    Convert To Integer    1979
+    ${body}    Create Dictionary    title=Alien   genre=Terror    description=Alien quer ser mamae    durationInMinutes=${durationInMinutes}    releaseYear=${releaseYear}    
+    ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/movies     headers=${headers}    json=${body}

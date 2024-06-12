@@ -18,22 +18,30 @@ T02- O usuário logado pode consultar filmes
     Quando faço login
     Então sou redirecionada para a página inicial
     Quando clico em um filme
-    Então tenho acesso às suas informações
+    Então tenho acesso às suas informações técnicas 
 
-# T03- É possível consultar detalhes de um filme com usuário crítico
+T03- É possível consultar detalhes de um filme com usuário crítico
+    Dado que tenho um usuário crítico cadastrado
+    Quando faço login
+    Então sou redirecionada para a página inicial
+    Quando clico em um filme
+    Então tenho acesso às suas informações técnicas
 
 T04- É possível consutlar detalhes de um filme como usuário administrador
     Dado que tenho um usuário administrador cadastrado
-    # Quando faço login
-    # Então sou redirecionada para a página inicial
-    # Quando clico em um filme
-    # Então tenho acesso às suas informações 
+    Quando faço login
+    Então sou redirecionada para a página inicial
+    Quando clico em um filme
+    Então tenho acesso às suas informações técnicas
 
-# T05- Ao dar refresh em filmes é retornada uma lista com todos os filmes
+T04- É possível ver as avaliações da audiência e da crítica
+    Dado que estou na página inicial do aplicativo
+    Quando clico em um filme
+    Então tenho acesso às avaliações da audiência e crítica
 
-# T06- O score da audiência é a média das reviews de usuários comuns
+T05- É possível ver a sessão de avaliações do usuário
+    Dado que estou na página inicial do aplicativo
+    Quando clico em um filme
+    Então tenho acesso à sessão de avaliações feita pelos usuários
 
-# T07- O score da crítica é a média das reviews de usuários críticos
-
-# # Bug:
-# T08- Avaliações de administradores não devem impactar na média das reviews dos usuários comuns 
+# Testes de média? 
