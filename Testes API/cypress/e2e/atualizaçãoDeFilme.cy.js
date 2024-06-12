@@ -192,7 +192,6 @@ describe("Testes de atualização de filme", () => {
                 });
             });
         });
-        
 
         it('Deve ser possível atualizar apenas o gênero, informando 100 caracteres', () => {      
             const genre100 = faker.string.alpha(100);
@@ -344,34 +343,373 @@ describe("Testes de atualização de filme", () => {
         });
     });
 
-    
+    describe("Atualizações não permitidas", () => {
+
+        it('Não deve ser possível atualizar título informando mais de 100 caracteres', () => {      
+            const title101 = faker.string.alpha(101);
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    title: title101
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("title must be shorter than or equal to 100 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar título informando string vazia', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    title: ""
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("title must be longer than or equal to 1 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar título informando espaço em branco (apertar barra de espaço)', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    title: " "
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("title must be longer than or equal to 1 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar gênero informando mais de 100 caracteres', () => {      
+            const genre101 = faker.string.alpha(101);
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    genre: genre101
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("genre must be shorter than or equal to 100 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar gênero informando string vazia', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    genre: ""
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("genre must be longer than or equal to 1 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar gênero informando espaço em branco (apertar barra de espaço', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    genre: " "
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("genre must be longer than or equal to 1 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar descrição informando mais de 500 caracteres', () => {      
+            const description501 = faker.string.alpha(501);
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    description: description501
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("description must be shorter than or equal to 500 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar descrição informando string vazia', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    description: ""
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("description must be longer than or equal to 1 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar descrição informando espaço em branco (apertar barra de espaço)', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    description: " "
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("description must be longer than or equal to 1 characters");
+            });
+        });
+
+        it('Não deve ser possível atualizar ano de lançamento informando ano anterior a 1895', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    releaseYear: 1894
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("releaseYear must not be less than 1895");
+            });
+        });
+
+        it('Não deve ser possível atualizar ano de lançamento informando ano posterior a 2024', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    releaseYear: 2025
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("releaseYear must not be greater than 2024");
+            });
+        });
+
+        it('Não deve ser possível atualizar ano de lançamento informando caracteres não numéricos', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    releaseYear: "ano"
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("releaseYear must not be greater than 2024");
+                expect(response.body.message[1]).to.equal("releaseYear must not be less than 1895");
+                expect(response.body.message[2]).to.equal("releaseYear must be an integer number");
+                expect(response.body.message[3]).to.equal("releaseYear must be a number conforming to the specified constraints");
+            });
+        });
+
+        it('Não deve ser possível atualizar ano de lançamento informando número decimal', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    releaseYear: 2022.6
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("releaseYear must be an integer number");
+            });
+        });
+
+        it('Não deve ser possível atualizar duração informando menos de 1 minuto', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    durationInMinutes: 0
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("durationInMinutes must not be less than 1");
+            });
+        });
+
+        it('Não deve ser possível atualizar duração informando mais de 720 horas', () => {      
+            const durationLimit = 720*60 + 1
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    durationInMinutes: durationLimit
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("durationInMinutes must not be greater than 43200");
+            });
+        });
+
+        it('Não deve ser possível atualizar duração informando caracteres não numéricos', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    durationInMinutes: "duração"
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("durationInMinutes must not be greater than 43200");
+                expect(response.body.message[1]).to.equal("durationInMinutes must not be less than 1");
+                expect(response.body.message[2]).to.equal("durationInMinutes must be an integer number");
+                expect(response.body.message[3]).to.equal("durationInMinutes must be a number conforming to the specified constraints");
+            });
+        });
+
+        it('Não deve ser possível atualizar duração informando número decimal', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    durationInMinutes: 115.2
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("durationInMinutes must be an integer number");
+            });
+        });
+
+        it('Não deve ser possível atualizar duração informando valor entre 0 e 1', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: {
+                    durationInMinutes: 0.9
+                },
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message[0]).to.equal("durationInMinutes must not be less than 1");
+                expect(response.body.message[1]).to.equal("durationInMinutes must be an integer number");
+            });
+        });
+
+        it('Não deve ser possível atualizar filme informando um ID inexistente', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + 999999999999999,
+                body: movieUpdate,
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(404);
+                expect(response.body.error).to.equal("Not Found");
+                expect(response.body.message).to.equal("Movie not found");
+            });
+        });
+
+        it('Não deve ser possível atualizar filme informando um ID com caracteres não numéricos', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + "ID",
+                body: movieUpdate,
+                auth: {
+                    bearer: token,
+                },
+                failOnStatusCode: false,
+            }).then((response) => {
+                expect(response.status).to.equal(400);
+                expect(response.body.error).to.equal("Bad Request");
+                expect(response.body.message).to.equal("Validation failed (numeric string is expected)");
+            });
+        });
+    });
 });
-
-
-
-// Usuário deslogado não tem autorização para atualizar filme
-// Usuário comum não tem autorização para atualizar filme
-// Usuário crítico não tem autorização para atualizar filme
-// Usuário administrador tem autorização para atualizar filme
-
-// Deve ser possível atualizar apenas o título, informando 1 caractere
-// Deve ser possível atualizar apenas o título, informando 100 caracteres
-// Deve ser possível atualizar apenas o gênero, informando 1 caractere
-// Deve ser possível atualizar apenas o gênero, informando 100 caracteres
-// Deve ser possível atualizar apenas a descrição, informando 1 caractere
-// Deve ser possível atualizar apenas a descrição, informando 500 caracteres
-// Deve ser possível atualizar apenas o ano de lançamento, informando ano a partir de 1895
-// Deve ser possível atualizar apenas o ano de lançamento, informando ano até 2024
-// Deve ser possível atualizar apenas a duração, informando a partir de 1 minuto
-// Deve ser possível atualizar apenas a duração, informando até 720 horas
-// Deve ser possível atualizar todas as informações do filme simultaneamente
-
-// Não deve ser possível atualizar título informando mais de 100 caracteres
-// Não deve ser possível atualizar título informando espaço em branco (apertar barra de espaço)
-// Não deve ser possível atualizar gênero informando mais de 100 caracteres
-// Não deve ser possível atualizar gênero informando espaço em branco (apertar barra de espaço)
-// Não deve ser possível atualizar descrição informando mais de 500 caracteres
-// Não deve ser possível atualizar ano de lançamento informando ano anterior a 1895
-// Não deve ser possível atualizar ano de lançamento informando ano posterior a 2024
-// Não deve ser possível atualizar duração informando menos de 1 minuto
-// Não deve ser possível atualizar duração informando mais de 720 horas
