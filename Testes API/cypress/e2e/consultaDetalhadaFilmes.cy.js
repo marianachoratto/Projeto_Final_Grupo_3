@@ -44,6 +44,15 @@ describe("Consultado informações detalhadas de filmes", () => {
         cy.reviewMovie2(token2, movieId);
       });
     });
+    
+    cy.cadastrarUsuario().then((resposta) => {
+      userid = resposta.id;
+      email = resposta.email;
+      password = resposta.password;
+      cy.loginValido(email, password).then((resposta) => {
+        token = resposta.body.accessToken;
+      });
+    });
   });
 
   after(() => {
@@ -72,16 +81,8 @@ describe("Consultado informações detalhadas de filmes", () => {
       expect(response.body.releaseYear).to.eq(movieYear);
     });
   });
-  it("É possível consultar detalhes de um filme com usuário comum", () => {
-    cy.cadastrarUsuario().then((resposta) => {
-      userid = resposta.id;
-      email = resposta.email;
-      password = resposta.password;
-      cy.loginValido(email, password).then((resposta) => {
-        token = resposta.body.accessToken;
-      });
-    });
 
+  it("É possível consultar detalhes de um filme com usuário comum", () => {
     cy.request({
       method: "GET",
       url: "api/movies/" + movieId,
@@ -100,6 +101,7 @@ describe("Consultado informações detalhadas de filmes", () => {
       expect(response.body.releaseYear).to.eq(movieYear);
     });
   });
+
   it("É possível consultar detalhes de um filme com usuário crítico", () => {
     cy.promoverCritico(token);
     cy.request({
@@ -120,6 +122,7 @@ describe("Consultado informações detalhadas de filmes", () => {
       expect(response.body.releaseYear).to.eq(movieYear);
     });
   });
+
   it("É possível consultar detalhes de um filme com usuário admin", () => {
     cy.promoverAdmin(token);
     cy.request({
@@ -140,6 +143,7 @@ describe("Consultado informações detalhadas de filmes", () => {
       expect(response.body.releaseYear).to.eq(movieYear);
     });
   });
+
   it("Retorna todas as reviews de um filme ao realizar consulta", () => {
     cy.request({
       method: "GET",
@@ -150,6 +154,7 @@ describe("Consultado informações detalhadas de filmes", () => {
       expect(response.body.reviews.length).to.eq(2);
     });
   });
+
   it("É possível visualizar todas as reviews de um filme", () => {
     cy.request({
       method: "GET",
@@ -176,6 +181,7 @@ describe("Consultado informações detalhadas de filmes", () => {
       expect(response.body.reviews[1]).to.have.property("updatedAt");
     });
   });
+
   it("O score da audiência é a média das reviews de usuários comuns", () => {
     let score1, score2;
     cy.request({
@@ -247,6 +253,7 @@ describe("Testando score da crítica", () => {
       cy.excluirUsuario(userid, token);
     });
   });
+
   it("O score da crítica é a média das reviews de usuários críticos", () => {
     let score1, score2;
     cy.cadastrarUsuario().then((resposta) => {
@@ -288,6 +295,7 @@ describe("Testando review de administradores", () => {
         cy.excluirUsuario(userid, token);
       });
     });
+
     cy.cadastrarUsuario().then((resposta) => {
       userid1 = resposta.id;
       name1 = resposta.nome;
@@ -303,23 +311,13 @@ describe("Testando review de administradores", () => {
   });
 
   afterEach(() => {
-    cy.loginValido(email, password).then((resposta) => {
-      token = resposta.body.accessToken;
-      cy.promoverAdmin(token);
-      cy.deletarFilme(movieId, token);
-      cy.excluirUsuario(userid1, token);
-      cy.excluirUsuario(userid, token);
-    });
+    cy.deletarFilme(movieId, token1);
+    cy.excluirUsuario(userid1, token1);
   });
+
 
   // Bug
   it("Review feita por administradores não devem influenciar nas médias da crítica e da audiência", () => {
-    let score1, score2;
-    cy.cadastrarUsuario().then((resposta) => {
-      userid = resposta.id;
-      email = resposta.email;
-      password = resposta.password;
-    });
     cy.request({
       method: "GET",
       url: "api/movies/" + movieId,
