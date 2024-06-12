@@ -5,7 +5,7 @@ export default class LoginPage {
     inputSenha = '[placeholder="Password"]';
     buttonLogin = '.login-button';
     janelaFalha = '.modal-content';
-    buttonOkFaha = 'button';
+    buttonOkFalha = 'button';
    
     
     

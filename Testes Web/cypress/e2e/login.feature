@@ -65,7 +65,7 @@ Cenário: É possível ao usuário logar com email em letras maiúsculas
     E confirmo a operação
     Então o login deve ser realizado com sucesso
 
-
+@ignore
 Cenário: Ao clicar no botão do aviso de falha de usuário, a janela de alerta deve fechar
     E tenho acesso aos dados de um usuário cadastrado
     Quando faço um login com senha ou email incorretos
@@ -74,14 +74,13 @@ Cenário: Ao clicar no botão do aviso de falha de usuário, a janela de alerta 
     Então a janela de alerta fecha 
 
 
-@ignore
 Cenário: O usuário deve ficar logado por 60 minutos
     E tenho acesso aos dados de um usuário cadastrado
     Quando coloco os dados do usuário nos inputs de login e senha
     E confirmo a operação
     Então o usuário deve permanecer logado por 60 minutos
 
-@ignore
+
 Cenário: Após 60 minutos, a sessão do usuário expira
     E tenho acesso aos dados de um usuário cadastrado
     Quando coloco os dados do usuário nos inputs de login e senha

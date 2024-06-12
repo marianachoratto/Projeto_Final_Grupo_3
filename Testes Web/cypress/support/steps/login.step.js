@@ -138,24 +138,22 @@ Then("a janela de alerta fecha", () => {
   
 });
 
-//Then('o usuário deve permanecer logado por 60 minutos', function () {
+Then('o usuário deve permanecer logado por 60 minutos', function () {
   
- // cy.clock(); // Congela o relógio do navegador
-//  cy.get(loginPage.inputEmail).type(email)
- //   cy.get(loginPage.inputSenha).type(password);; // Assegura que o usuário esteja logado
- // cy.tick(3600000); // Avança 60 minutos (3600000 milissegundos)
+  cy.clock().then((clock) => {
+    cy.tick(3600000);
+  });
+})
 
-  // Verifica se o usuário ainda está logado após 60 minutos
- // cy.get('body').should('not.contain', 'session-expired'); // Ajuste o seletor e a verificação conforme necessário
-//});
+  cy.get('body').should('not.contain', 'session-expired');
 
-//Then('a sessão do usuário deve expirar após 60 minutos', function () {
-  // Simula a passagem de 60 minutos
- // cy.clock(); // Congela o relógio do navegador
- // cy.get(loginPage.inputEmail).type(email)
- // cy.get(loginPage.inputSenha).type(password);; // Assegura que o usuário esteja logado
- // cy.tick(3600000); // Avança 60 minutos (3600000 milissegundos)
-//})
+Then('a sessão do usuário deve expirar após 60 minutos', function () {
+  
+  cy.clock().then((clock) => {
+    cy.tick(3600001);
+  });
+ })
+  
 
 
 
