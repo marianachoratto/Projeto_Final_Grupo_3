@@ -62,11 +62,9 @@ describe("Testes de Avaliação de Filme", function () {
           score: 5,
           reviewText: "Filme muito bom. Vale a pena o ingresso!",
         },
-      })
-        .then(function (resposta) {
+      }).then(function (resposta) {
           expect(resposta.status).to.equal(201);
-        })
-        .then(function (resposta) {
+        }).then(function () {
           cy.request({
             method: "GET",
             url: `/api/movies/${movieId}`,
@@ -101,7 +99,51 @@ describe("Testes de Avaliação de Filme", function () {
       });
     });
 
-    it("Não deve ser criada uma segunda avaliação de filme se o usuário mudar o comentário", function () {});
+    it("Não deve ser criada uma segunda avaliação de filme se o usuário mudar o comentário", function () {
+      cy.request({
+        method: "POST",
+        url: "/api/users/review",
+        auth: {
+          bearer: token,
+        },
+        body: {
+          movieId: movieId,
+          score: 5,
+          reviewText: "Filme muito bom. Vale a pena o ingresso!",
+        },
+      }).then(function (resposta) {
+          expect(resposta.status).to.equal(201);
+        }).then(function () {
+          cy.request({
+            method: "POST",
+            url: "/api/users/review",
+            auth: {
+              bearer: token,
+            },
+            body: {
+              movieId: movieId,
+              score: 2,
+              reviewText: "O filme não é muito bom.",
+            },
+          }).then(function (resposta) {
+            expect(resposta.status).to.equal(201);
+          }).then(function () {
+            cy.request({
+              method: "GET",
+              url: `/api/movies/${movieId}`,
+              auth: {
+                bearer: token,
+              },
+            }).then(function (resposta) {
+              expect(resposta.body.id).to.equal(movieId);
+              expect(resposta.body.reviews).to.have.length(1);
+              expect(resposta.body.reviews[0].reviewText).to.equal("O filme não é muito bom.");
+              expect(resposta.body.reviews[0].score).to.equal(2);
+              expect(resposta.body.reviews).to.not.contain("Filme muito bom. Vale a pena o ingresso!");
+            });
+          });
+        });
+    });
 
     it("Deve ser possível criar uma review de filmes de até 500 caracteres", function () {
       let review = "";
@@ -174,7 +216,7 @@ describe("Testes de Avaliação de Filme", function () {
       });
     });
 
-    it("Não deve ser possível fazer avaliação de filme sem nota", function () {
+    it("Não deve ser possível fazer avaliação de filme sem atribuir nota", function () {
       cy.request({
         method: "POST",
         url: "/api/users/review",
@@ -287,7 +329,8 @@ describe("Testes de Avaliação de Filme", function () {
       });
     });
 
-    it("Não deve ser possível dar nota menor que 0 para um filme", function () {
+    // Bug
+    it("Não deve ser possível dar nota menor que 1 para um filme", function () {
       cy.request({
         method: "POST",
         url: "/api/users/review",
@@ -296,8 +339,8 @@ describe("Testes de Avaliação de Filme", function () {
         },
         body: {
           movieId: movieId,
-          score: -1,
-          reviewText: "Filme muito bom. Vale a pena o ingresso!",
+          score: 0.5,
+          reviewText: "Filme ruim!",
         },
         failOnStatusCode: false,
       }).then(function (resposta) {
