@@ -62,11 +62,9 @@ describe("Testes de Avaliação de Filme", function () {
           score: 5,
           reviewText: "Filme muito bom. Vale a pena o ingresso!",
         },
-      })
-        .then(function (resposta) {
+      }).then(function (resposta) {
           expect(resposta.status).to.equal(201);
-        })
-        .then(function () {
+        }).then(function () {
           cy.request({
             method: "GET",
             url: `/api/movies/${movieId}`,
@@ -113,27 +111,23 @@ describe("Testes de Avaliação de Filme", function () {
           score: 5,
           reviewText: "Filme muito bom. Vale a pena o ingresso!",
         },
-      })
-        .then(function (resposta) {
+      }).then(function (resposta) {
           expect(resposta.status).to.equal(201);
-        })
-        .then(function () {
-        cy.request({
-          method: "POST",
-          url: "/api/users/review",
-          auth: {
-            bearer: token,
-          },
-          body: {
-            movieId: movieId,
-            score: 2,
-            reviewText: "O filme não é muito bom.",
-          },
-        })
-          .then(function (resposta) {
+        }).then(function () {
+          cy.request({
+            method: "POST",
+            url: "/api/users/review",
+            auth: {
+              bearer: token,
+            },
+            body: {
+              movieId: movieId,
+              score: 2,
+              reviewText: "O filme não é muito bom.",
+            },
+          }).then(function (resposta) {
             expect(resposta.status).to.equal(201);
-          })
-          .then(function () {
+          }).then(function () {
             cy.request({
               method: "GET",
               url: `/api/movies/${movieId}`,
