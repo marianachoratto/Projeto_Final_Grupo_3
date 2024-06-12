@@ -8,18 +8,16 @@ Test Teardown    Teardown
 
 *** Test Cases ***
 
-# CT001 - Acessar formulario de cadastro deve estar visível e habilitado
-#     Dado que acessei a funcionalidade de cadastro
-#     Quando visualizo a pagina de criação
-#     Então os inputs estão habilitados e instruções visíveis
+CT001 - Acessar formulario de cadastro deve estar visível e habilitado
+    Dado que acessei a funcionalidade de cadastro
+    Quando visualizo a pagina de criação
+    Então os inputs estão habilitados e instruções visíveis
 
-# CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
-#     Quando informo um nome válido
-#     E informo um email válido
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então um usuário do tipo comum será gerado
+CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
+    Dado que acessei a funcionalidade de cadastro
+    Quando informo um nome, email e senha válidos
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado
 
 # CT003 - Não é possível cadastrar usuário com email repetido
 #     Quando informo dados válidos com e-mail já cadastrado
