@@ -139,144 +139,209 @@ describe("Testes de atualização de filme", () => {
     describe("Atualizações permitidas", () => {
         
         it('Deve ser possível atualizar apenas o título, informando 1 caractere', () => {      
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.request({
-                    method: "PUT",
-                    url: "/api/movies/" + movie.id,
-                    body: { 
-                    title: "X"
-                    },
-                    auth: {
-                        bearer: token,
-                    },
-                }).then((response) => {
-                    expect(response.status).to.equal(204);
-                    cy.procurarPeloId(movie.id).then((response) => {
-                        expect(response.body.title).to.equal("X");
-                    });
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                title: "X"
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.title).to.equal("X");
                 });
             });
         });
 
         it('Deve ser possível atualizar apenas o título, informando 100 caracteres', () => {      
             const title100 = faker.string.alpha(100);
-
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.request({
-                    method: "PUT",
-                    url: "/api/movies/" + movie.id,
-                    body: { 
-                    title: title100
-                    },
-                    auth: {
-                        bearer: token,
-                    },
-                }).then((response) => {
-                    expect(response.status).to.equal(204);
-                    cy.procurarPeloId(movie.id).then((response) => {
-                        expect(response.body.title).to.equal(title100);
-                    });
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                title: title100
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.title).to.equal(title100);
                 });
-            });
+            });    
         });
 
         it('Deve ser possível atualizar apenas o gênero, informando 1 caractere', () => {      
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.request({
-                    method: "PUT",
-                    url: "/api/movies/" + movie.id,
-                    body: { 
-                    genre: "Y"
-                    },
-                    auth: {
-                        bearer: token,
-                    },
-                }).then((response) => {
-                    expect(response.status).to.equal(204);
-                    cy.procurarPeloId(movie.id).then((response) => {
-                        expect(response.body.genre).to.equal("Y");
-                    });
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                genre: "Y"
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.genre).to.equal("Y");
                 });
             });
         });
+        
 
         it('Deve ser possível atualizar apenas o gênero, informando 100 caracteres', () => {      
             const genre100 = faker.string.alpha(100);
-            
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.request({
-                    method: "PUT",
-                    url: "/api/movies/" + movie.id,
-                    body: { 
-                    genre: genre100
-                    },
-                    auth: {
-                        bearer: token,
-                    },
-                }).then((response) => {
-                    expect(response.status).to.equal(204);
-                    cy.procurarPeloId(movie.id).then((response) => {
-                        expect(response.body.genre).to.equal(genre100);
-                    });
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                genre: genre100
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.genre).to.equal(genre100);
                 });
             });
         });
 
         it('Deve ser possível atualizar apenas a descrição, informando 1 caractere', () => {      
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.request({
-                    method: "PUT",
-                    url: "/api/movies/" + movie.id,
-                    body: { 
-                    description: "Z"
-                    },
-                    auth: {
-                        bearer: token,
-                    },
-                }).then((response) => {
-                    expect(response.status).to.equal(204);
-                    cy.procurarPeloId(movie.id).then((response) => {
-                        expect(response.body.description).to.equal("Z");
-                    });
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                description: "Z"
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.description).to.equal("Z");
                 });
             });
         });
 
         it('Deve ser possível atualizar apenas a descrição, informando 500 caracteres', () => {      
             const description500 = faker.string.alpha(500);
-
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.request({
-                    method: "PUT",
-                    url: "/api/movies/" + movie.id,
-                    body: { 
-                    description: description500
-                    },
-                    auth: {
-                        bearer: token,
-                    },
-                }).then((response) => {
-                    expect(response.status).to.equal(204);
-                    cy.procurarPeloId(movie.id).then((response) => {
-                        expect(response.body.description).to.equal(description500);
-                    });
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                description: description500
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.description).to.equal(description500);
                 });
             });
         });
 
+        it('Deve ser possível atualizar apenas o ano de lançamento, informando o ano de 1895', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                releaseYear: 1895
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.releaseYear).to.equal(1895);
+                });
+            });
+        });
 
+        it('Deve ser possível atualizar apenas o ano de lançamento, informando o ano de 2024', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                releaseYear: 2024
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.releaseYear).to.equal(2024);
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas a duração, informando 1 minuto', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                durationInMinutes: 1
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.durationInMinutes).to.equal(1);
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar apenas a duração, informando 720 horas', () => {      
+            const duration720h = 720*60
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: { 
+                durationInMinutes: duration720h
+                },
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.durationInMinutes).to.equal(duration720h);
+                });
+            });
+        });
+
+        it('Deve ser possível atualizar todas as informações simultaneamente', () => {      
+            cy.request({
+                method: "PUT",
+                url: "/api/movies/" + movie.id,
+                body: movieUpdate,
+                auth: {
+                    bearer: token,
+                },
+            }).then((response) => {
+                expect(response.status).to.equal(204);
+                cy.procurarPeloId(movie.id).then((response) => {
+                    expect(response.body.title).to.equal(movieUpdate.title);
+                    expect(response.body.genre).to.equal(movieUpdate.genre);
+                    expect(response.body.description).to.equal(movieUpdate.description);
+                    expect(response.body.durationInMinutes).to.equal(movieUpdate.durationInMinutes);
+                    expect(response.body.releaseYear).to.equal(movieUpdate.releaseYear);
+                });
+            });
+        });
     });
 
     
@@ -294,7 +359,7 @@ describe("Testes de atualização de filme", () => {
 // Deve ser possível atualizar apenas o gênero, informando 1 caractere
 // Deve ser possível atualizar apenas o gênero, informando 100 caracteres
 // Deve ser possível atualizar apenas a descrição, informando 1 caractere
-// Deve ser possível atualizar apenas a descrição, informando até 500 caracteres
+// Deve ser possível atualizar apenas a descrição, informando 500 caracteres
 // Deve ser possível atualizar apenas o ano de lançamento, informando ano a partir de 1895
 // Deve ser possível atualizar apenas o ano de lançamento, informando ano até 2024
 // Deve ser possível atualizar apenas a duração, informando a partir de 1 minuto
