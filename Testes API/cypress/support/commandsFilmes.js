@@ -141,6 +141,7 @@ Cypress.Commands.add("procurarPeloId", (filmeid) => {
     url: `/api/movies/${filmeid}`,
   });
 });
+
 Cypress.Commands.add("reviewMovie1", (token, movieId) => {
   cy.request({
     method: "POST",
