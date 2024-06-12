@@ -3,20 +3,14 @@ let userDeletar;
 let token;
 let movie;
 
-describe("Testes de permissão de exclusão de conta", () => {
+describe("Testes de exclusão de conta", () => {
   
   before(() => {
     cy.cadastrarUsuario().then((response) => {
       user = response;
     }); 
-
     cy.cadastrarUsuario().then((response) => {
       userDeletar = response;
-      cy.criarFilmeAdm(userDeletar.email, userDeletar.password).then((response) =>{
-        movie = response;
-        const tokenuserDeletar = response.token;
-        criaReviewNota5(tokenuserDeletar, movie.id)
-      });
     }); 
   });
   
@@ -112,9 +106,11 @@ describe("Testes de permissão de exclusão de conta", () => {
         auth: {
           bearer: token,
         },
-        failOnStatusCode: false,
       }).then((response) => {
         expect(response.status).to.equal(204);
+      });
+      cy.findUser(userDeletar.id, token).then((response) => {
+        expect(response.body).to.be.empty;
       });
     });
   });
@@ -129,7 +125,6 @@ describe("Testes de permissão de exclusão de conta", () => {
         auth: {
           bearer: token,
         },
-        failOnStatusCode: false,
       }).then((response) => {
         expect(response.status).to.equal(204);
       });
@@ -138,21 +133,44 @@ describe("Testes de permissão de exclusão de conta", () => {
 });
 
 
-//BEFORE: CRIA USER
+describe("Teste para verificar se as avaliações são excluídas", () => {
+  
+  before(() => {
+    cy.cadastrarUsuario().then((response) => {
+      user = response;
+    }); 
+    cy.cadastrarUsuario().then((response) => {
+      userDeletar = response;
+      cy.criarFilmeAdm(userDeletar.email, userDeletar.password).then((response) =>{
+        movie = response;
+        const tokenuserDeletar = response.token;
+        cy.criarReviewNota5(tokenuserDeletar, movie.id)
+      });
+    }); 
+  });
 
-// Usuário deslogado não tem autorização para excluir contas
-// Usuário comum não tem autorização para a propria conta
-// Usuário critico não tem autorização para a propria conta
-// Usuário administrador tem autorização para a propria conta
+  after(() => {
+    cy.deletarFilme(movie.id, token);
+    cy.excluirUsuario(user.id, token);
+  });
 
-
-//BEFORE: CRIA USER E CRIA USER DELETAR     AFTER: EXCLUIR USER
-
-// Usuário comum não tem autorização para excluir a conta de outro user
-// Usuário critico não tem autorização para excluir a conta de outro user
-// Usuário administrador tem autorização para excluir a conta de outro user
-
-
-//BEFORE: CRIA USER E CRIA USER DELETAR, FILME E REVIEWS    AFTER: EXCLUIR USER
-
-// As avaliações feitas pelo usuário excluído também são excluídas
+  it("As avaliações feitas pelo usuário excluído também são excluídas", () => {
+    cy.loginValido(user.email, user.password).then((response) => {
+      token = response.body.accessToken;
+      cy.promoverAdmin(token);
+      cy.request({
+        method: "DELETE",
+        url: "/api/users/" + userDeletar.id,
+        auth: {
+          bearer: token,
+        },
+      }).then((response) => {
+        expect(response.status).to.equal(204);
+      });
+    }).then(() => {
+      cy.procurarPeloId(movie.id).then((response) => {
+        expect(response.body.reviews).to.be.empty;
+      });
+    });
+  });
+});
