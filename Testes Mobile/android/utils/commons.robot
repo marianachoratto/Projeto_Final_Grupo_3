@@ -57,19 +57,23 @@ Espera o elemento e verifica o texto
     Wait Until Page Contains Element    ${elemento}
     Page Should Contain Text    ${texto}
 
-Espera e informa o valor dos inputs corretos no elemento de cadastro 
-    ${emailFaker}=    FakerLibrary.Email
-    ${nomeFaker}=     FakerLibrary.Name
-    ${senhaFaker}=    FakerLibrary.Password
-    Espera o elemento para fazer o inputtext    ${INPUT_NOME}               ${nomeFaker}    
-    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}              ${emailFaker}  
-    Espera o elemento para fazer o inputtext    ${INPUT_SENHA}              ${senhaFaker}    
-    Espera o elemento para fazer o inputtext    ${INPUT_CONFIRMAR_SENHA}    ${senhaFaker} 
-
 Utilizar Email ja cadastrado
     ${nomeFaker}=     FakerLibrary.Name
     ${senhaFaker}=    FakerLibrary.Password
     Espera o elemento para fazer o inputtext    ${INPUT_NOME}               ${nomeFaker}    
     Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}              ${userEmailAPI}
+    Espera o elemento para fazer o inputtext    ${INPUT_SENHA}              ${senhaFaker}    
+    Espera o elemento para fazer o inputtext    ${INPUT_CONFIRMAR_SENHA}    ${senhaFaker} 
+
+Espera e informa o valor do nome no input de cadastro
+    ${nomeFaker}=     FakerLibrary.Name 
+    Espera o elemento para fazer o inputtext    ${INPUT_NOME}               ${nomeFaker}
+
+Espera e informa o valor do email no input de cadastro
+    ${emailFaker}=    FakerLibrary.Email
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}              ${emailFaker}
+
+Espera e informa o valor da senha no input de cadastro 
+    ${senhaFaker}=    FakerLibrary.Password   
     Espera o elemento para fazer o inputtext    ${INPUT_SENHA}              ${senhaFaker}    
     Espera o elemento para fazer o inputtext    ${INPUT_CONFIRMAR_SENHA}    ${senhaFaker} 

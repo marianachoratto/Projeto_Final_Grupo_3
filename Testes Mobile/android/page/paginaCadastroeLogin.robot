@@ -29,15 +29,21 @@ Dado que acessei a funcionalidade de cadastro
 Quando visualizo a pagina de criação
     Espera o elemento e verifica o texto   ${TITULO_CADASTRO}     "Cadastro"  
 
-Quando informo um nome, email e senha válidos
-    Espera e informa o valor dos inputs corretos no elemento de cadastro 
-
-Quando informo dados válidos com e-mail já cadastrado
-    Espera e informa o valor dos inputs corretos no elemento de cadastro 
-
 Quando realizo a criação de um novo usuario informando dados válidos com e-mail já cadastrado
     Utilizar Email ja cadastrado
 
+Quando informo um nome com 100 caracteres
+    Espera o elemento para fazer o inputtext    ${INPUT_NOME}    CarolineRutherfordTatumAliciaEliseWhitneyMargaritaSavannahAlejandraLilianaAnastasiaIsabellaTestItalo
+
+E informo um nome válido
+    Espera e informa o valor do nome no input de cadastro
+
+E informo um email válido
+    Espera e informa o valor do email no input de cadastro
+
+E informo uma senha válida
+    Espera e informa o valor da senha no input de cadastro 
+    
 E um usuario já foi cadastrado no sistema
     Criar usuário API 
 

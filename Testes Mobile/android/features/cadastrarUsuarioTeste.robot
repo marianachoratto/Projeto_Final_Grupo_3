@@ -15,7 +15,9 @@ CT001 - Acessar formulario de cadastro deve estar visível e habilitado
 
 CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
     Dado que acessei a funcionalidade de cadastro
-    Quando informo um nome, email e senha válidos
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha válida
     E clico para cadastrar
     Então um usuário do tipo comum será gerado
 
@@ -26,13 +28,13 @@ CT003 - Não é possível cadastrar usuário com email repetido
     E clico para cadastrar
     Então o usuário não é criado
 
-# CT004 - Deve ser possível criar usuário com nome até 100 caracteres
-    # Quando informo um nome com 100 caracteres
-    # E informo um email válido
-    # E informo uma senha válida
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então um usuário do tipo comum será gerado
+CT004 - Deve ser possível criar usuário com nome até 100 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    Quando informo um nome com 100 caracteres
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado
 
 # CT005 - Não deve ser possível criar usuário com nome maior que 100 caracteres
 #     Quando informo um nome com mais de 100 caracteres
