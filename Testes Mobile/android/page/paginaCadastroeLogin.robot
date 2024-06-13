@@ -17,6 +17,7 @@ ${BOTÃO_REGISTRAR_NOVO}     xpath=//android.widget.Button[@content-desc="Regist
 ${CADASTRO_SUCESSO}         xpath=//android.view.View[@content-desc="Cadastro realizado!"]
 ${EMAIL_CADASTRADO}         xpath=//android.view.View[@content-desc="E-mail já cadastrado. Utilize outro e-mail."]
 ${ERRO_GENERICO}            xpath=//android.view.View[@content-desc="Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde."]
+${ERRO_NOME}                xpath=//android.view.View[@content-desc="Informe o nome."]
 
 #GUARDA E-MAIL JÁ CADASTRADO
 ${EMAIL}
@@ -66,6 +67,9 @@ Então o usuário não é criado
 
 Então retorna mensagem informando o limite de caracteres
     Espera o elemento e verifica o texto    ${ERRO_GENERICO}     "Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde."
+
+Então retorna mensagem informando que o nome deve ser preenchido
+    Espera o elemento e verifica o texto    ${ERRO_NOME}     "Informe o nome."
 
 
 

@@ -44,12 +44,12 @@ CT005 - Não deve ser possível criar usuário com nome maior que 100 caracteres
     E clico para cadastrar
     Então retorna mensagem informando o limite de caracteres
 
-# CT006 - Não deve ser possível criar usuário sem informar um nome
-#     Quando informo um email válido
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então retorna mensagem informando que o nome deve ser preenchido
+CT006 - Não deve ser possível criar usuário sem informar um nome
+    Dado que acessei a funcionalidade de cadastro
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retorna mensagem informando que o nome deve ser preenchido
 
 # CT007 - Validando nomes de usuário
 #     [Template]    Template CT006 - Validando nomes de usuário
