@@ -171,3 +171,23 @@ Cypress.Commands.add('loginDoisUsuarios', (email1, email2, password, token1, tok
     token2 = resposta.body.accessToken
   })
 })
+
+Cypress.Commands.add("listaUsers", (tokenid) => {
+  cy.request({
+    method: "GET",
+    url: "/api/users/",
+    headers: {
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
+});
+
+Cypress.Commands.add("findUser", (userId, tokenid) => {
+  cy.request({
+    method: "GET",
+    url: "/api/users/" + userId,
+    headers: {
+      Authorization: `Bearer ${tokenid}`,
+    },
+  });
+});
