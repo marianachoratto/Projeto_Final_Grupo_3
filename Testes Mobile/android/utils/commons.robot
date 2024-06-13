@@ -65,4 +65,11 @@ Espera e informa o valor dos inputs corretos no elemento de cadastro
     Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}              ${emailFaker}  
     Espera o elemento para fazer o inputtext    ${INPUT_SENHA}              ${senhaFaker}    
     Espera o elemento para fazer o inputtext    ${INPUT_CONFIRMAR_SENHA}    ${senhaFaker} 
-  
+
+Utilizar Email ja cadastrado
+    ${nomeFaker}=     FakerLibrary.Name
+    ${senhaFaker}=    FakerLibrary.Password
+    Espera o elemento para fazer o inputtext    ${INPUT_NOME}               ${nomeFaker}    
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}              ${userEmailAPI}
+    Espera o elemento para fazer o inputtext    ${INPUT_SENHA}              ${senhaFaker}    
+    Espera o elemento para fazer o inputtext    ${INPUT_CONFIRMAR_SENHA}    ${senhaFaker} 

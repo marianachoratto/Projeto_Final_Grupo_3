@@ -15,6 +15,10 @@ ${BOTÃO_REGISTRAR_NOVO}     xpath=//android.widget.Button[@content-desc="Regist
     
 #MENSAGENS
 ${CADASTRO_SUCESSO}         xpath=//android.view.View[@content-desc="Cadastro realizado!"]
+${EMAIL_CADASTRADO}         xpath=//android.view.View[@content-desc="E-mail já cadastrado. Utilize outro e-mail."]
+
+#GUARDA E-MAIL JÁ CADASTRADO
+${EMAIL}
 
 *** Keywords ***
 
@@ -28,6 +32,15 @@ Quando visualizo a pagina de criação
 Quando informo um nome, email e senha válidos
     Espera e informa o valor dos inputs corretos no elemento de cadastro 
 
+Quando informo dados válidos com e-mail já cadastrado
+    Espera e informa o valor dos inputs corretos no elemento de cadastro 
+
+Quando realizo a criação de um novo usuario informando dados válidos com e-mail já cadastrado
+    Utilizar Email ja cadastrado
+
+E um usuario já foi cadastrado no sistema
+    Criar usuário API 
+
 E clico para cadastrar
     Espera o elemento para clicar    ${BOTÃO_REGISTRAR_NOVO}
 
@@ -37,6 +50,10 @@ Então os inputs estão habilitados e instruções visíveis
 
 Então um usuário do tipo comum será gerado
     Espera o elemento e verifica o texto    ${CADASTRO_SUCESSO}    "Cadastro realizado!"
+
+Então o usuário não é criado
+    Espera o elemento e verifica o texto    ${EMAIL_CADASTRADO}     "E-mail já cadastrado. Utilize outro e-mail."
+
 
 
     

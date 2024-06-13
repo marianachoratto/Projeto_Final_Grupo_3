@@ -8,6 +8,7 @@ Library      FakerLibrary
 Resource     android/utils/commons.robot
 Resource     android/utils/config.robot
 Resource     android/utils/templates.robot
+Resource     android/utils/requestsAPI.robot
 
 #Pages
 Resource     android/page/avaliacaoDeFilmePage.robot

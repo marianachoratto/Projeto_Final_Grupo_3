@@ -19,10 +19,12 @@ CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
     E clico para cadastrar
     Então um usuário do tipo comum será gerado
 
-# CT003 - Não é possível cadastrar usuário com email repetido
-#     Quando informo dados válidos com e-mail já cadastrado
-#     E clico para cadastrar
-#     Então o usuário não é criado
+CT003 - Não é possível cadastrar usuário com email repetido
+    Dado que acessei a funcionalidade de cadastro
+    E um usuario já foi cadastrado no sistema
+    Quando realizo a criação de um novo usuario informando dados válidos com e-mail já cadastrado
+    E clico para cadastrar
+    Então o usuário não é criado
 
 # CT004 - Deve ser possível criar usuário com nome até 100 caracteres
     # Quando informo um nome com 100 caracteres

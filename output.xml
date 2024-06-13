@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.12.3 on win32)" generated="2024-06-12T09:39:09.404725" rpa="false" schemaversion="5">
+<robot generator="Robot 7.0 (Python 3.12.3 on win32)" generated="2024-06-13T00:58:59.674784" rpa="false" schemaversion="5">
 <suite id="s1" name="cadastrarUsuarioTeste" source="c:\Users\italo\OneDrive\Área de Trabalho\trabalhogrupo3\academy-qa-trabalho-final-grupo-3\Testes Mobile\android\features\cadastrarUsuarioTeste.robot">
-<test id="s1-t1" name="CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum" line="16">
+<test id="s1-t1" name="CT003 - Não é possível cadastrar usuário com email repetido" line="22">
 <kw name="Abrir App" owner="config" type="SETUP">
 <kw name="Open Application" owner="AppiumLibrary">
 <arg>http://127.0.0.1:4723</arg>
 <arg>automationName=${ANDROID_AUTOMATION_NAME}</arg>
 <arg>platformName=${ANDROID_PLATFORM_NAME}</arg>
+<arg>platformVersion=${ANDROID_PLATFORM_VERSION}</arg>
 <arg>appPackage=${ANDROID_APP_PACKAGE}</arg>
 <arg>appActivity=${ANDROID_APP_ACTIVITY}</arg>
 <arg>autoGrantPermissions=${AUTO_GRANT_PERMISSIONS}</arg>
@@ -17,272 +18,360 @@ Please check https://github.com/appium/appium/blob/master/docs/en/writing-runnin
 | remote_url          | Yes    | Appium server url |
 | alias               | no     | alias             |
 | strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
-<status status="PASS" start="2024-06-12T09:39:10.672298" elapsed="25.797694"/>
+<status status="PASS" start="2024-06-13T00:59:02.015777" elapsed="13.211391"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:10.672298" elapsed="25.810211"/>
+<status status="PASS" start="2024-06-13T00:59:02.014778" elapsed="13.215413"/>
 </kw>
 <kw name="Dado que acessei a funcionalidade de cadastro" owner="paginaCadastroeLogin">
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:39.355085" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Open navigation menu"]</msg>
+<msg time="2024-06-13T00:59:17.367116" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Open navigation menu"]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:36.482509" elapsed="2.876586"/>
+<status status="PASS" start="2024-06-13T00:59:15.239695" elapsed="2.151682"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:39.359095" level="INFO">Clicking element 'xpath=//android.widget.Button[@content-desc="Open navigation menu"]'.</msg>
-<msg time="2024-06-12T09:39:39.755787" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Open navigation menu"]</msg>
+<msg time="2024-06-13T00:59:17.392377" level="INFO">Clicking element 'xpath=//android.widget.Button[@content-desc="Open navigation menu"]'.</msg>
+<msg time="2024-06-13T00:59:17.657878" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Open navigation menu"]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:39.359095" elapsed="0.396692"/>
+<status status="PASS" start="2024-06-13T00:59:17.391377" elapsed="0.266501"/>
 </kw>
 <arg>${MENU}</arg>
-<status status="PASS" start="2024-06-12T09:39:36.482509" elapsed="3.273278"/>
+<status status="PASS" start="2024-06-13T00:59:15.238698" elapsed="2.419700"/>
 </kw>
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:41.219499" level="INFO">xpath criteria: //android.view.View[@content-desc="Registre-se"]
+<msg time="2024-06-13T00:59:19.328086" level="INFO">xpath criteria: //android.view.View[@content-desc="Registre-se"]
 xpath criteria: //android.view.View[@content-desc="Registre-se"]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:39.755787" elapsed="1.463712"/>
+<status status="PASS" start="2024-06-13T00:59:17.658398" elapsed="1.670969"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:41.220919" level="INFO">Clicking element 'xpath=//android.view.View[@content-desc="Registre-se"]'.</msg>
-<msg time="2024-06-12T09:39:41.570968" level="INFO">xpath criteria: //android.view.View[@content-desc="Registre-se"]</msg>
+<msg time="2024-06-13T00:59:19.333398" level="INFO">Clicking element 'xpath=//android.view.View[@content-desc="Registre-se"]'.</msg>
+<msg time="2024-06-13T00:59:19.707571" level="INFO">xpath criteria: //android.view.View[@content-desc="Registre-se"]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:41.220919" elapsed="0.350049"/>
+<status status="PASS" start="2024-06-13T00:59:19.329367" elapsed="0.378723"/>
 </kw>
 <arg>${BOTÃO_REGISTRAR}</arg>
-<status status="PASS" start="2024-06-12T09:39:39.755787" elapsed="1.815181"/>
+<status status="PASS" start="2024-06-13T00:59:17.658398" elapsed="2.049692"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:36.482509" elapsed="5.088459"/>
+<status status="PASS" start="2024-06-13T00:59:15.237700" elapsed="4.470390"/>
 </kw>
-<kw name="Quando informo um nome, email e senha válidos" owner="paginaCadastroeLogin">
-<kw name="Espera e informa o valor dos inputs corretos no elemento de cadastro" owner="commons">
+<kw name="E um usuario já foi cadastrado no sistema" owner="paginaCadastroeLogin">
+<kw name="Criar usuário API" owner="requestsAPI">
 <kw name="Email" owner="FakerLibrary">
-<msg time="2024-06-12T09:39:41.579892" level="INFO">${emailFaker} = elizabethswanson@example.org</msg>
-<var>${emailFaker}</var>
-<status status="PASS" start="2024-06-12T09:39:41.575379" elapsed="0.004513"/>
+<msg time="2024-06-13T00:59:19.725932" level="INFO">${userEmailAPI} = burkesharon@example.net</msg>
+<var>${userEmailAPI}</var>
+<status status="PASS" start="2024-06-13T00:59:19.712623" elapsed="0.014563"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2024-06-13T00:59:19.728961" level="INFO">${userEmailAPI} = burkesharon@example.net</msg>
+<arg>${userEmailAPI}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2024-06-13T00:59:19.727944" elapsed="0.002011"/>
+</kw>
+<kw name="Set Local Variable" owner="BuiltIn">
+<msg time="2024-06-13T00:59:19.732959" level="INFO">${senhaUserAPI} = @Senha56</msg>
+<arg>${senhaUserAPI}</arg>
+<arg>@Senha56</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<status status="PASS" start="2024-06-13T00:59:19.729955" elapsed="0.003999"/>
 </kw>
 <kw name="Name" owner="FakerLibrary">
-<msg time="2024-06-12T09:39:41.579892" level="INFO">${nomeFaker} = Ronald Stein</msg>
+<msg time="2024-06-13T00:59:19.735828" level="INFO">${userNomeAPI} = Trevor Solomon</msg>
+<var>${userNomeAPI}</var>
+<doc>:example: 'John Doe'</doc>
+<status status="PASS" start="2024-06-13T00:59:19.734958" elapsed="0.000870"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-06-13T00:59:19.740852" level="INFO">${body} = {'name': 'Trevor Solomon', 'email': 'burkesharon@example.net', 'password': '@Senha56'}</msg>
+<var>${body}</var>
+<arg>name=${userNomeAPI}</arg>
+<arg>email=${userEmailAPI}</arg>
+<arg>password=${senhaUserAPI}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-06-13T00:59:19.737863" elapsed="0.002989"/>
+</kw>
+<kw name="Login API" owner="requestsAPI">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2024-06-13T00:59:19.740852" level="INFO">${headers} = {'accept': 'application/json', 'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>accept=application/json</arg>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2024-06-13T00:59:19.740852" elapsed="0.000000"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-06-13T00:59:19.741853" level="INFO">Creating Session using : alias=api, url=https://raromdb-3c39614e42d4.herokuapp.com/, headers={'accept': 'application/json', 'Content-Type': 'application/json'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>alias=api</arg>
+<arg>url=https://raromdb-3c39614e42d4.herokuapp.com/</arg>
+<arg>headers=${headers}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-06-13T00:59:19.741853" elapsed="0.000999"/>
+</kw>
+<status status="PASS" start="2024-06-13T00:59:19.740852" elapsed="0.003003"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2024-06-13T00:59:20.592782" level="INFO">POST Request : url=https://raromdb-3c39614e42d4.herokuapp.com/api/users 
+ path_url=/api/users 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'accept': 'application/json', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '86'} 
+ body=b'{"name": "Trevor Solomon", "email": "burkesharon@example.net", "password": "@Senha56"}' 
+ </msg>
+<msg time="2024-06-13T00:59:20.593783" level="INFO">POST Response : url=https://raromdb-3c39614e42d4.herokuapp.com/api/users 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1718251162&amp;sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&amp;s=8%2F480WmBN0MxlPiEyQG1Yfs6zpIiZ8WhT8uptEJPAR4%3D"}]}', 'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1718251162&amp;sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&amp;s=8%2F480WmBN0MxlPiEyQG1Yfs6zpIiZ8WhT8uptEJPAR4%3D', 'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '92', 'Etag': 'W/"5c-JqC6H2TkdEu76Uimu7RjF813CKw"', 'Date': 'Thu, 13 Jun 2024 03:59:22 GMT', 'Via': '1.1 vegur'} 
+ body={"id":1500,"name":"Trevor Solomon","email":"burkesharon@example.net","type":0,"active":true} 
+ </msg>
+<msg time="2024-06-13T00:59:20.595863" level="INFO">${resposta} = &lt;Response [201]&gt;</msg>
+<var>${resposta}</var>
+<arg>alias=api</arg>
+<arg>url=/api/users</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2024-06-13T00:59:19.743855" elapsed="0.853022"/>
+</kw>
+<kw name="Set Local Variable" owner="BuiltIn">
+<msg time="2024-06-13T00:59:20.601349" level="INFO">${cadastroRealizado} = {'id': 1500, 'name': 'Trevor Solomon', 'email': 'burkesharon@example.net', 'type': 0, 'active': True}</msg>
+<arg>${cadastroRealizado}</arg>
+<arg>${resposta.json()}</arg>
+<doc>Makes a variable available everywhere within the local scope.</doc>
+<status status="PASS" start="2024-06-13T00:59:20.597873" elapsed="0.003476"/>
+</kw>
+<kw name="Set To Dictionary" owner="Collections">
+<arg>${cadastroRealizado}</arg>
+<arg>password=${senhaUserAPI}</arg>
+<doc>Adds the given ``key_value_pairs`` and/or ``items`` to the ``dictionary``.</doc>
+<status status="PASS" start="2024-06-13T00:59:20.601349" elapsed="0.000995"/>
+</kw>
+<return>
+<value>${cadastroRealizado}</value>
+<status status="PASS" start="2024-06-13T00:59:20.602344" elapsed="0.000000"/>
+</return>
+<status status="PASS" start="2024-06-13T00:59:19.711657" elapsed="0.890687"/>
+</kw>
+<status status="PASS" start="2024-06-13T00:59:19.710089" elapsed="0.892255"/>
+</kw>
+<kw name="Quando realizo a criação de um novo usuario informando dados válidos com e-mail já cadastrado" owner="paginaCadastroeLogin">
+<kw name="Utilizar Email ja cadastrado" owner="commons">
+<kw name="Name" owner="FakerLibrary">
+<msg time="2024-06-13T00:59:20.604853" level="INFO">${nomeFaker} = Alexis Shaffer</msg>
 <var>${nomeFaker}</var>
 <doc>:example: 'John Doe'</doc>
-<status status="PASS" start="2024-06-12T09:39:41.579892" elapsed="0.000000"/>
+<status status="PASS" start="2024-06-13T00:59:20.604853" elapsed="0.000000"/>
 </kw>
 <kw name="Password" owner="FakerLibrary">
-<msg time="2024-06-12T09:39:41.579892" level="INFO">${senhaFaker} = &amp;G1GnIVxI6</msg>
+<msg time="2024-06-13T00:59:20.605883" level="INFO">${senhaFaker} = $6@XpJf(j6</msg>
 <var>${senhaFaker}</var>
 <doc>Generate a random password of the specified ``length``.</doc>
-<status status="PASS" start="2024-06-12T09:39:41.579892" elapsed="0.000000"/>
+<status status="PASS" start="2024-06-13T00:59:20.604853" elapsed="0.001030"/>
 </kw>
 <kw name="Espera o elemento para fazer o inputtext" owner="commons">
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:43.337189" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]
-xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
+<msg time="2024-06-13T00:59:21.553079" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:41.579892" elapsed="1.757297"/>
+<status status="PASS" start="2024-06-13T00:59:20.610481" elapsed="0.942598"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:43.337189" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[1]'.</msg>
-<msg time="2024-06-12T09:39:43.601261" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
+<msg time="2024-06-13T00:59:21.555074" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[1]'.</msg>
+<msg time="2024-06-13T00:59:21.967785" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:43.337189" elapsed="0.264072"/>
+<status status="PASS" start="2024-06-13T00:59:21.554075" elapsed="0.413710"/>
 </kw>
 <arg>${elemento}</arg>
-<status status="PASS" start="2024-06-12T09:39:41.579892" elapsed="2.021369"/>
+<status status="PASS" start="2024-06-13T00:59:20.608209" elapsed="1.359576"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:45.453388" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
+<msg time="2024-06-13T00:59:22.769613" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:43.601261" elapsed="1.852127"/>
+<status status="PASS" start="2024-06-13T00:59:21.968790" elapsed="0.800823"/>
 </kw>
 <kw name="Input Text" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:45.453388" level="INFO">Typing text 'Ronald Stein' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[1]'</msg>
-<msg time="2024-06-12T09:39:45.858185" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
+<msg time="2024-06-13T00:59:22.775724" level="INFO">Typing text 'Alexis Shaffer' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[1]'</msg>
+<msg time="2024-06-13T00:59:23.920033" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[1]</msg>
 <arg>${elemento}</arg>
 <arg>${texto}</arg>
 <doc>Types the given `text` into text field identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:45.453388" elapsed="0.404797"/>
+<status status="PASS" start="2024-06-13T00:59:22.771103" elapsed="1.148930"/>
 </kw>
 <arg>${INPUT_NOME}</arg>
 <arg>${nomeFaker}</arg>
-<status status="PASS" start="2024-06-12T09:39:41.579892" elapsed="4.278293"/>
+<status status="PASS" start="2024-06-13T00:59:20.607212" elapsed="3.313820"/>
 </kw>
 <kw name="Espera o elemento para fazer o inputtext" owner="commons">
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:46.546776" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
+<msg time="2024-06-13T00:59:24.586883" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:45.858185" elapsed="0.688591"/>
+<status status="PASS" start="2024-06-13T00:59:23.922028" elapsed="0.664855"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:46.561799" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[2]'.</msg>
-<msg time="2024-06-12T09:39:46.865592" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
+<msg time="2024-06-13T00:59:24.590848" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[2]'.</msg>
+<msg time="2024-06-13T00:59:24.967068" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:46.546776" elapsed="0.318816"/>
+<status status="PASS" start="2024-06-13T00:59:24.587771" elapsed="0.380321"/>
 </kw>
 <arg>${elemento}</arg>
-<status status="PASS" start="2024-06-12T09:39:45.858185" elapsed="1.007407"/>
+<status status="PASS" start="2024-06-13T00:59:23.922028" elapsed="1.047061"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:47.839250" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
+<msg time="2024-06-13T00:59:25.801597" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:46.865592" elapsed="0.973658"/>
+<status status="PASS" start="2024-06-13T00:59:24.969089" elapsed="0.833506"/>
 </kw>
 <kw name="Input Text" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:47.839250" level="INFO">Typing text 'elizabethswanson@example.org' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[2]'</msg>
-<msg time="2024-06-12T09:39:48.196324" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
+<msg time="2024-06-13T00:59:25.805158" level="INFO">Typing text 'burkesharon@example.net' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[2]'</msg>
+<msg time="2024-06-13T00:59:26.176002" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[2]</msg>
 <arg>${elemento}</arg>
 <arg>${texto}</arg>
 <doc>Types the given `text` into text field identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:47.839250" elapsed="0.357074"/>
+<status status="PASS" start="2024-06-13T00:59:25.802595" elapsed="0.374661"/>
 </kw>
 <arg>${INPUT_EMAIL}</arg>
-<arg>${emailFaker}</arg>
-<status status="PASS" start="2024-06-12T09:39:45.858185" elapsed="2.338139"/>
+<arg>${userEmailAPI}</arg>
+<status status="PASS" start="2024-06-13T00:59:23.921032" elapsed="2.257227"/>
 </kw>
 <kw name="Espera o elemento para fazer o inputtext" owner="commons">
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:48.798798" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
+<msg time="2024-06-13T00:59:26.774225" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:48.196324" elapsed="0.602474"/>
+<status status="PASS" start="2024-06-13T00:59:26.182123" elapsed="0.593165"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:48.798798" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[3]'.</msg>
-<msg time="2024-06-12T09:39:49.190425" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
+<msg time="2024-06-13T00:59:26.780909" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[3]'.</msg>
+<msg time="2024-06-13T00:59:27.120757" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:48.798798" elapsed="0.391627"/>
+<status status="PASS" start="2024-06-13T00:59:26.775879" elapsed="0.345889"/>
 </kw>
 <arg>${elemento}</arg>
-<status status="PASS" start="2024-06-12T09:39:48.196324" elapsed="0.994101"/>
+<status status="PASS" start="2024-06-13T00:59:26.181096" elapsed="0.940672"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:49.965293" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
+<msg time="2024-06-13T00:59:27.957012" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:49.190425" elapsed="0.774868"/>
+<status status="PASS" start="2024-06-13T00:59:27.121768" elapsed="0.836726"/>
 </kw>
 <kw name="Input Text" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:49.965293" level="INFO">Typing text '&amp;G1GnIVxI6' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[3]'</msg>
-<msg time="2024-06-12T09:39:50.367625" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
+<msg time="2024-06-13T00:59:27.963066" level="INFO">Typing text '$6@XpJf(j6' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[3]'</msg>
+<msg time="2024-06-13T00:59:28.325763" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[3]</msg>
 <arg>${elemento}</arg>
 <arg>${texto}</arg>
 <doc>Types the given `text` into text field identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:49.965293" elapsed="0.402332"/>
+<status status="PASS" start="2024-06-13T00:59:27.959081" elapsed="0.366682"/>
 </kw>
 <arg>${INPUT_SENHA}</arg>
 <arg>${senhaFaker}</arg>
-<status status="PASS" start="2024-06-12T09:39:48.196324" elapsed="2.171301"/>
+<status status="PASS" start="2024-06-13T00:59:26.179263" elapsed="2.146500"/>
 </kw>
 <kw name="Espera o elemento para fazer o inputtext" owner="commons">
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:51.000870" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
+<msg time="2024-06-13T00:59:29.038868" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:50.372721" elapsed="0.628149"/>
+<status status="PASS" start="2024-06-13T00:59:28.329125" elapsed="0.709743"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:51.000870" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[4]'.</msg>
-<msg time="2024-06-12T09:39:51.422831" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
+<msg time="2024-06-13T00:59:29.043869" level="INFO">Clicking element 'xpath=//android.widget.ImageView/android.widget.EditText[4]'.</msg>
+<msg time="2024-06-13T00:59:29.471920" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:51.000870" elapsed="0.421961"/>
+<status status="PASS" start="2024-06-13T00:59:29.039869" elapsed="0.432051"/>
 </kw>
 <arg>${elemento}</arg>
-<status status="PASS" start="2024-06-12T09:39:50.372721" elapsed="1.050110"/>
+<status status="PASS" start="2024-06-13T00:59:28.327780" elapsed="1.145137"/>
 </kw>
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:52.488513" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
+<msg time="2024-06-13T00:59:30.501078" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:51.422831" elapsed="1.065781"/>
+<status status="PASS" start="2024-06-13T00:59:29.472917" elapsed="1.029161"/>
 </kw>
 <kw name="Input Text" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:52.490943" level="INFO">Typing text '&amp;G1GnIVxI6' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[4]'</msg>
-<msg time="2024-06-12T09:39:52.831425" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
+<msg time="2024-06-13T00:59:30.505669" level="INFO">Typing text '$6@XpJf(j6' into text field 'xpath=//android.widget.ImageView/android.widget.EditText[4]'</msg>
+<msg time="2024-06-13T00:59:30.855402" level="INFO">xpath criteria: //android.widget.ImageView/android.widget.EditText[4]</msg>
 <arg>${elemento}</arg>
 <arg>${texto}</arg>
 <doc>Types the given `text` into text field identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:52.488612" elapsed="0.342813"/>
+<status status="PASS" start="2024-06-13T00:59:30.503083" elapsed="0.352825"/>
 </kw>
 <arg>${INPUT_CONFIRMAR_SENHA}</arg>
 <arg>${senhaFaker}</arg>
-<status status="PASS" start="2024-06-12T09:39:50.371704" elapsed="2.459721"/>
+<status status="PASS" start="2024-06-13T00:59:28.326921" elapsed="2.528987"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:41.575379" elapsed="11.256046"/>
+<status status="PASS" start="2024-06-13T00:59:20.604853" elapsed="10.251055"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:41.575379" elapsed="11.256046"/>
+<status status="PASS" start="2024-06-13T00:59:20.603342" elapsed="10.252566"/>
 </kw>
 <kw name="E clico para cadastrar" owner="paginaCadastroeLogin">
 <kw name="Espera o elemento para clicar" owner="commons">
 <kw name="Wait Until Element Is Visible" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:53.723443" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Registrar"]</msg>
+<msg time="2024-06-13T00:59:31.468291" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Registrar"]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` is visible.</doc>
-<status status="PASS" start="2024-06-12T09:39:52.843533" elapsed="0.879910"/>
+<status status="PASS" start="2024-06-13T00:59:30.860927" elapsed="0.607364"/>
 </kw>
 <kw name="Click Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:53.737938" level="INFO">Clicking element 'xpath=//android.widget.Button[@content-desc="Registrar"]'.</msg>
-<msg time="2024-06-12T09:39:54.042071" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Registrar"]</msg>
+<msg time="2024-06-13T00:59:31.470273" level="INFO">Clicking element 'xpath=//android.widget.Button[@content-desc="Registrar"]'.</msg>
+<msg time="2024-06-13T00:59:31.867334" level="INFO">xpath criteria: //android.widget.Button[@content-desc="Registrar"]</msg>
 <arg>${elemento}</arg>
 <doc>Click element identified by `locator`.</doc>
-<status status="PASS" start="2024-06-12T09:39:53.723443" elapsed="0.318628"/>
+<status status="PASS" start="2024-06-13T00:59:31.469272" elapsed="0.400062"/>
 </kw>
 <arg>${BOTÃO_REGISTRAR_NOVO}</arg>
-<status status="PASS" start="2024-06-12T09:39:52.838691" elapsed="1.203380"/>
+<status status="PASS" start="2024-06-13T00:59:30.859927" elapsed="1.010411"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:52.838691" elapsed="1.203380"/>
+<status status="PASS" start="2024-06-13T00:59:30.858922" elapsed="1.011416"/>
 </kw>
-<kw name="Então um usuário do tipo comum será gerado" owner="paginaCadastroeLogin">
+<kw name="Então o usuário não é criado" owner="paginaCadastroeLogin">
 <kw name="Espera o elemento e verifica o texto" owner="commons">
 <kw name="Wait Until Page Contains Element" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:56.109140" level="INFO">xpath criteria: //android.view.View[@content-desc="Cadastro realizado!"]
-xpath criteria: //android.view.View[@content-desc="Cadastro realizado!"]</msg>
+<msg time="2024-06-13T00:59:32.979795" level="INFO">xpath criteria: //android.view.View[@content-desc="E-mail já cadastrado. Utilize outro e-mail."]
+xpath criteria: //android.view.View[@content-desc="E-mail já cadastrado. Utilize outro e-mail."]</msg>
 <arg>${elemento}</arg>
 <doc>Waits until element specified with `locator` appears on current page.</doc>
-<status status="PASS" start="2024-06-12T09:39:54.048171" elapsed="2.060969"/>
+<status status="PASS" start="2024-06-13T00:59:31.890976" elapsed="1.090784"/>
 </kw>
 <kw name="Page Should Contain Text" owner="AppiumLibrary">
-<msg time="2024-06-12T09:39:56.251932" level="INFO">Current page contains text '"Cadastro realizado!"'.</msg>
+<msg time="2024-06-13T00:59:33.598905" level="INFO">Current page contains text '"E-mail já cadastrado. Utilize outro e-mail."'.</msg>
 <arg>${texto}</arg>
 <doc>Verifies that current page contains `text`.</doc>
-<status status="PASS" start="2024-06-12T09:39:56.109140" elapsed="0.142792"/>
+<status status="PASS" start="2024-06-13T00:59:32.982893" elapsed="0.617009"/>
 </kw>
-<arg>${CADASTRO_SUCESSO}</arg>
-<arg>"Cadastro realizado!"</arg>
-<status status="PASS" start="2024-06-12T09:39:54.048171" elapsed="2.203761"/>
+<arg>${EMAIL_CADASTRADO}</arg>
+<arg>"E-mail já cadastrado. Utilize outro e-mail."</arg>
+<status status="PASS" start="2024-06-13T00:59:31.888976" elapsed="1.710926"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:54.048171" elapsed="2.203761"/>
+<status status="PASS" start="2024-06-13T00:59:31.884436" elapsed="1.715466"/>
 </kw>
 <kw name="Teardown" owner="config" type="TEARDOWN">
 <kw name="Run Keyword If Test Failed" owner="BuiltIn">
 <arg>Capture Page Screenshot</arg>
 <doc>Runs the given keyword with the given arguments, if the test failed.</doc>
-<status status="PASS" start="2024-06-12T09:39:56.251932" elapsed="0.000000"/>
+<status status="PASS" start="2024-06-13T00:59:33.604367" elapsed="0.001026"/>
 </kw>
 <kw name="Close All Applications" owner="AppiumLibrary">
 <doc>Closes all open applications.</doc>
-<status status="PASS" start="2024-06-12T09:39:56.260206" elapsed="0.454642"/>
+<status status="PASS" start="2024-06-13T00:59:33.605947" elapsed="0.710733"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:56.251932" elapsed="0.462916"/>
+<status status="PASS" start="2024-06-13T00:59:33.603193" elapsed="0.713899"/>
 </kw>
-<status status="PASS" start="2024-06-12T09:39:10.670835" elapsed="46.044013"/>
+<status status="PASS" start="2024-06-13T00:59:02.012777" elapsed="32.304315"/>
 </test>
-<status status="PASS" start="2024-06-12T09:39:09.411886" elapsed="47.321176"/>
+<status status="PASS" start="2024-06-13T00:58:59.689998" elapsed="34.638444"/>
 </suite>
 <statistics>
 <total>
