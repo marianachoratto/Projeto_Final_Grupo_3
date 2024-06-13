@@ -26,5 +26,12 @@ Logar na API
     Set Global Variable    ${token}
 
 Virar administrador na API
-    ${body}    Create Dictionary    accessToken=${token}
-    ${RESPONSE}    PATCH On Session    alias=API_raromd    url=/api/users/admin    json=${body}
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${RESPONSE}    PATCH On Session    alias=API_raromd    url=/api/users/admin    headers=${headers}
+
+Criar filme na API 
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${durationInMinutes}=    Convert To Integer    117
+    ${releaseYear}=    Convert To Integer    1979
+    ${body}    Create Dictionary    title=Alien   genre=Terror    description=Alien quer ser mamae    durationInMinutes=${durationInMinutes}    releaseYear=${releaseYear}
+    ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/movies     headers=${headers}    json=${body}
