@@ -9,7 +9,9 @@ ${BOTAO_COMENTARIO}            xpath=//android.widget.FrameLayout[@resource-id="
 ${ANO_DE_LANCAMENTO}            xpath=//android.widget.ImageView[contains(@content-desc,"Ano de Lançamento:")]
 ${AVALIACOES_AUDIENCIA}         xpath=//android.view.View[contains(@content-desc,"Avaliação da audiência")]
 ${AVALIACOES_CRITICA}           xpath=//android.view.View[contains(@content-desc,"Avaliação da crítica")]
-${COMENTÁRIO_USUÁRIO}           xpath=//android.widget.ImageView/android.view.View[2]   
+${COMENTÁRIO_USUÁRIO}           xpath=//android.widget.ImageView/android.view.View[2]
+
+
 
 # Página de avaliações
 ${DÊ_NOTA_AO_FILME}             xpath=//android.view.View[@content-desc="Dê sua nota para o filme:"]
