@@ -94,13 +94,14 @@ Quando faço outra review com um texto diferente
     Wait Until Keyword Succeeds    4    0    Espera o elemento para clicar    ${BOTAO_COMENTARIO}
     Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
     Click Element    ${CAIXA_TEXTO}
-    Input Text    ${CAIXA_TEXTO}    "Filme horroroso"
+    Input Text    ${CAIXA_TEXTO}    Filme horrível
     Click Element    ${ESTRELA_1}
     Click Element    ${BOTAO_SALVAR}
     Press Keycode    4
     Press Keycode    4
 Então a review é atualizada
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
-    Swipe By Percent    0    70    0    23
-    Page Should Contain Text    "Filme horroroso"
+    Swipe By Percent    0    80    0    20
+    # Pega o atributo do elemento e verifica se tem o texto esperado    
+    Page Should Contain Text    Filme horrível
     
