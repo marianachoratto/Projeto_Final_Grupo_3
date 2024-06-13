@@ -36,13 +36,13 @@ CT004 - Deve ser possível criar usuário com nome até 100 caracteres
     E clico para cadastrar
     Então um usuário do tipo comum será gerado
 
-# CT005 - Não deve ser possível criar usuário com nome maior que 100 caracteres
-#     Quando informo um nome com mais de 100 caracteres
-#     E informo um email válido
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então retorna mensagem informando o limite de caracteres
+CT005 - Não deve ser possível criar usuário com nome maior que 100 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    Quando informo um nome com mais de 100 caracteres
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retorna mensagem informando o limite de caracteres
 
 # CT006 - Não deve ser possível criar usuário sem informar um nome
 #     Quando informo um email válido

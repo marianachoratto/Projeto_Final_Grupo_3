@@ -16,6 +16,7 @@ ${BOTÃO_REGISTRAR_NOVO}     xpath=//android.widget.Button[@content-desc="Regist
 #MENSAGENS
 ${CADASTRO_SUCESSO}         xpath=//android.view.View[@content-desc="Cadastro realizado!"]
 ${EMAIL_CADASTRADO}         xpath=//android.view.View[@content-desc="E-mail já cadastrado. Utilize outro e-mail."]
+${ERRO_GENERICO}            xpath=//android.view.View[@content-desc="Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde."]
 
 #GUARDA E-MAIL JÁ CADASTRADO
 ${EMAIL}
@@ -34,6 +35,9 @@ Quando realizo a criação de um novo usuario informando dados válidos com e-ma
 
 Quando informo um nome com 100 caracteres
     Espera o elemento para fazer o inputtext    ${INPUT_NOME}    CarolineRutherfordTatumAliciaEliseWhitneyMargaritaSavannahAlejandraLilianaAnastasiaIsabellaTestItalo
+
+Quando informo um nome com mais de 100 caracteres
+    Espera o elemento para fazer o inputtext    ${INPUT_NOME}    CarolineRutherfordTatumAliciaEliseWhitneyMargaritaSavannahAlejandraLilianaAnastasiaIsabellaTestItaloRenan
 
 E informo um nome válido
     Espera e informa o valor do nome no input de cadastro
@@ -59,6 +63,9 @@ Então um usuário do tipo comum será gerado
 
 Então o usuário não é criado
     Espera o elemento e verifica o texto    ${EMAIL_CADASTRADO}     "E-mail já cadastrado. Utilize outro e-mail."
+
+Então retorna mensagem informando o limite de caracteres
+    Espera o elemento e verifica o texto    ${ERRO_GENERICO}     "Ocorreu um erro ao realizar o cadastro. Tente novamente mais tarde."
 
 
 
