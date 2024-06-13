@@ -16,6 +16,7 @@ ${DÊ_NOTA_AO_FILME}             xpath=//android.view.View[@content-desc="Dê su
 ${CAIXA_TEXTO}                  xpath=//android.widget.EditText
 ${BOTAO_SALVAR}                 xpath=//android.widget.Button[@content-desc="Salvar"]
 ${MENSAGEM_LOGIN}               xpath=//android.view.View[@content-desc="Faça login e tente novamente."]
+${MENSAGEM_ERRO}               xpath=//android.view.View[@content-desc="Mensagem de erro"]
 ${ESTRELA_1}                    xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[1]
 ${ESTRELA_2}                    xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[2]
 ${ESTRELA_3}                    xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[3]/android.view.View[3]

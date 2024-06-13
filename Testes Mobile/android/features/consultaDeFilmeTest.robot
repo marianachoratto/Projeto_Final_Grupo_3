@@ -44,4 +44,7 @@ T05- É possível ver a sessão de avaliações do usuário
     Quando clico em um filme
     Então tenho acesso à sessão de avaliações feita pelos usuários
 
+# T06- O usuário pode ver a data da avaliação, nome, nota e texto
+
+
 # Testes de média? 

@@ -45,20 +45,24 @@ Criar filme na API
     ${releaseYear}=    Convert To Integer    1979
     ${body}    Create Dictionary    title=Alien   genre=Terror    description=Alien quer ser mamae    durationInMinutes=${durationInMinutes}    releaseYear=${releaseYear}    
     ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/movies     headers=${headers}    json=${body}
-
-Criar filme na API swipe
-    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
-    ${durationInMinutes}=    Convert To Integer    117
-    ${releaseYear}=    Convert To Integer    1979
-    ${body}    Create Dictionary    title=Harry Potter   genre=Aventura    description=Descrição    durationInMinutes=${durationInMinutes}    releaseYear=${releaseYear}    
-    ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/movies     headers=${headers}    json=${body}
-    ${filmeCriado}    Set Variable    //android.widget.ImageView[@content-desc="Harry Potter"]
+    ${idFilme}    Set Variable    ${RESPONSE.json()['id']}
+    Set Global Variable    ${idFilme}
 
 Get Lista de Filmes
     Iniciar sessão na API
     ${RESPONSE}    GET On Session    alias=API_raromd    url=/api/movies
     ${RESPOSTA_JSON}    Set Variable    ${RESPONSE.json()}
     Set Global Variable    ${lista_de_filmes}    ${RESPOSTA_JSON}
+
+Atualizar review na API
+    Iniciar sessão na API
+    Virar administrador na API
+    ${scoreReview}    Convert To Integer    4
+    ${scoreReview}    Convert To Integer    4
+    ${body}    Create Dictionary    movieId=${idFilme}    score=${scoreReview}    reviewText=Nova Review
+    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
+    ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/users/review     headers=${headers}    json=${body}
+
 
 Deletar filme na API
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
