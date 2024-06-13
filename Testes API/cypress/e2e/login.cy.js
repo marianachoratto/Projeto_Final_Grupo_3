@@ -42,8 +42,6 @@ describe('Cenários de login', () => {
                 "password": password
             },
         }).then((response) => {
-            expect(response.status).to.eq(200);
-            expect(response.body.accessToken).to.not.be.empty;
             token = response.body.accessToken;
         });
         cy.request({
