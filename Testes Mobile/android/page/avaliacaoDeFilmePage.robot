@@ -33,6 +33,7 @@ E faço uma review
 Então ela aparece na sessão de avaliações do filme
     Swipe By Percent    0    70    0    23
     Element Should Be Visible    ${COMENTÁRIO_USUÁRIO}
+    Deletar usuário
 
 Dado que tenho um filme cadastrado
     Iniciar sessão na API
