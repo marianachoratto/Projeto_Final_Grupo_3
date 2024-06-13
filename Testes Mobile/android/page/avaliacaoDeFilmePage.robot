@@ -24,8 +24,8 @@ E faço uma review
     Wait Until Keyword Succeeds    4    0    Espera o elemento para clicar    ${BOTAO_COMENTARIO}
     Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
     Click Element    ${CAIXA_TEXTO}
-    Input Text    ${CAIXA_TEXTO}    "Gostei do filme"
-    Click Element    ${ESTRELA_3}
+    Input Text    ${CAIXA_TEXTO}    "Gostei bastante do filme."
+    Click Element    ${ESTRELA_5}
     Click Element    ${BOTAO_SALVAR}
     Press Keycode    4
     Press Keycode    4
@@ -33,7 +33,7 @@ E faço uma review
 Então ela aparece na sessão de avaliações do filme
     Swipe By Percent    0    70    0    23
     Element Should Be Visible    ${COMENTÁRIO_USUÁRIO}
-    Deletar usuário
+    Deletar usuário e filme
 
 Dado que tenho um filme cadastrado
     Iniciar sessão na API
@@ -41,3 +41,17 @@ Dado que tenho um filme cadastrado
     Logar na API
     Virar administrador na API
     Criar filme na API
+
+E dou nota ao filme, mas não escrevo texto
+    Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
+    Click Element    ${ESTRELA_5}
+    Click Element    ${BOTAO_SALVAR}
+    Press Keycode    4
+    Press Keycode    4
+
+Então a review aparecerá na lista de avaliações
+    Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
+    Swipe By Percent    0    70    0    23
+    
+
+    

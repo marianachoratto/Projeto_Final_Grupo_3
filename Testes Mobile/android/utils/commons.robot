@@ -44,6 +44,7 @@ Checa se os elementos estão habilitados
         Element Should Be Enabled    ${elemento}
     END
 
-Deletar usuário
+Deletar usuário e filme
     Virar administrador na API
+    Deletar filme na API
     Deletar usuário na API
