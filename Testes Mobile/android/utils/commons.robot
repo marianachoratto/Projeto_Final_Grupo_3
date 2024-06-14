@@ -45,6 +45,12 @@ Checa se os elementos estão habilitados
     END
 
 Deletar usuário e filme
+    Logar na API
     Virar administrador na API
     Deletar filme na API
+    Deletar usuário na API
+
+Deletar usuário
+    Logar na API
+    Virar administrador na API
     Deletar usuário na API

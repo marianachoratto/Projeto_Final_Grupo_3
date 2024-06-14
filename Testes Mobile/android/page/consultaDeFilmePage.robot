@@ -15,13 +15,15 @@ Então tenho acesso às suas informações
     Page Should Contain Text    Ano de Lançamento:
     Page Should Contain Text    Duração:
     Page Should Contain Text    Gênero:
-    Deletar usuário e filme
+    Cadastrar usuario comum na API
+    Deletar usuário
 
 Então tenho acesso às suas informações técnicas
     Pega o atributo do elemento e verifica se tem o texto esperado    ${TITULO_DETALHES_DO_FILME}    Detalhes do filme    content-desc
-    Page Should Contain Text    Ano de Lançamento
-    Page Should Contain Text    Duração
-    Page Should Contain Text    Gênero
+    Wait Until Page Contains Element    ${ANO_DE_LANCAMENTO}
+    Page Should Contain Text    Ano de Lançamento:
+    Page Should Contain Text    Duração:
+    Page Should Contain Text    Gênero:
     Logar na API
     Virar administrador na API
     Deletar usuário e filme
@@ -72,8 +74,10 @@ Então sou redirecionada para a página inicial
 
 Então tenho acesso às avaliações da audiência e crítica  
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
+    Swipe By Percent    0    70    0    23
     Wait Until Keyword Succeeds    4    0    Element Should Be Visible    ${AVALIACOES_AUDIENCIA}
     Wait Until Keyword Succeeds    4    0    Element Should Be Visible    ${AVALIACOES_CRITICA}
+    Deletar usuário e filme
 
 Então tenho acesso à sessão de avaliações feita pelos usuários
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
@@ -119,3 +123,13 @@ Então consigo ver a quantidade de avaliações que aquele filme recebeu
     Element Should Contain Text    ${AVALIACOES_CRITICA}    Avaliação da crítica ${QUANTIDADE_REVIEW_CRÍTICO} avaliações
     # Asserção
     # NÃO ESQUECER DE DELETAR OS USUÁRIOS
+
+Então posso ver ser nome, ano de lançamento, gênero e descrição
+    Get Lista de Filmes 
+    Set Global Variable    ${FILME_1}    ${lista_de_filmes}[0]
+    Pega o atributo do elemento e verifica se tem o texto esperado    ${PAGINA_DO_FILME}    ${FILME_1}[title]    content-desc
+    Pega o atributo do elemento e verifica se tem o texto esperado    ${PAGINA_DO_FILME}    ${FILME_1}[genre]    content-desc
+    ${FILME_1_RELEASEYEAR}    Convert To String    ${FILME_1}[releaseYear]
+    Pega o atributo do elemento e verifica se tem o texto esperado    ${PAGINA_DO_FILME}    ${FILME_1_RELEASEYEAR}    content-desc
+    Pega o atributo do elemento e verifica se tem o texto esperado    ${PAGINA_DO_FILME}    ${FILME_1}[description]    content-desc
+    Deletar usuário e filme

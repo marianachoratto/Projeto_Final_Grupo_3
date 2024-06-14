@@ -19,6 +19,9 @@ E escrevo um comentário
 
 Então aparecerá uma mensagem dizendo para fazer login
     Wait Until Element Is Visible    ${MENSAGEM_LOGIN}
+    Iniciar sessão na API
+    Cadastrar usuario comum na API
+    Deletar usuário
 
 
 E faço uma review
@@ -36,6 +39,7 @@ E faço uma review
 Então ela aparece na sessão de avaliações do filme
     Swipe By Percent    0    70    0    23
     Element Should Be Visible    ${COMENTÁRIO_USUÁRIO}
+    Logar na API
     Deletar usuário e filme
 
 Dado que tenho um filme cadastrado
@@ -83,7 +87,7 @@ Então aparece uma mensagem de erro
     Deletar usuário e filme
 
 Dado que tenho uma review cadastrada
-    Dado que tenho um filme cadastrado
+    Dado que tenho um filme cadastrado na API
     Dado que tenho um usuário comum cadastrado
     Quando faço login
     Wait Until Keyword Succeeds    4    0    Click Element    ${CARD_FILME}
