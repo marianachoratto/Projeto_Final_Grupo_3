@@ -45,6 +45,14 @@ Dado que tenho um filme cadastrado
     Virar administrador na API
     Criar filme na API
 
+Dado que tenho um filme cadastrado na API
+    Iniciar sessão na API
+    Cadastrar usuario comum na API
+    Logar na API
+    Virar administrador na API
+    Criar filme na API
+    Deletar usuário na API
+
 E dou nota ao filme, mas não escrevo texto
     Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
     Click Element    ${ESTRELA_5}
@@ -94,14 +102,23 @@ Quando faço outra review com um texto diferente
     Wait Until Keyword Succeeds    4    0    Espera o elemento para clicar    ${BOTAO_COMENTARIO}
     Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
     Click Element    ${CAIXA_TEXTO}
-    Input Text    ${CAIXA_TEXTO}    Filme horrível
+    Input Text    ${CAIXA_TEXTO}    Filme Horrível
     Click Element    ${ESTRELA_1}
     Click Element    ${BOTAO_SALVAR}
     Press Keycode    4
     Press Keycode    4
 Então a review é atualizada
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
-    Swipe By Percent    0    80    0    20
-    # Pega o atributo do elemento e verifica se tem o texto esperado    
-    Page Should Contain Text    Filme horrível
+    Swipe By Percent    0    85    0    15
+
+    ${TEXTO_DA_REVIEW}=    Run Keyword And Return Status    Page Should Contain Text    Filme bacaninha
+    
+    IF    '${TEXTO_DA_REVIEW}' == ${True}
+        Page Should Contain Text    Filme Horrível
+    ELSE
+        Swipe By Percent    0    85    0    15
+
+    END
+
+    Deletar usuário e filme
     

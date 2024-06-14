@@ -5,8 +5,6 @@ Resource     ../utils/config.robot
 Test Setup    Abrir App
 Test Teardown    Teardown
 
-
-
 *** Test Cases ***
 T01- Não é possível usuário não autenticado realizar review de filmes
     Dado que tenho um filme cadastrado
@@ -55,9 +53,13 @@ T06- Não é possível digitar uma avaliação contendo mais que 500 caracteres
     Então aparece uma mensagem de erro
 
 T07-É possível atualizar review do filme
+    Dado que tenho um filme cadastrado
     Dado que tenho uma review cadastrada
     Quando faço outra review com um texto diferente
     Então a review é atualizada
+
+
+
 
 Teste de Swipe
     Dado que tenho um filme cadastrado
