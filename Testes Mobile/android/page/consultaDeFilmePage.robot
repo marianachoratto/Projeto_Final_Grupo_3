@@ -18,9 +18,10 @@ Então tenho acesso às suas informações
 
 Então tenho acesso às suas informações técnicas
     Pega o atributo do elemento e verifica se tem o texto esperado    ${TITULO_DETALHES_DO_FILME}    Detalhes do filme    content-desc
-    Page Should Contain Text    Ano de Lançamento
-    Page Should Contain Text    Duração
-    Page Should Contain Text    Gênero
+    Wait Until Page Contains Element    ${ANO_DE_LANCAMENTO}
+    Page Should Contain Text    Ano de Lançamento:
+    Page Should Contain Text    Duração:
+    Page Should Contain Text    Gênero:
     Logar na API
     Virar administrador na API
     Deletar usuário na API
@@ -29,7 +30,8 @@ Quando faço login
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
     Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    ${email}
+    Sleep    2
+    Input Text    ${INPUT_EMAIL}     ${email}
     Espera o elemento para clicar    ${INPUT_SENHA}
     Input Text    ${INPUT_SENHA}    123456
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
