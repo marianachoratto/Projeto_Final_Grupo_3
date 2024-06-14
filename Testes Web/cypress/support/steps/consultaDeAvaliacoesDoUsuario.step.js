@@ -5,7 +5,6 @@ import {
     Before,
     After
 } from "@badeball/cypress-cucumber-preprocessor";
-import { faker } from "@faker-js/faker";
 import LoginPage from "../pages/login.page";
 import ProfilePage from "../pages/perfil.page";
 import MoviePage from "../pages/infoFilmes.page";
