@@ -129,7 +129,7 @@ Then('deve aparecer uma mensagem dizendo falha ao autenticar', () => {
 })
 
 When('clico no botão de Ok', () => {
-  cy.get(loginPage.buttonOkFaha).eq(2).click()
+  cy.get(loginPage.buttonOkFalha).eq(2).click()
     
 })
 
