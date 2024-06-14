@@ -11,4 +11,3 @@ ${CARD_FILME}     xpath=//android.widget.FrameLayout[@resource-id="android:id/co
 
 # Botões do Menu
 ${BOTÃO_LOGIN}            xpath=//android.view.View[@content-desc="Login"]
-${BOTÃO_SAIR_LOGIN}       xpath=
