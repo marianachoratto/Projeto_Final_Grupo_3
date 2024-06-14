@@ -166,7 +166,7 @@ Then("visualizarei o filme correspondente na tela", function () {
 
 Then("consultarei mais detalhes do filme", function () {
     searchPage.clickMovieCard(0);
-    moviePage.verificarDadosFilme(movie2.title, movie2.description, movie2.genre, movie2.releaseYear, "2h 31m")
+    moviePage.verificarDadosFilme(movie2.title, movie2.description, movie2.genre, movie2.releaseYear, "2h 31m");
 });
 
 Then("visualizarei todos os filmes que contém o texto pesquisado", function () {

@@ -43,7 +43,7 @@ export default class MoviePage {
 
 
   escrevendoAvaliacao(texto, numEstrelas) {
-    cy.get(this.textoNovaAvaliacao).type(texto);
+    cy.get(this.textoNovaAvaliacao).clear().type(texto);
     cy.get(this.estrelasDoComentário).eq(numEstrelas).click();
     cy.get(this.botaoEnviarAvaliacao).click();
   }
