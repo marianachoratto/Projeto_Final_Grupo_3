@@ -51,8 +51,8 @@ Criar filme na API
 Get Lista de Filmes
     Iniciar sessão na API
     ${RESPONSE}    GET On Session    alias=API_raromd    url=/api/movies
-    ${RESPOSTA_JSON}    Set Variable    ${RESPONSE.json()}
-    Set Global Variable    ${lista_de_filmes}    ${RESPOSTA_JSON}
+    ${resposta_json}    Set Variable    ${RESPONSE.json()}
+    Set Global Variable    ${lista_de_filmes}    ${resposta_json}
 
 Atualizar review na API
     Iniciar sessão na API
@@ -63,7 +63,6 @@ Atualizar review na API
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/users/review     headers=${headers}    json=${body}
 
-# CHECAR ESSE TESTE
 Criar review de filme API
     [Arguments]    ${idDoFilme}
     Iniciar sessão na API
