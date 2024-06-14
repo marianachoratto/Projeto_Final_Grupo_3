@@ -43,3 +43,14 @@ Checa se os elementos estão habilitados
     FOR    ${elemento}    IN    @{ELEMENTOS}
         Element Should Be Enabled    ${elemento}
     END
+
+Deletar usuário e filme
+    Logar na API
+    Virar administrador na API
+    Deletar filme na API
+    Deletar usuário na API
+
+Deletar usuário
+    Logar na API
+    Virar administrador na API
+    Deletar usuário na API
