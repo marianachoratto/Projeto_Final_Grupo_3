@@ -24,7 +24,6 @@ let movie2;
 let user;
 let token;
 
-
 before(() => {
     cy.cadastrarUsuario().then((response) => {
         userAdm = response;
@@ -66,13 +65,11 @@ after(() => {
 });
 
 Given("que acessei o meu Perfil", function () {
+    cy.intercept("GET", "api/users/review/all").as("listReview");
+    
     cy.visit('/login');
     loginPage.login(user.email, user.password);
     profilePage.clickButtonPerfil();
-});
-
-Given("que um dos filmes avaliados foi excluído", function () {
-    cy.deletarFilme(movie1.id, tokenAdm);
 });
 
 Given("que outro usuário avaliou o mesmo filme que eu", function () {
@@ -81,10 +78,14 @@ Given("que outro usuário avaliou o mesmo filme que eu", function () {
         cy.loginValido(userNovaReview.email, userNovaReview.password).then((response) => {
             const tokenNovaReview = response.body.accessToken;
             cy.criarReviewNota5(tokenNovaReview, movie1.id);
+            cy.inativarUsuario(tokenNovaReview);
         });
     });
 });
 
+Given("que um dos filmes avaliados foi excluído", function () {
+    cy.deletarFilme(movie1.id, tokenAdm);
+});
 
 When("clicar na avaliação desejada", function () {
     profilePage.clickReviewCard(1);
@@ -102,7 +103,6 @@ When("acessar a página Perfil novamente", function () {
 When("clicar em Logout", function () {
     profilePage.clickButtonLogout();
 });
-
 
 Then("visualizarei todas as avaliações feitas por mim", function () {
     profilePage.getMinhasAvaliacoes().should("have.text", "Minhas avaliações");
@@ -141,6 +141,10 @@ Then("serei redirecionado para a página de Login automaticamente", function () 
     cy.url().should("equal", loginPage.URL);
     cy.contains("Login");
     cy.contains("Entre com suas credenciais");
+});
+
+Then("visualizarei somente as minhas avaliações", function () {
+    cy.get(profilePage.reviewCard).its("length").should("equal", 2);
 });
 
 Then("não será possível consultar a avaliação do filme excluído", function () {

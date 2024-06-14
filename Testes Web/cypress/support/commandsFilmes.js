@@ -148,12 +148,12 @@ Cypress.Commands.add("criarReviewNota5",(tokenid, filmeid)=>{
         method: "POST",
         url: apiUrl + "/api/users/review",
         auth: {
-            bearer: tokenid,
+          bearer: tokenid,
         },
         body:{
-            "movieId": filmeid,
-            "score": 5,
-            "reviewText": "Absolut Cinema",
-        }
+          movieId: filmeid,
+          score: 5,
+          reviewText: "Absolut Cinema",
+        },
     });
 });
