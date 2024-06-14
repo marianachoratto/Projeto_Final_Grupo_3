@@ -126,7 +126,7 @@ Then("verificarei os textos das minhas avaliações", function () {
 });
 
 Then("visualizarei os detalhes do filme avaliado", function () {
-    moviePage.verificarDadosFilme(movie2.title, movie2.description, movie2.genre, movie2.releaseYear, "2h 31m");
+    moviePage.verificarDadosFilme(movie2.title, movie2.description, movie2.genre, movie2.releaseYear, "1h 41m");
 });
 
 Then("atualizarei minha avaliação", function () {
