@@ -14,15 +14,36 @@ const searchPage = new SearchPage();
 const moviePage = new MoviePage();
 const loginPage = new LoginPage();
 
+const movieBody1 = {
+    title: "Piratas do Caribe 1: A Maldição do Pérola Negra! #@$%&*",
+    genre: "Ação, aventura e fantasia",
+    description: "Em pleno século XVII, o pirata Jack Sparrow tem seu navio saqueado e roubado pelo capitão Barbossa e sua tripulação.",
+    durationInMinutes: 143,
+    releaseYear: 2003
+};
+
+const movieBody2 = {
+    title: "Piratas do Caribe 2: O Bau da Morte!",
+    genre: "Ação, aventura e fantasia",
+    description: "Elizabeth Swann, a filha do governador Weatherby, está prestes a se casar com o ferreiro Will Turner.",
+    durationInMinutes: 151,
+    releaseYear: 2006
+};
+
+const movieBody100 = {
+    title: faker.string.alpha(100),
+    genre: "Gênero do filme",
+    description: "Descrição do filme",
+    durationInMinutes: 120,
+    releaseYear: 2024
+};
+
 let user
 let token
 let user1
 let token1
 let movie1
 let movie2
-let movie100
-let movieBody1
-let movieBody2
 
 Before({ tags: "@criarUser" }, () => {
     cy.cadastrarUsuario().then((response) => {
@@ -34,23 +55,7 @@ After({ tags: "@deletarUser" }, () => {
     cy.deletarUsuario(user1.email, user1.password, user1.id);
 });
 
-before(() => {
-    const movieBody100 = {
-    title: faker.string.alpha(100),
-    genre: "Gênero do filme",
-    description: "Descrição do filme",
-    durationInMinutes: 120,
-    releaseYear: 2024
-    }
-
-    cy.fixture('movie1').then((response) => {
-        movieBody1 = response;
-    }); 
-
-    cy.fixture('movie2').then((response) => {
-        movieBody2 = response;
-    }); 
-    
+before(() => {  
     cy.cadastrarUsuario().then((response) => {
         user = response;
         cy.loginValido(user.email, user.password).then((response) => {
@@ -166,7 +171,7 @@ Then("visualizarei o filme correspondente na tela", function () {
 
 Then("consultarei mais detalhes do filme", function () {
     searchPage.clickMovieCard(0);
-    moviePage.verificarDadosFilme(movie2.title, movie2.description, movie2.genre, movie2.releaseYear, "2h 31m")
+    moviePage.verificarDadosFilme(movie2.title, movie2.description, movie2.genre, movie2.releaseYear, "2h 31m");
 });
 
 Then("visualizarei todos os filmes que contém o texto pesquisado", function () {
