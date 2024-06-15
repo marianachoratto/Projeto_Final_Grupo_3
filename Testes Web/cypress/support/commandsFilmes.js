@@ -86,34 +86,50 @@ Cypress.Commands.add("criarFilmeAdm", (email, password) => {
 });
 
 Cypress.Commands.add("reviewMovie1", (token, movieId) => {
+  score1 = 2;
+  reviewText1 = "Filme muito bom. Vale a pena o ingresso!";
+
   cy.request({
     method: "POST",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+    url: apiUrl + "/api/users/review",
     headers: {
       Authorization: "Bearer " + token,
     },
     body: {
       movieId: movieId,
-      score: 2,
-      reviewText: "Filme muito bom. Vale a pena o ingresso!",
+      score: score1,
+      reviewText: reviewText1,
     },
-  })
-})
+  }).then(() => {
+    return {
+      score: score1,
+      reviewText: reviewText1
+    };
+  });
+});
 
 Cypress.Commands.add("reviewMovie2", (token, movieId) => {
+  score2 = 4;
+  reviewText2 = "Filme bem maneiro!";
+
   cy.request({
     method: "POST",
-    url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
+    url: apiUrl + "/api/users/review",
     headers: {
       Authorization: "Bearer " + token,
     },
     body: {
       movieId: movieId,
-      score: 4,
-      reviewText: "Filme bem maneiro!",
+      score: score2,
+      reviewText: reviewText2,
     },
-  })
-})
+  }).then(() => {
+    return {
+      score: score2,
+      reviewText: reviewText2
+    };
+  });
+});
 
 Cypress.Commands.add("newMovie", (movieBody, token) => {
   cy.request({
@@ -132,17 +148,25 @@ Cypress.Commands.add("newMovie", (movieBody, token) => {
   });
 });
 
-Cypress.Commands.add("criarReviewNota5",(tokenid, filmeid)=>{
+Cypress.Commands.add("criarReviewNota5", (tokenid, filmeid) => {
+  score = 5;
+  reviewText = "Absolut Cinema!";
+
   cy.request({
-        method: "POST",
-        url: apiUrl + "/api/users/review",
-        auth: {
-            bearer: tokenid,
-        },
-        body:{
-            "movieId": filmeid,
-            "score": 5,
-            "reviewText": "Absolut Cinema",
-        }
-    });
+    method: "POST",
+    url: apiUrl + "/api/users/review",
+    auth: {
+      bearer: tokenid,
+    },
+    body: {
+      movieId: filmeid,
+      score: score,
+      reviewText: reviewText,
+    },
+  }).then(() => {
+    return {
+      score: score,
+      reviewText: reviewText
+    };
+  });
 });

@@ -169,8 +169,8 @@ Cypress.Commands.add("reviewMovie1", (token, movieId) => {
     },
     body: {
       movieId: movieId,
-      score: 2,
-      reviewText: "Filme muito bom. Vale a pena o ingresso!",
+      score: score1,
+      reviewText: reviewText1,
     },
   }).then(() => {
     return {
