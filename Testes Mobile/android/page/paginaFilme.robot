@@ -11,7 +11,7 @@ ${AVALIACOES_AUDIENCIA}         xpath=//android.view.View[contains(@content-desc
 ${AVALIACOES_CRITICA}           xpath=//android.view.View[contains(@content-desc,"Avaliação da crítica")]
 ${COMENTÁRIO_USUÁRIO}           xpath=//android.widget.ImageView/android.view.View[2]
 
-
+${PAGINA_DO_FILME}    xpath=//android.widget.ImageView
 
 # Página de avaliações
 ${DÊ_NOTA_AO_FILME}             xpath=//android.view.View[@content-desc="Dê sua nota para o filme:"]
