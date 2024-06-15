@@ -1,1 +1,0 @@
-# Só criei esse arquivo para subir pro github, porque a pasta não sobe vazia. Pode renomear e usar como precisar.
