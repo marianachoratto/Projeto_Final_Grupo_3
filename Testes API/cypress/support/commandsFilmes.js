@@ -1,5 +1,11 @@
 import { faker } from "@faker-js/faker";
-let token;
+
+let score;
+let score1;
+let score2;
+let reviewText;
+let reviewText1;
+let reviewText2;
 
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
@@ -121,6 +127,9 @@ Cypress.Commands.add("updateMovie", (movieId, movieUpdate, token) => {
 });
 
 Cypress.Commands.add("criarReviewNota5", (tokenid, filmeid) => {
+  score = 5;
+  reviewText = "Absolut Cinema!";
+
   cy.request({
     method: "POST",
     url: "/api/users/review",
@@ -129,9 +138,14 @@ Cypress.Commands.add("criarReviewNota5", (tokenid, filmeid) => {
     },
     body: {
       movieId: filmeid,
-      score: 5,
-      reviewText: "Absolut Cinema",
+      score: score,
+      reviewText: reviewText,
     },
+  }).then(() => {
+    return {
+      score: score,
+      reviewText: reviewText
+    };
   });
 });
 
@@ -141,7 +155,11 @@ Cypress.Commands.add("procurarPeloId", (filmeid) => {
     url: `/api/movies/${filmeid}`,
   });
 });
+
 Cypress.Commands.add("reviewMovie1", (token, movieId) => {
+  score1 = 2;
+  reviewText1 = "Filme muito bom. Vale a pena o ingresso!";
+
   cy.request({
     method: "POST",
     url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
@@ -153,10 +171,18 @@ Cypress.Commands.add("reviewMovie1", (token, movieId) => {
       score: 2,
       reviewText: "Filme muito bom. Vale a pena o ingresso!",
     },
+  }).then(() => {
+    return {
+      score: score1,
+      reviewText: reviewText1
+    };
   });
 });
 
 Cypress.Commands.add("reviewMovie2", (token, movieId) => {
+  score2 = 4;
+  reviewText2 = "Filme bem maneiro!";
+
   cy.request({
     method: "POST",
     url: "https://raromdb-3c39614e42d4.herokuapp.com/api/users/review",
@@ -165,8 +191,13 @@ Cypress.Commands.add("reviewMovie2", (token, movieId) => {
     },
     body: {
       movieId: movieId,
-      score: 4,
-      reviewText: "Filme bem maneiro!",
+      score: score2,
+      reviewText: reviewText2,
     },
+  }).then(() => {
+    return {
+      score: score2,
+      reviewText: reviewText2
+    };
   });
 });

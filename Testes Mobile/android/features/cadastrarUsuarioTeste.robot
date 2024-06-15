@@ -8,82 +8,101 @@ Test Teardown    Teardown
 
 *** Test Cases ***
 
-# CT001 - Acessar formulario de cadastro deve estar visível e habilitado
-#     Dado que acessei a funcionalidade de cadastro
-#     Quando visualizo a pagina de criação
-#     Então os inputs estão habilitados e instruções visíveis
+CT001 - Acessar formulario de cadastro deve estar visível e habilitado
+    Dado que acessei a funcionalidade de cadastro
+    Quando visualizo a pagina de criação
+    Então os inputs estão habilitados e instruções visíveis
 
-# CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
-#     Quando informo um nome válido
-#     E informo um email válido
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então um usuário do tipo comum será gerado
+CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado
 
-# CT003 - Não é possível cadastrar usuário com email repetido
-#     Quando informo dados válidos com e-mail já cadastrado
-#     E clico para cadastrar
-#     Então o usuário não é criado
+CT003 - Não é possível cadastrar usuário com email repetido
+    Dado que acessei a funcionalidade de cadastro
+    E um usuario já foi cadastrado no sistema
+    Quando realizo a criação de um novo usuario informando dados válidos com e-mail já cadastrado
+    E clico para cadastrar
+    Então o usuário não é criado
 
-# CT004 - Deve ser possível criar usuário com nome até 100 caracteres
-    # Quando informo um nome com 100 caracteres
-    # E informo um email válido
-    # E informo uma senha válida
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então um usuário do tipo comum será gerado
+CT004 - Deve ser possível criar usuário com nome até 100 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    Quando informo um nome com 100 caracteres
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado
 
-# CT005 - Não deve ser possível criar usuário com nome maior que 100 caracteres
-#     Quando informo um nome com mais de 100 caracteres
-#     E informo um email válido
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então retorna mensagem informando o limite de caracteres
+CT005 - Não deve ser possível criar usuário com nome maior que 100 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    Quando informo um nome com mais de 100 caracteres
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará erro no formulário 
 
-# CT006 - Não deve ser possível criar usuário sem informar um nome
-#     Quando informo um email válido
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então retorna mensagem informando que o nome deve ser preenchido
+CT006 - Não deve ser possível criar usuário sem informar um nome
+    Dado que acessei a funcionalidade de cadastro
+    E informo um email válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retorna mensagem informando que o nome deve ser preenchido
 
-# CT007 - Validando nomes de usuário
-#     [Template]    Template CT006 - Validando nomes de usuário
-#     #nome
-#     12348@#$¨%@@$¨&BVSFVSFVdcsdj<HRSARY##¨%$&*
-#     ´
-#     1
+CT007 - Validando nomes de usuário
+    Dado que acessei a funcionalidade de cadastro
+    E informo nomes diferentes permitidos pela regra de negocio no cadastro
+    Então um usuário do tipo comum será gerado
 
-# CT008 - Deve ser possível criar senha com 6 caracteres
-    # Quando informo um nome válido
-    # E informo um email válido
-    # E informo uma senha com 6 caracteres
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então um usuário do tipo comum será gerado
+CT008 - Deve ser possível criar senha com 6 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha com 6 caracteres
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado
 
-# CT009 - Deve ser possível criar senha com 12 caracteres
-    # Quando informo um nome válido
-    # E informo um email válido
-    # E informo uma senha com 12 caracteres
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então um usuário do tipo comum será gerado 
+CT009 - Deve ser possível criar senha com 12 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha com 12 caracteres
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado 
 
-# CT010 - Validando possíveis falhas em senha e confirmação de senha
-#     [Template]    Template CT006 - Validando nomes de usuário
-#     #senha            confirmarSenha        mensagem
-#     1234567891234     1234567891234         A senha deve ter no máximo 12 dígitos.
-#     acsfe             acsfe                 A senha deve ter pelo menos 6 dígitos.
-#     asdfgh            12644568              As senhas devem ser iguais. 
+CT010 - Validando senha com mais de 12 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha com mais de 12 caracteres
+    E clico para cadastrar
+    Então retornará erro no formulário 
 
-# CT011 - Não deve ser possível cadastrar usuário sem informar senha
-    # Quando informo um nome válido
-    # E informo um email válido
-    # E clico para cadastrar
-    # Então retorna mensagem informando que a senha deve ser preenchida
+CT011 - Validando senha com menos de 6 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha com menos de 6 caracteres
+    E clico para cadastrar
+    Então retornará erro no formulário 
+
+CT012 - Validando senha com senhas diferentes 
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    E informo uma senha diferente ao confirmar 
+    E clico para cadastrar
+    Então retornará erro no input de confirmar senha 
+
+CT013 - Não deve ser possível cadastrar usuário sem informar senha
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido
+    Quando deslizo a tela para o botão de cadastrar
+    E clico para cadastrar
+    Então retorna mensagem informando que a senha deve ser preenchida
 
 # CT012 - Deve ser possível criar usuário informando e-mail com 5 caracteres
     # Quando informo um nome válido
