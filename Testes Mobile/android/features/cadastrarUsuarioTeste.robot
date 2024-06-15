@@ -14,7 +14,7 @@ CT001 - Acessar formulario de cadastro deve estar visível e habilitado
     Então os inputs estão habilitados e instruções visíveis
 
 CT002 - Ao criar novo usuário deve ser gerado usuário do tipo comum
-    Dado que acessei a funcionalidade de cadastro
+    Dado que acessei a funcionalidade de cadastro 
     E informo um nome válido
     E informo um email válido
     E informo uma senha válida
@@ -104,57 +104,83 @@ CT013 - Não deve ser possível cadastrar usuário sem informar senha
     E clico para cadastrar
     Então retorna mensagem informando que a senha deve ser preenchida
 
-# CT012 - Deve ser possível criar usuário informando e-mail com 5 caracteres
-    # Quando informo um nome válido
-    # E informo um email com 5 caracteres
-    # E informo uma senha válida
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então um usuário do tipo comum será gerado
+#BUG
+CT014 - Deve ser possível criar usuário informando e-mail com 5 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email com 5 caracteres
+    E informo uma senha válida
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado e excluido 
 
-# CT013 - Deve ser possível criar usuário informando email com 60 caracteres
-#     Quando informo um nome válido
-#     E informo um email com 60 caracteres
-#     E informo uma senha válida
-#     E confirmo a senha
-#     E clico para cadastrar
-#     Então um usuário do tipo comum será gerado
+CT015 - Deve ser possível criar usuário informando email com 60 caracteres
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email com 60 caracteres
+    E informo uma senha válida
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado e excluido
 
-# CT014 - Não deve ser possível criar um usuário sem email 
-    # Quando informo um nome válido
-    # E informo uma senha válida
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então retorna mensagem informando que o email deve ser preenchido
+CT016 - Não deve ser possível criar um usuário sem email 
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retorna mensagem informando que o email deve ser preenchido
 
-# CT015 - Não deve ser possível criar um usuário informando nome com apenas espaços vazios
-    # Quando informo um nome com apenas espaços vazios
-    # E informo um email válido
-    # E informo uma senha válida
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então retorna mensagem informando que o nome deve ser preenchido
 
-# CT016 - Não deve ser possível criar um usuário informando senha com apenas espaços vazios
-    # Quando informo um nome válido
-    # E informo um email válido
-    # E informo uma senha com apenas espaços vazios
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então retorna mensagem informando que a senha deve ser preenchida
+CT017 - Não deve ser possível cadastrar com emails inválidos [Example: #email]
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email inválido sem . e @
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará mensagem de email inválido 
 
-# CT017 - Neve ser possível cadastrar com emails inválidos
-#     [Template]    CT017 - Template não deve ser possível cadastrar com emails inválidos
-#     #email                                                            mensagem
-#     emailinvalido.com                                                 Informe um e-mail válido.
-#     @mail.com                                                         Informe um e-mail válido.
-#     emailinvalido@                                                    Informe um e-mail válido. 
-#     emailcom61caracteresemailcom61caracteresemailcomm@dominio.com     O e-mail deve ter no máximo 60 dígitos.                As senhas devem ser iguais. 
+CT018 - Não deve ser possível cadastrar com emails inválidos [Example: #email]
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email inválido sem . e @
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará mensagem de email inválido 
 
-# CT018 - Deve ser possível cadastrar um usuário com email de letras maiúscula
-    # Quando informo um nome válido
-    # E informo um email válido com letras maiúsculas
-    # E informo uma senha válida
-    # E confirmo a senha
-    # E clico para cadastrar
-    # Então um usuário do tipo comum será gerado
+CT019 - Não deve ser possível cadastrar com emails inválidos [Example: emailinvalido.com]
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email inválido sem o @
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará mensagem de email inválido 
+
+CT020 - Não deve ser possível cadastrar com emails inválidos [Example: @mail.com]
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email inválido sem o valor anterior ao @
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará mensagem de email inválido 
+
+CT021 - Não deve ser possível cadastrar com emails inválidos [Example: emailinvalido@]
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email inválido apenas com o texto e o @
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará mensagem de email inválido 
+
+CT022 - Não deve ser possível cadastrar com email maior que 60 caracteres 
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email com mais de 60 caracteres
+    E informo uma senha válida
+    E clico para cadastrar
+    Então retornará erro no formulário
+
+CT023 - Deve ser possível cadastrar um usuário com email de letras maiúscula
+    Dado que acessei a funcionalidade de cadastro
+    E informo um nome válido
+    E informo um email válido com letras maiúsculas
+    E informo uma senha válida
+    E clico para cadastrar
+    Então um usuário do tipo comum será gerado e excluido

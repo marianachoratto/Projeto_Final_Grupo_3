@@ -23,12 +23,8 @@ ${ERRO_NOME}                xpath=//android.view.View[@content-desc="Informe o n
 ${ERRO_SENHA}               xpath=//android.view.View[@content-desc="Informe uma senha."]
 ${ERRO_CONFIRM_SENHA}       xpath=//android.view.View[@content-desc="Confirme a senha."]
 ${ERRO_SENHA_DIFERENTE}     xpath=//android.view.View[@content-desc="As senhas não coincidem."]
-
-
-#GUARDA E-MAIL JÁ CADASTRADO
-${EMAIL}
-
-
+${ERRO_EMAIL}               xpath=//android.view.View[@content-desc="Informe o e-mail."]
+${ERRO_EMAIL_VALIDO}        xpath=//android.view.View[@content-desc="Informe um e-mail válido."]
 
 *** Keywords ***
 
@@ -55,10 +51,37 @@ E informo um nome válido
     Espera e informa o valor do nome no input de cadastro
 
 E informo nomes diferentes permitidos pela regra de negocio no cadastro
-    Valida nome de usuarios    12348@#$¨%@@$¨&BVSFVSFVdcsdj<HRSARY##¨%$&*     ´    1                                        
+    Valida nome de usuarios    12348@#$¨%@@$¨&BVSFVSFVdcsdj<HRSARY##¨%$&*     ´    1      
 
+E informo um nome com apenas espaços vazios   
+    Valida nome de usuarios    ${"                                                "}     
+                               
 E informo um email válido
     Espera e informa o valor do email no input de cadastro
+
+E informo um email com 5 caracteres
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    a@c.l
+
+E informo um email inválido sem . e @
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    "#email" 
+
+E informo um email inválido sem o @
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    "emailinvalido.com" 
+
+E informo um email inválido sem o valor anterior ao @
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    "@mail.com" 
+
+E informo um email inválido apenas com o texto e o @
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    emailinvalido@ 
+
+E informo um email com mais de 60 caracteres
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    emailcom61caracteresemailcom61caracteresemailcomm@dominio.com
+
+E informo um email com 60 caracteres
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    ${EMAIL_PROCURADO}
+
+E informo um email válido com letras maiúsculas
+    Espera o elemento para fazer o inputtext    ${INPUT_EMAIL}    ${EMAIL_PROCURADO}
 
 E informo uma senha válida
     Espera e informa o valor da senha no input de cadastro 
@@ -96,6 +119,11 @@ Então os inputs estão habilitados e instruções visíveis
 Então um usuário do tipo comum será gerado
     Espera o elemento e verifica o texto    ${CADASTRO_SUCESSO}    "Cadastro realizado!"
 
+Então um usuário do tipo comum será gerado e excluido 
+    Espera o elemento e verifica o texto    ${CADASTRO_SUCESSO}    "Cadastro realizado!"
+    Buscar ID do usuario criado   
+    Deletar usuário
+
 Então o usuário não é criado
     Espera o elemento e verifica o texto    ${EMAIL_CADASTRADO}     "E-mail já cadastrado. Utilize outro e-mail."
 
@@ -111,5 +139,11 @@ Então retorna mensagem informando que a senha deve ser preenchida
 
 Então retornará erro no input de confirmar senha
     Espera o elemento e verifica o texto    ${ERRO_SENHA_DIFERENTE}    As senhas não coincidem.
+
+Então retorna mensagem informando que o email deve ser preenchido
+    Espera o elemento e verifica o texto    ${ERRO_EMAIL}    "Informe o e-mail."
+
+Então retornará mensagem de email inválido 
+    Espera o elemento e verifica o texto    ${ERRO_EMAIL_VALIDO}    "Informe um e-mail válido."
 
 

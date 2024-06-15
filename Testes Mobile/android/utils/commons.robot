@@ -102,4 +102,6 @@ Valida nome de usuarios
 
 Swipe para cima
     [Arguments]    ${start_x}=30    ${start_y}=30    ${end_x}=80    ${end_y}=15    
-    Swipe By Percent    ${start_x}    ${start_y}    ${end_x}    ${end_y}    
+    Swipe By Percent    ${start_x}    ${start_y}    ${end_x}    ${end_y}  
+
+  
