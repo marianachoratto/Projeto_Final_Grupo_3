@@ -6,7 +6,6 @@ let idNovoUsuario;
 let nome
 let token, token1, token2
 
-
 // Commands de Usuários
 Cypress.Commands.add("criarUsuario", (name, emailValido, password) => {
   cy.request({

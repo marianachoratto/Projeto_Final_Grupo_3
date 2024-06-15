@@ -8,7 +8,6 @@ const movieUpdate = {
   releaseYear: 2015
 }; 
 
-
 let user;
 let token;
 let movie;

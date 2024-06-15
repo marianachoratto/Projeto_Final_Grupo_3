@@ -15,7 +15,7 @@ const moviePage = new MoviePage();
 const loginPage = new LoginPage();
 
 const movieBody1 = {
-    title: "Piratas do Caribe 1: A Maldição do Pérola Negra! #@$%&*",
+    title: "Piratas do Caribe 1: A Maldição do Pérola Negra! @$%&*",
     genre: "Ação, aventura e fantasia",
     description: "Em pleno século XVII, o pirata Jack Sparrow tem seu navio saqueado e roubado pelo capitão Barbossa e sua tripulação.",
     durationInMinutes: 143,
@@ -138,7 +138,7 @@ When("informar o título com 100 caracteres", function () {
 });
 
 When("informar os caracteres especiais na barra de busca", function () {
-    searchPage.typeSearch(movie1.title.substring(51, 56));
+    searchPage.typeSearch(movie1.title.substring(49, 54));
 });
 
 When("informar um título não cadastrado na barra de busca", function () {

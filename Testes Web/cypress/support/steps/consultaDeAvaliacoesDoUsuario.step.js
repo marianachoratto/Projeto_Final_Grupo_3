@@ -13,15 +13,13 @@ const loginPage = new LoginPage();
 const profilePage = new ProfilePage();
 const moviePage = new MoviePage();
 
+let user, token;
+let userAdm;
+let movie1, score1, reviewText1;
+let movie2, score2, reviewText2;
+
 reviewTextUpdate = "Filme interessante, recomendo!";
 scoreUpdate = 4;
-
-let userAdm;
-let movie1;
-let movie2;
-
-let user;
-let token;
 
 before(() => {
     cy.cadastrarUsuario().then((response) => {
@@ -50,8 +48,14 @@ before(() => {
         user = response;
         cy.loginValido(user.email, user.password).then((response) => {
             token = response.body.accessToken;
-            cy.reviewMovie1(token, movie1.id);
-            cy.reviewMovie2(token, movie2.id);
+            cy.reviewMovie1(token, movie1.id).then((response) =>{
+                reviewText1 = response.reviewText;
+                score1 = response.score;
+            });
+            cy.reviewMovie2(token, movie2.id).then((response) => {
+                reviewText2 = response.reviewText;
+                score2 = response.score;
+            });
         });
     });
 });
@@ -77,7 +81,6 @@ Given("que outro usuário avaliou o mesmo filme que eu", function () {
         cy.loginValido(userNovaReview.email, userNovaReview.password).then((response) => {
             const tokenNovaReview = response.body.accessToken;
             cy.criarReviewNota5(tokenNovaReview, movie1.id);
-            cy.inativarUsuario(tokenNovaReview);
         });
     });
 });
