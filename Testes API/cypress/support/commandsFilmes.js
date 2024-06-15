@@ -7,6 +7,7 @@ let reviewText;
 let reviewText1;
 let reviewText2;
 
+
 Cypress.Commands.add("deletarFilme", (idFilme, token) => {
   cy.request({
     method: "DELETE",

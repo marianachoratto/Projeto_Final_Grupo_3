@@ -10,6 +10,7 @@ let movie2;
 let score2;
 let reviewText2;
 
+
 before(() => {
     cy.cadastrarUsuario().then((response) => {
         userAdm = response;

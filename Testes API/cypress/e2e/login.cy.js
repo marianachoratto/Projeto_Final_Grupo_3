@@ -1,6 +1,7 @@
 let userid, email, password, token
 
 describe('Cenários de login', () => {
+    
     before(() => {
         cy.cadastrarUsuario().then((response) => {
             userid = response.id;
