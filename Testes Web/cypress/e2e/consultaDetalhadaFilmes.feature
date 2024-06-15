@@ -69,7 +69,7 @@ Cenário: Visualizando opção para realizar review com usuário admin
     Quando visualizo a pagina do filme
     Então consigo ver uma opção para avaliar o filme
 
-@@reviewsUsuariosComuns @deleteAll
+@reviewsUsuariosComuns @deleteAll
 Cenário: Visualizando reviews publicadas com usuário admin
     Dado que acesso filme com usuário admin
     Quando visualizo a pagina do filme
