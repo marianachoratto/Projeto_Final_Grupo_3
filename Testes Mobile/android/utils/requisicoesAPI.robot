@@ -51,8 +51,8 @@ Criar filme na API
 Get Lista de Filmes
     Iniciar sessão na API
     ${RESPONSE}    GET On Session    alias=API_raromd    url=/api/movies
-    ${resposta_json}    Set Variable    ${RESPONSE.json()}
-    Set Global Variable    ${lista_de_filmes}    ${resposta_json}
+    ${RESPOSTA_JSON}    Set Variable    ${RESPONSE.json()}
+    Set Global Variable    ${lista_de_filmes}    ${RESPOSTA_JSON}
 
 Atualizar review na API
     Iniciar sessão na API
@@ -63,25 +63,6 @@ Atualizar review na API
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}
     ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/users/review     headers=${headers}    json=${body}
 
-Criar review de filme API
-    [Arguments]    ${idDoFilme}
-    Iniciar sessão na API
-    Virar administrador na API
-    ${scoreReview}    Convert To Integer    4
-    ${scoreReview}    Convert To Integer    4
-    ${body}    Create Dictionary    movieId=${idDoFilme}    score=${scoreReview}    reviewText=Nova Review
-    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
-    ${RESPONSE}    POST On Session    alias=API_raromd    url=/api/users/review     headers=${headers}    json=${body}
-
-Procurar filme pelo ID
-    [Arguments]    ${idDoFilme}
-    Iniciar sessão na API
-    Virar administrador na API
-    ${headers}=    Create Dictionary    Authorization=Bearer ${token}
-    ${RESPONSE}    GET On Session    alias=API_raromd    url=/api/movies/${idDoFilme}     headers=${headers}
-    ${filmePesquisadoReviews}    Set Variable    ${RESPONSE.json()['reviews']}    
-    Set Global Variable    ${QUANTIDADE_REVIEW_COMUM}    Evaluate    str(len([item for item in ${filmePesquisadoReviews} if item['reviewType'] == 0]) )   
-    Set Global Variable    ${QUANTIDADE_REVIEW_CRÍTICO}    Evaluate   str(len([item for item in ${filmePesquisadoReviews} if item['reviewType'] == 1]))
 
 Deletar filme na API
     ${headers}=    Create Dictionary    Authorization=Bearer ${token}

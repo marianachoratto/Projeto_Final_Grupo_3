@@ -34,7 +34,7 @@ Checa se os elementos estão presentes na página
     END
 
 Checa se os elementos estão visíveis
-    [Arguments]    @{ELEMENTOS}
+     [Arguments]    @{ELEMENTOS}
     FOR    ${elemento}    IN    @{ELEMENTOS}
         Element Should Be Visible    ${elemento}
     END
@@ -53,7 +53,6 @@ Checa se os elementos estão visíveis e habilitados
     END
 
 Deletar usuário e filme
-    Logar na API
     Virar administrador na API
     Deletar filme na API
     Deletar usuário na API

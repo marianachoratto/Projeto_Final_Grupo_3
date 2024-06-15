@@ -19,9 +19,6 @@ E escrevo um comentário
 
 Então aparecerá uma mensagem dizendo para fazer login
     Wait Until Element Is Visible    ${MENSAGEM_LOGIN}
-    Iniciar sessão na API
-    Cadastrar usuario comum na API
-    Deletar usuário
 
 
 E faço uma review
@@ -39,7 +36,6 @@ E faço uma review
 Então ela aparece na sessão de avaliações do filme
     Swipe By Percent    0    70    0    23
     Element Should Be Visible    ${COMENTÁRIO_USUÁRIO}
-    Logar na API
     Deletar usuário e filme
 
 Dado que tenho um filme cadastrado
@@ -48,14 +44,6 @@ Dado que tenho um filme cadastrado
     Logar na API
     Virar administrador na API
     Criar filme na API
-
-Dado que tenho um filme cadastrado na API
-    Iniciar sessão na API
-    Cadastrar usuario comum na API
-    Logar na API
-    Virar administrador na API
-    Criar filme na API
-    Deletar usuário na API
 
 E dou nota ao filme, mas não escrevo texto
     Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
@@ -87,7 +75,7 @@ Então aparece uma mensagem de erro
     Deletar usuário e filme
 
 Dado que tenho uma review cadastrada
-    Dado que tenho um filme cadastrado na API
+    Dado que tenho um filme cadastrado
     Dado que tenho um usuário comum cadastrado
     Quando faço login
     Wait Until Keyword Succeeds    4    0    Click Element    ${CARD_FILME}
@@ -106,23 +94,14 @@ Quando faço outra review com um texto diferente
     Wait Until Keyword Succeeds    4    0    Espera o elemento para clicar    ${BOTAO_COMENTARIO}
     Wait Until Element Is Visible    ${DÊ_NOTA_AO_FILME}
     Click Element    ${CAIXA_TEXTO}
-    Input Text    ${CAIXA_TEXTO}    Filme Horrível
+    Input Text    ${CAIXA_TEXTO}    Filme horrível
     Click Element    ${ESTRELA_1}
     Click Element    ${BOTAO_SALVAR}
     Press Keycode    4
     Press Keycode    4
 Então a review é atualizada
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
-    Swipe By Percent    0    85    0    15
-
-    ${TEXTO_DA_REVIEW}=    Run Keyword And Return Status    Page Should Contain Text    Filme bacaninha
-    
-    IF    '${TEXTO_DA_REVIEW}' == ${True}
-        Page Should Contain Text    Filme Horrível
-    ELSE
-        Swipe By Percent    0    85    0    15
-
-    END
-
-    Deletar usuário e filme
+    Swipe By Percent    0    80    0    20
+    # Pega o atributo do elemento e verifica se tem o texto esperado    
+    Page Should Contain Text    Filme horrível
     
