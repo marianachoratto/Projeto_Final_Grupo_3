@@ -3,7 +3,6 @@ let userDeletar;
 let token;
 let movie;
 
-
 describe("Testes de exclusão de conta", () => {
   
   before(() => {

@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker";
 
-
 const movieBody1 = {
     title: "Kingsman 2: O Círculo Dourado! #$@*&%_",
     genre: "Ação, aventura e espionagem",
