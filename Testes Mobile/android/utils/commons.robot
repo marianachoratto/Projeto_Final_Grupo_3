@@ -16,7 +16,6 @@ Espera o elemento para clicar e checa se está habilitado
 
 Espera o elemento para fazer o inputtext
     [Arguments]    ${elemento}    ${texto}
-    Espera o elemento para clicar    ${elemento} 
     Wait Until Element Is Visible    ${elemento}
     Input Text                       ${elemento}    ${texto}
 
@@ -51,6 +50,12 @@ Checa se os elementos estão visíveis e habilitados
         Element Should Be Visible    ${elemento}
         Element Should Be Enabled    ${elemento}
     END
+
+Deletar usuário e filme
+    Logar na API
+    Virar administrador na API
+    Deletar filme na API
+    Deletar usuário na API
 
 Espera o elemento e verifica o texto
     [Arguments]    ${elemento}    ${texto}
@@ -105,3 +110,7 @@ Swipe para cima
     Swipe By Percent    ${start_x}    ${start_y}    ${end_x}    ${end_y}  
 
   
+Deletar usuário
+    Logar na API
+    Virar administrador na API
+    Deletar usuário na API

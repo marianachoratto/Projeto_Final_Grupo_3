@@ -111,13 +111,10 @@ When("informar um novo nome, uma nova senha e confirmá-la", function () {
   cy.wrap("Nome Atualizado").as("novoNome");
 });
 
-When(
-  "informar uma senha {string} diferente da confirmação {string}",
-  function (senha, confirmação) {
-    accountPage.typeSenha(senha);
-    accountPage.typeConfirmarSenha(confirmação);
-  }
-);
+When("informar uma senha {string} diferente da confirmação {string}", function (senha, confirmação) {
+  accountPage.typeSenha(senha);
+  accountPage.typeConfirmarSenha(confirmação);
+});
 
 When("informar espaços em branco na senha", function () {
   accountPage.typeSenha("       ");

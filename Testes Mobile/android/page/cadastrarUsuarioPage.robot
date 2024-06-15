@@ -122,7 +122,7 @@ Então um usuário do tipo comum será gerado
 Então um usuário do tipo comum será gerado e excluido 
     Espera o elemento e verifica o texto    ${CADASTRO_SUCESSO}    "Cadastro realizado!"
     Buscar ID do usuario criado   
-    Deletar usuário
+    Deletar usuario
 
 Então o usuário não é criado
     Espera o elemento e verifica o texto    ${EMAIL_CADASTRADO}     "E-mail já cadastrado. Utilize outro e-mail."
@@ -145,5 +145,3 @@ Então retorna mensagem informando que o email deve ser preenchido
 
 Então retornará mensagem de email inválido 
     Espera o elemento e verifica o texto    ${ERRO_EMAIL_VALIDO}    "Informe um e-mail válido."
-
-

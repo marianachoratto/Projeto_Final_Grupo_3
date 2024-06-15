@@ -66,7 +66,7 @@ Get User ID By Email
     Set Global Variable    ${user_id}
     RETURN    ${user_id}
 
-Deletar usuário
+Deletar usuario
     Promover usuário para admin
     Login API com Token  
     Buscar ID do usuario criado

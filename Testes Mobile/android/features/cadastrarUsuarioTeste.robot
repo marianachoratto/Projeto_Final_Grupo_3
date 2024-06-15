@@ -104,7 +104,6 @@ CT013 - Não deve ser possível cadastrar usuário sem informar senha
     E clico para cadastrar
     Então retorna mensagem informando que a senha deve ser preenchida
 
-#BUG
 CT014 - Deve ser possível criar usuário informando e-mail com 5 caracteres
     Dado que acessei a funcionalidade de cadastro
     E informo um nome válido
