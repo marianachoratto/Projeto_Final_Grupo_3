@@ -8,6 +8,7 @@
     buttonOkcaixa = '.modal-actions > button';
     linkPerfil= '[href="/profile"]';
     linkFilmes = '.navbar-content > :nth-child(3)'
+    buttonSalvar = '.account-save-button'
 
 
   typeEmail(email) {
@@ -37,6 +38,9 @@
   caixaDeErro (){
     cy.get(this.caixaErro).should('be.visible').should('have.text', 'Falha ao autenticarUsuário ou senha inválidos.')
   }
+  caixaDeErro1 (){
+    cy.get(this.caixaErro).should('be.visible').should('have.text', 'Ocorreu um erroNão foi possível atualizar os dados.')
+  }
   okFalha (){
     cy.get(this.buttonOkcaixa).click()
   }
@@ -48,12 +52,18 @@
   }
   
   Perfil(){
-    cy.get(this.linkPerfil).should('be.visible')
+    cy.get(this.linkPerfil).should('be.visible');
   }
   ErroEmail1(){
     cy.get(this.msgErroEmail).should('be.visible').should('have.text','Informe um e-mail válido.')
   };
   Filmes(){
     cy.get(this.linkFilmes).click();
+  };
+  Perfil1(){
+    cy.get(this.linkPerfil).click();
+  };
+  Salvar(){
+    cy.get(this.buttonSalvar).click();
   }
 }

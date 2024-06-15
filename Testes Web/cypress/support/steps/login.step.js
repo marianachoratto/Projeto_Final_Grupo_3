@@ -13,7 +13,6 @@ import LoginPage from "../pages/login.page";
 let name = "Monky Flip";
 let email = faker.internet.email();
 let password = "123456";
-let tempoSessao
 const pageLogin = new LoginPage
 
 
@@ -96,14 +95,23 @@ When('o login é realizado com sucesso',()=>{
     pageLogin.Perfil();
 
 });
-// Then('a sessão dura 60 minutos',()=>{
-//     const tempo = new Date().getHours();
-//     cy.getAllLocalStorage().then((response)=>{
-//         cy.log(response)
-//     });
-//     cy.window().then(()=>{
-//         tempoSessao.localStorage.setItem("time", tempo - (3660000));
-//     })
-//     cy.visit('profile')
-    
-// })
+Then('a sessão dura 60 minutos',()=>{
+    cy.clock();  
+    cy.tick(3800000);
+    cy.intercept("PUT","https://raromdb-3c39614e42d4.herokuapp.com/api/users/" + userid,{
+        statusCode: 401,
+        body:{
+            message: "Access denied.",
+            error: "Unauthorized",
+            statusCode:401
+        }
+    }).as('expirado') 
+});
+Then('nao é possivel fazer requisiçoes',()=>{
+    cy.visit('/account');
+    pageLogin.Salvar();
+    cy.wait('@expirado').then(()=>{
+        pageLogin.caixaDeErro1();
+    });
+})
+
