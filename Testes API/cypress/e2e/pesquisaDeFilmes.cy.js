@@ -18,9 +18,7 @@ const movieBody2 = {
 
 let user;
 let token;
-let movie;
-let movie1;
-let movie2;
+let movie, movie1, movie2;
 
 describe("Acesso a pesquisa de filmes", () => {
 
