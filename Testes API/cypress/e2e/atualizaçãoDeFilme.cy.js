@@ -373,7 +373,7 @@ describe("Testes de atualização de filme", () => {
       });
     });
 
-    // Bug
+    
     it("Não deve ser possível atualizar título informando espaço em branco (apertar barra de espaço)", () => {
       cy.request({
         method: "PUT",
@@ -429,7 +429,7 @@ describe("Testes de atualização de filme", () => {
       });
     });
 
-    // Bug
+    
     it("Não deve ser possível atualizar gênero informando espaço em branco (apertar barra de espaço)", () => {
       cy.request({
         method: "PUT",
@@ -485,7 +485,7 @@ describe("Testes de atualização de filme", () => {
       });
     });
 
-    // Bug
+    
     it("Não deve ser possível atualizar descrição informando espaço em branco (apertar barra de espaço)", () => {
       cy.request({
         method: "PUT",

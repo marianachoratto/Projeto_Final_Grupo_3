@@ -82,7 +82,7 @@ describe("Testes de Avaliação de Filme", function () {
         });
     });
 
-    // Bug
+   
     it("Deve ser possível fazer avaliação de filme sem texto", function () {
       cy.request({
         method: "POST",
@@ -285,7 +285,7 @@ describe("Testes de Avaliação de Filme", function () {
       });
     });
 
-    // Bug
+  
     it("Não deve ser possível criar review de filme com notas decimais", function () {
       cy.request({
         method: "POST",
@@ -330,7 +330,7 @@ describe("Testes de Avaliação de Filme", function () {
       });
     });
 
-    // Bug
+    
     it("Não deve ser possível dar nota menor que 1 para um filme", function () {
       cy.request({
         method: "POST",
