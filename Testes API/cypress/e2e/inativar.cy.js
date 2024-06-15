@@ -91,7 +91,7 @@ describe("Teste de inativação de conta", () => {
         });
         cy.procurarPeloId(filmeid).then((response) => {
           expect(response.body.reviews).to.be.an("Array");
-          expect(response.body.reviews[0]).to.have.property("reviewText").to.have.eq("Absolut Cinema");
+          expect(response.body.reviews[0]).to.have.property("reviewText").to.have.eq("Absolut Cinema!");
         });
       });
     });
