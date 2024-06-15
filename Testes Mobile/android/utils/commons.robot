@@ -17,7 +17,6 @@ Espera o elemento para clicar e checa se está habilitado
 Espera o elemento para fazer o inputtext
     [Arguments]    ${elemento}    ${texto}
     Espera o elemento para clicar    ${elemento} 
-    Espera o elemento para clicar    ${elemento} 
     Wait Until Element Is Visible    ${elemento}
     Input Text                       ${elemento}    ${texto}
 

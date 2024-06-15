@@ -117,13 +117,3 @@ Cypress.Commands.add("deletarUsuario", (email, password, idNovoUsuario) => {
       });
     });
 });
-
-Cypress.Commands.add("inativarUsuario", (tokenid) => {
-  cy.request({
-    method: "PATCH",
-    url: apiUrl + "/api/users/inactivate",
-    headers: {
-      Authorization: `Bearer ${tokenid}`,
-    },
-  });
-});

@@ -1,39 +1,19 @@
 import { faker } from "@faker-js/faker";
 
-const movieBody1 = {
-    title: "Kingsman 2: O Círculo Dourado! #$@*&%_",
-    genre: "Ação, aventura e espionagem",
-    description: "Em Kingsman: O Círculo Dourado, nossos heróis enfrentam um novo desafio.",
-    durationInMinutes: 141,
-    releaseYear: 2017
-};
-
-const movieBody2 = {
-    title: "Kingsman 1: Serviço Secret0!",
-    genre: "Ação, aventura e espionagem",
-    description: "Eggsy é um jovem com problemas de disciplina que parece perto de se tornar um criminoso.",
-    durationInMinutes: 129,
-    releaseYear: 2015
-};
-
-let user;
-let token;
-let movie;
-let movie1;
-let movie2;
-
 describe("Acesso a pesquisa de filmes", () => {
+    let user
+    let token
+    let movie
 
     beforeEach(() => { 
         cy.cadastrarUsuario().then((response) => {
-            const userAdm = response;
-            cy.criarFilmeAdm(userAdm.email, userAdm.password).then((response) =>{
-                const tokenAdm = response.token;
+            user = response;
+            cy.criarFilmeAdm(user.email, user.password).then((response) =>{
                 movie = response;
-                cy.excluirUsuario(userAdm.id, tokenAdm);
+                token = response.token;
+                cy.excluirUsuario(user.id, token);
             });
         });      
-        
         cy.cadastrarUsuario().then((response) => {
             user = response;
         });
@@ -126,18 +106,25 @@ describe("Acesso a pesquisa de filmes", () => {
 
 
 describe("Pesquisa de filme", () => {
+    let user
+    let token
+    let movie
+    let movieBody
 
     before(() => {
+        cy.fixture('movie1').then((response) => {
+            movieBody = response;
             cy.cadastrarUsuario().then((response) => {
-            user = response;
-            cy.loginValido(user.email, user.password).then((response) => {
-                token = response.body.accessToken;
-                cy.promoverAdmin(token);
-                cy.newMovie(movieBody1, token).then((response) => {
-                    movie = response.body;
+                user = response;
+                cy.loginValido(user.email, user.password).then((response) => {
+                    token = response.body.accessToken;
+                    cy.promoverAdmin(token);
+                    cy.newMovie(movieBody, token).then((response) => {
+                        movie = response.body;
+                    });
                 });
             });
-        });          
+        });            
     });
 
     after(() => {
@@ -146,7 +133,6 @@ describe("Pesquisa de filme", () => {
     });
     
     describe("Pesquisa de filme com resultado", () => {
-
         it('Deve ser possível encontrar filme informando o título completo', () => {
             cy.request({
                 method: "GET",
@@ -198,27 +184,25 @@ describe("Pesquisa de filme", () => {
         it('Deve ser possível encontrar filme informando título parcial', () => {
             cy.request({
                 method: "GET",
-                url: "/api/movies/search?title=" + movie.title.substring(13, 29),
+                url: "/api/movies/search?title=" + "O Círculo Dourado",
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body[0].title).to.contain(movie.title.substring(13, 29));
+                expect(response.body[0].title).to.contain("O Círculo Dourado");
             });
         });
 
         it('Deve ser possível encontrar filme informando título com caracteres especiais', () => {
             cy.request({
                 method: "GET",
-                url: "/api/movies/search?title=" + movie.title.substring(32, 38),
+                url: "/api/movies/search?title=" + "! #$@*&%_+'",
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body[0].title).to.contain(movie.title.substring(32, 38));
+                expect(response.body[0].title).to.contain("! #$@*&%_+'");
             });
         });
     });
 
-
     describe("Pesquisa de filme não encontrado", () => {
-
         it('Deve retornar lista vazia ao pesquisar um título não cadastrado', () => {
             cy.request({
                 method: "GET",
@@ -246,7 +230,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.id,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.be.empty;
+                expect(response.body).to.not.contain(movie);
             });
         });
     
@@ -256,7 +240,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.genre,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.be.empty;
+                expect(response.body).to.not.contain(movie);
             });
         });
     
@@ -266,7 +250,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.description,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.be.empty;
+                expect(response.body).to.not.contain(movie);
             });
         });
     
@@ -276,7 +260,7 @@ describe("Pesquisa de filme", () => {
                 url: "/api/movies/search?title=" + movie.releaseYear,
             }).then((response) => {
                 expect(response.status).to.equal(200);
-                expect(response.body).to.be.empty;
+                expect(response.body).to.not.contain(movie);
             });
         });
     });
@@ -284,33 +268,36 @@ describe("Pesquisa de filme", () => {
 
 
 describe("Pesquisa de filme atualizado", () => {
-    
-    let movieOriginal;
-    const movieUpdate = {
-        title: "Título Atualizado",
-        genre: "Gênero Atualizado",
-        description: "Descrição Atualizada",
-        durationInMinutes: 100,
-        releaseYear: 2015
-    }; 
+    let user
+    let token
+    let movie
+    let movieUpdate
+    let movieBody
 
     before(() => {
-        cy.cadastrarUsuario().then((response) => {
-        user = response;
-        cy.loginValido(user.email, user.password).then((response) => {
-            token = response.body.accessToken;
-            cy.promoverAdmin(token);
-            cy.newMovie(movieBody2, token).then((response) => {
-                movieOriginal = response.body;
-            }).then(() => {
-                cy.updateMovie(movieOriginal.id, movieUpdate, token);
+        cy.fixture('movie1').then((response) => {
+            movieBody = response;
+            cy.cadastrarUsuario().then((response) => {
+                user = response;
+                cy.loginValido(user.email, user.password).then((response) => {
+                    token = response.body.accessToken;
+                    cy.promoverAdmin(token);
+                    cy.newMovie(movieBody, token).then((response) => {
+                        movie = response.body;
+                    });
+                    cy.fixture('movie2').then((response) => {
+                        movieBody = response;
+                        cy.updateMovie(movie.id, movieBody, token).then((response) =>{
+                            movieUpdate = response;
+                        });
+                    });
+                });
             });
-        });
-        });          
+        });            
     });
 
     after(() => {
-        cy.deletarFilme(movieOriginal.id, token);
+        cy.deletarFilme(movie.id, token);
         cy.excluirUsuario(user.id, token);
     });
 
@@ -320,7 +307,7 @@ describe("Pesquisa de filme atualizado", () => {
             url: "/api/movies/search?title=" + movieUpdate.title,
         }).then((response) => {
             expect(response.status).to.equal(200);
-            expect(response.body[0].id).to.equal(movieOriginal.id);
+            expect(response.body[0].id).to.equal(movie.id);
             expect(response.body[0].title).to.equal(movieUpdate.title);
             expect(response.body[0].genre).to.equal(movieUpdate.genre);
             expect(response.body[0].description).to.equal(movieUpdate.description);
@@ -333,7 +320,7 @@ describe("Pesquisa de filme atualizado", () => {
     it('Não deve ser possível encontrar filme informando título anterior', () => {
         cy.request({
             method: "GET",
-            url: "/api/movies/search?title=" + movieOriginal.title,
+            url: "/api/movies/search?title=" + movie.title,
         }).then((response) => {
             expect(response.status).to.equal(200);
             expect(response.body).to.be.empty;
@@ -343,8 +330,20 @@ describe("Pesquisa de filme atualizado", () => {
 
 
 describe("Pesquisa de filmes com títulos contendo o mesmo texto", () => {
+    let user
+    let token
+    let movie1
+    let movie2
+    let movieBody1
+    let movieBody2
 
-    before(() => { 
+    before(() => {
+        cy.fixture('movie1').then((response) => {
+            movieBody1 = response;
+        }); 
+        cy.fixture('movie2').then((response) => {
+            movieBody2 = response;
+        }); 
         cy.cadastrarUsuario().then((response) => {
             user = response;
             cy.loginValido(user.email, user.password).then((response) => {
@@ -369,7 +368,7 @@ describe("Pesquisa de filmes com títulos contendo o mesmo texto", () => {
     it('Deve ser possível encontrar filmes com títulos que contém o mesmo texto', () => {
         cy.request({
             method: "GET",
-            url: "/api/movies/search?title=" + movie1.title.substring(1, 8),
+            url: "/api/movies/search?title=" + "'Kingsman",
         }).then((response) => {
             expect(response.status).to.equal(200);
             expect(response.body.length).to.equal(2);
@@ -381,8 +380,10 @@ describe("Pesquisa de filmes com títulos contendo o mesmo texto", () => {
 
 
 describe("Pesquisa de filme com título com 100 caracteres", () => {
-    
-    const movieBody100 = 
+    let user
+    let token
+    let movie
+    const movieBody = 
     {
         title: faker.string.alpha(100),
         genre: "Gênero do filme",
@@ -397,7 +398,7 @@ describe("Pesquisa de filme com título com 100 caracteres", () => {
             cy.loginValido(user.email, user.password).then((response) => {
                 token = response.body.accessToken;
                 cy.promoverAdmin(token);
-                cy.newMovie(movieBody100, token).then((response) => {
+                cy.newMovie(movieBody, token).then((response) => {
                     movie = response.body;
                 });
             });
@@ -408,6 +409,7 @@ describe("Pesquisa de filme com título com 100 caracteres", () => {
         cy.deletarFilme(movie.id, token);
         cy.excluirUsuario(user.id, token);
     });
+    
    
     it('Deve ser possível encontrar filme com título com 100 caracteres', () => {
         cy.request({

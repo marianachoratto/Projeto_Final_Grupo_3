@@ -11,7 +11,6 @@ Resource     android/utils/config.robot
 Resource     android/utils/templates.robot
 Resource     android/utils/requisicoesAPI.robot
 Resource     android/utils/requestsAPI.robot
-Resource     android/utils/requestsAPI.robot
 
 #Pages
 Resource     android/page/avaliacaoDeFilmePage.robot
