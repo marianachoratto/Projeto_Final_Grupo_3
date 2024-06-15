@@ -41,8 +41,8 @@ Esquema do Cenário: Deve ser possível encontrar filme informando o título em 
     Então visualizarei o filme correspondente na tela
     Exemplos:
     | título |
-    | PIRATAS DO CARIBE 2 - O BAU DA MORTE! |
-    | piratas do caribe 2 - o bau da morte! |
+    | PIRATAS DO CARIBE 2: O BAU DA MORTE! |
+    | piratas do caribe 2: o bau da morte! |
 
 Cenário: Deve ser possível encontrar filme informando título parcial
     Quando informar parte do título na barra de busca
