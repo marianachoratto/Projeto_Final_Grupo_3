@@ -114,7 +114,7 @@ describe("Qualquer tipo de usuario pode ver a lista de filmes", () => {
     });
   });
 
-  it("É possivel ver a lista de filmes ordenada pelas notas", () => {
+  it("É possivel ver a lista de filmes ordenada pelas notas com a opção (true)", () => {
     let filmeid;
     cy.loginValido(emailValido, password).then((response) => {
       tokenid = response.body.accessToken;

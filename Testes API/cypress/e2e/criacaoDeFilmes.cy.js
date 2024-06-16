@@ -889,7 +889,7 @@ describe("Criação de Filmes com Falha", function () {
       });
     });
 
-    it("Não deve ser possível criar filme com gênero com mais de 100 caractere", function () {
+    it("Não deve ser possível criar filme com gênero com mais de 100 caracteres", function () {
       let generoDoFilme = "";
       for (let index = 0; index <= 100; index++) {
         generoDoFilme += "a";
