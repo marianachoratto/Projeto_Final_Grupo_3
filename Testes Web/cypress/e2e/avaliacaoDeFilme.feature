@@ -1,6 +1,6 @@
 #language: pt
 
-Funcionalidade: Consulta de Detalhes de Filmes 
+Funcionalidade: Avaliação de Filmes 
 
 
 Cenário: Usário não logado não deve conseguir escrever a avaliação de um filme
@@ -27,7 +27,7 @@ Cenário: Usuário crítico deve conseguir escrever a avaliação de um filme
     Quando escrevo a avaliação de um filme
     Então a avaliação é feita com sucesso
 
-# Bug
+
 
 Cenário: Ao avaliar um filme o texto de review é facultativo
     Dado que estou logado como usuário comum

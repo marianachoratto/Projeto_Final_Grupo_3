@@ -17,8 +17,7 @@ ${ANDROID_APP_ACTIVITY}         .MainActivity
 Abrir App
     Open Application     http://127.0.0.1:4723    automationName=${ANDROID_AUTOMATION_NAME}    platformName=${ANDROID_PLATFORM_NAME}    
     ...    platformVersion=${ANDROID_PLATFORM_VERSION}     
-    ...    appPackage=${ANDROID_APP_PACKAGE}    appActivity=${ANDROID_APP_ACTIVITY}   
-    ...    autoGrantPermissions=${AUTO_GRANT_PERMISSIONS}
+    ...    appPackage=${ANDROID_APP_PACKAGE}    appActivity=${ANDROID_APP_ACTIVITY}  
     # ...     AppiumUdid=${APPIUM:UDID}    app=${APPIUM:APP}
 
 Teardown

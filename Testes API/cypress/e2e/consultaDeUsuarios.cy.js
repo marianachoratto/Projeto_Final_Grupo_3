@@ -166,28 +166,6 @@ describe("Teste de consulta de usuarios por id", () => {
 
     });
 
-
-    it('Apenas Usuarios ADMIN podem consultar os usuarios', () => {
-        cy.promoverAdmin(tokenid)
-        cy.request({
-            Method: 'GET',
-            url: "/api/users/" + userid,
-            auth: {
-                bearer: tokenid,
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            expect(response.body).to.have.property("id");
-            expect(response.body).to.have.property("name");
-            expect(response.body).to.have.property("email");
-            expect(response.body).to.have.property("type");
-            expect(response.body).to.have.property("active");
-
-        });
-
-    });
-
     it('Apenas Usuarios ADMIN podem consultar a si mesmos', () => {
         cy.promoverAdmin(tokenid)
         cy.request({
@@ -212,7 +190,6 @@ describe("Teste de consulta de usuarios por id", () => {
     it('Apenas Usuarios ADMIN podem consultar a outros', () => {
         cy.criarUsuario(name, emailValido2, password).then((response) => {
             userid2 = response.body.id
-            cy.log(userid2)
         }).then(() => {
             cy.promoverAdmin(tokenid);
             cy.request({

@@ -1,4 +1,5 @@
   export default class LoginPage{
+    URL = "https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/login";
     inputEmail = ':nth-child(1) > input';
     inputSenha = '.login-form > :nth-child(2) > input';
     buttonLogin = '.login-button';
