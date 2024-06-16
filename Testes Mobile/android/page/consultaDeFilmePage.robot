@@ -145,46 +145,6 @@ Então tenho acesso à sessão de avaliações feita pelos usuários
     Swipe By Percent    0    70    0    23
     Wait Until Keyword Succeeds    4    0    Page Should Contain Text    Avaliações
 
-# Dado que tenho um filme com reviews cadastradas
-#     # 1 usuário comum
-#     Dado que tenho um usuário comum cadastrado
-#     Quando faço login
-#     E faço uma review
-#     Dado que tenho um usuário crítico cadastrado
-#     Press Keycode    4
-#     Click Element    locator
-#     Quando faço login
-#     E faço uma review
-
-    # # 2 usuários críticos
-    # FOR    ${counter}    IN RANGE    0    2
-    # Dado que tenho um usuário crítico cadastrado
-    # END
-    # # 1 usuário admin
-    # Dado que tenho um usuário administrador cadastrado
-
-Dado que tenho vários usuários cadastrados e cada um faz uma review
-    # 1 usuário 
-    Dado que tenho um usuário comum cadastrado
-    Get Lista de Filmes
-    ${filme1}    Set Variable    ${lista_de_filmes}[0]
-    Criar review de filme API    ${filme1}[id]
-    # 2 usuários críticos
-    FOR    ${counter}    IN RANGE    0    2
-    Dado que tenho um usuário crítico cadastrado 2
-    Criar review de filme API    ${filme1}[id]    
-    END
-    # 1 usuário admin
-    Dado que tenho um usuário administrador cadastrado
-    Criar review de filme API    ${filme1}[id]
-    Procurar filme pelo ID    ${filme1}[id]
-
-Então consigo ver a quantidade de avaliações que aquele filme recebeu
-    Element Should Contain Text    ${AVALIACOES_AUDIENCIA}    Avaliação da audiência ${QUANTIDADE_REVIEW_COMUM} avaliações
-    Element Should Contain Text    ${AVALIACOES_CRITICA}    Avaliação da crítica ${QUANTIDADE_REVIEW_CRÍTICO} avaliações
-    # Asserção
-    # NÃO ESQUECER DE DELETAR OS USUÁRIOS
-
 Então posso ver ser nome, ano de lançamento, gênero e descrição
     Get Lista de Filmes 
     Set Global Variable    ${FILME_1}    ${lista_de_filmes}[0]
