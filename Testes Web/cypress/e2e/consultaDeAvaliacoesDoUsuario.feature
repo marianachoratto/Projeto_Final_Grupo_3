@@ -14,7 +14,7 @@ Cenário: As avaliações listadas devem exibir título
 Cenário: As avaliações listadas devem exibir nota
     Então verificarei as notas das minhas avaliações
 
-# Bug
+
 Cenário: As avaliações listadas devem exibir texto avaliativo
     Então verificarei os textos das minhas avaliações
 
