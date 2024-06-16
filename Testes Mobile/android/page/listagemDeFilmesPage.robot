@@ -12,7 +12,7 @@ Caso exista algum filme cadastrado
     Virar administrador na API
     Criar filme na API 
 
-Entao posso clicar nos tres traços
+Entao posso clicar no ícone de Menu
     Espera o elemento para clicar e checa se está habilitado    ${MENU}
     
 
@@ -31,11 +31,11 @@ E escolho a o opção login
 Então consigo ir a tela de login
     Checa se os elementos estão visíveis    ${Logo_Login}
 
-E escolho a o opção registro
+E escolho a o opção de cadastro de usuários
     Espera o elemento para clicar    ${BOTAO_REGISTRO}
 
-Então consigo ir a tela de registro
-    Checa se os elementos estão visíveis    ${Logo_Login}
+Então consigo ir a tela de cadastro
+    Checa se os elementos estão visíveis    ${TITULO_CADASTRO}
 
 Dado que estou na página inicial 
     Checa se os elementos estão visíveis    ${TITULO_HOME}

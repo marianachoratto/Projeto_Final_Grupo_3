@@ -22,22 +22,22 @@ T002- O usuário logado pode consultar filmes
 
 T003- O usuario pode ir ate o menu de opções 
     Dado que estou na página inicial 
-    Entao posso clicar nos tres traços 
+    Entao posso clicar no ícone de Menu 
     
-T004- O usuario pode ir ate a pagina de filmes
+T004- O usuario pode ir ate a página de filmes
     Dado que estou na página inicial 
     E clico no menu de opções
     E escolho a o opção filmes
     Então consigo ir a tela de filmes
 
-T005- O usuario pode ir ate a pagina de login
+T005- O usuario pode ir ate a página de login
     Dado que estou na página inicial 
     E clico no menu de opções
     E escolho a o opção login
     Então consigo ir a tela de login 
 
-T006- O usuario pode ir ate a pagina de registro  
+T006- O usuario pode ir ate a página de registro  
     Dado que estou na página inicial 
     E clico no menu de opções
-    E escolho a o opção registro
-    Então consigo ir a tela de registro
+    E escolho a o opção de cadastro de usuários
+    Então consigo ir a tela de cadastro
