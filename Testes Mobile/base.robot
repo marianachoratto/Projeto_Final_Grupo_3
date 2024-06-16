@@ -19,3 +19,4 @@ Resource     android/page/consultaDeFilmePage.robot
 Resource     android/page/loginPage.robot
 Resource     android/page/paginaFilme.robot
 Resource     android/page/paginaPrincipal.robot
+Resource     android/page/paginaCadastroeLogin.robot
