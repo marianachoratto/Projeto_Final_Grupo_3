@@ -35,15 +35,17 @@ T04- É possível usuário administrador realizar reviews de filmes
     Quando faço login
     E faço uma review
     Então ela aparece na sessão de avaliações do filme
- 
+
+# Bug
 T05- É possível fazer review de filme sem digitar texto 
     Dado que tenho um filme cadastrado
     Dado que estou na página inicial do aplicativo
-    Quando faço login
+    Quando o faço login
     Quando clico em um filme e no botão de avaliações
     E dou nota ao filme, mas não escrevo texto
     Então a review aparecerá na lista de avaliações
  
+# Bug
 T06- Não é possível digitar uma avaliação contendo mais que 500 caracteres
     Dado que tenho um filme cadastrado
     Dado que estou na página inicial do aplicativo
