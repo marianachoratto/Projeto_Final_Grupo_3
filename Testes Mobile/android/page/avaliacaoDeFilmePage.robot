@@ -107,6 +107,16 @@ Quando faço outra review com um texto diferente
     Press Keycode    4
     
 Então a review é atualizada
-    Verificar se a review está presente nas avaliações    Filme horrível
+    Verificar se a review está presente nas avaliações    Filme horrível 
+    Deletar usuário e filme
 
+Quando o faço login
+    Espera o elemento para clicar    ${MENU}
+    Espera o elemento para clicar    ${BOTÃO_LOGIN}
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Sleep    2
+    Input Text    ${LOGIN_INPUT_EMAIL}    ${email}
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    123456
+    Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
     
