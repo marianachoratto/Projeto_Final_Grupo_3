@@ -36,7 +36,7 @@ T005- O usuario pode ir ate a página de login
     E escolho a o opção login
     Então consigo ir a tela de login 
 
-T006- O usuario pode ir ate a página de registro  
+T006- O usuario pode ir ate a página de cadastro de usuários  
     Dado que estou na página inicial 
     E clico no menu de opções
     E escolho a o opção de cadastro de usuários
