@@ -21,6 +21,7 @@ E escrevo um comentário
 
 Então aparecerá uma mensagem dizendo para fazer login
     Wait Until Element Is Visible    ${MENSAGEM_LOGIN}
+    Deletar usuário e filme
 
 
 E faço uma review
@@ -56,6 +57,7 @@ E dou nota ao filme, mas não escrevo texto
 
 Então a review aparecerá na lista de avaliações
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
+    Deletar usuário e filme
 
 E digito uma avaliação contendo mais de 500 caracteres
     ${string_construida}=    Set Variable    ${EMPTY}
