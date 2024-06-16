@@ -6,6 +6,8 @@ Resource    ../../base.robot
 ${REVIEW_500_CHARACTERS}    a
 ${swipe_count}    0
 ${MAX_SWIPES}    10
+${MAX_SWIPES}   10  
+${TEXTO_PROCURADO}   Filme horrível
 
 
 *** Keywords ***
@@ -105,32 +107,7 @@ Quando faço outra review com um texto diferente
     Press Keycode    4
     
 Então a review é atualizada
-    Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
-    Swipe By Percent    0    85    0    15
-
-    # ${TEXTO_DA_REVIEW}=    Run Keyword And Return Status    Page Should Contain Text    Filme Horrível
-    ${swipe_count} =    Set Variable    0
-    WHILE    ${swipe_count} < ${MAX_SWIPES}
-        ${is_visible}=    Run Keyword And Return Status    Page Should Contain Text    Filme Horrível
-        Run Keyword If    '${is_visible}' == 'True'    Exit For Loop
-
-        Swipe By Percent    0    85    0    15
-        ${swipe_count}=    Evaluate    ${swipe_count} + 1
-
-        Run Keyword If    '${is_visible}' == 'False'    Fail    O texto Filme Horrível não foi encontrado após ${MAX_SWIPES} swipes.
-
-        Log    Texto Filme Horrível encontrado após ${swipe_count} swipes.
-    END
-
-
-
-    # IF    '${TEXTO_DA_REVIEW}' == ${True}
-    #     Page Should Contain Text    Filme Horrível
-    # ELSE
-    #     Swipe By Percent    0    85    0    15
-
-    # END
-
+    Verificar se a review está presente nas avaliações    Filme horrível 
     Deletar usuário e filme
 
 Quando o faço login

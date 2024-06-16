@@ -114,3 +114,19 @@ Deletar usuário
     Logar na API
     Virar administrador na API
     Deletar usuário na API
+
+Verificar se a review está presente nas avaliações 
+    [Arguments]    ${elemento}
+    Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
+        ${swipe_count} =    Set Variable    0
+
+        WHILE    ${swipe_count} < ${MAX_SWIPES}
+            ${is_visible} =    Run Keyword And Return Status    Page Should Contain Text    ${elemento}
+
+            Run Keyword If    '${is_visible}' == 'True'    Exit For Loop
+
+            Swipe By Percent    0    85    0    15
+            ${swipe_count} =    Evaluate    ${swipe_count} + 1
+
+        END
+        
