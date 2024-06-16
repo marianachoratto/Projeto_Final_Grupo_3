@@ -3,8 +3,8 @@
 Resource    ../../base.robot
 
 *** Variables ***
-${INPUT_EMAIL}    xpath=//android.widget.ImageView/android.widget.EditText[1]
-${INPUT_SENHA}    xpath=//android.widget.ImageView/android.widget.EditText[2]
+${LOGIN_INPUT_EMAIL}    xpath=//android.widget.ImageView/android.widget.EditText[1]
+${LOGIN_INPUT_SENHA}    xpath=//android.widget.ImageView/android.widget.EditText[2]
 ${BOTAO_FAZER_LOGIN}    xpath=//android.widget.Button[@content-desc="Login"]
 ${Logo_Login}    xpath=//android.view.View[@content-desc="Login"]
 
@@ -21,15 +21,15 @@ E sou redirecionada para a página inicial
 Quando faço login sem informar email
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_SENHA}
-    Input Text    ${INPUT_SENHA}    123456
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    123456
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Quando faço o login sem informar senha
         Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    ${email}
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Input Text    ${LOGIN_INPUT_EMAIL}    ${email}
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Quando faço o login sem informar email e senha
@@ -40,37 +40,37 @@ Quando faço o login sem informar email e senha
 Quando faço o login informando o email errado
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    emailerrado@gmail.com
-    Espera o elemento para clicar    ${INPUT_SENHA}
-    Input Text    ${INPUT_SENHA}    123456
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Input Text    ${LOGIN_INPUT_EMAIL}    emailerrado@gmail.com
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    123456
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Quando faço o login informando a senha errada
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    ${email}
-    Espera o elemento para clicar    ${INPUT_SENHA}
-    Input Text    ${INPUT_SENHA}    abcdef
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Input Text    ${LOGIN_INPUT_EMAIL}    ${email}
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    abcdef
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Quando faço o login informando uma senha com mais de 12 caracteres
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    ${email}
-    Espera o elemento para clicar    ${INPUT_SENHA}
-    Input Text    ${INPUT_SENHA}    123456789012
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Input Text    ${LOGIN_INPUT_EMAIL}    ${email}
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    123456789012
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Quando faço o login informando email inválido
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    marianagmail.com
-    Espera o elemento para clicar    ${INPUT_SENHA}
-    Input Text    ${INPUT_SENHA}    123456
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Input Text    ${LOGIN_INPUT_EMAIL}    marianagmail.com
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    123456
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Então recebo uma mensagem de sucesso
@@ -90,7 +90,7 @@ Então recebo uma mensagem de erro pedindo para informar email e senha
      Deletar usuário
 
 Então recebo um aviso pedindo um email válido
-    Element Should Be Visible    ${INFORME_EMAIL_VALIDO}
+    Wait Until Keyword Succeeds    4    0    Element Should Be Visible    ${MSG_USARIO_SENHA_INVALIDOS}
     Deletar usuário
 
 Então aparece uma mensagem informando que o email é inválido
@@ -104,10 +104,10 @@ Então recebo uma mensagem informando que usuário ou senha podem estar errados
 Quando faço login informando email não cadastrado
     Espera o elemento para clicar    ${MENU}
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
-    Espera o elemento para clicar    ${INPUT_EMAIL}
-    Input Text    ${INPUT_EMAIL}    lalala@gmail.co
-    Espera o elemento para clicar    ${INPUT_SENHA}
-    Input Text    ${INPUT_SENHA}    123456
+    Espera o elemento para clicar    ${LOGIN_INPUT_EMAIL}
+    Input Text    ${LOGIN_INPUT_EMAIL}    lalala@gmail.co
+    Espera o elemento para clicar    ${LOGIN_INPUT_SENHA}
+    Input Text    ${LOGIN_INPUT_SENHA}    123456
     Espera o elemento para clicar    ${BOTAO_FAZER_LOGIN}
 
 Quando aperto o botão de login
@@ -115,9 +115,9 @@ Quando aperto o botão de login
     Espera o elemento para clicar    ${BOTÃO_LOGIN}
 
 Então todas as funcionalidades devem estar visíveis e habilitadas
-    Wait Until Element Is Visible    ${INPUT_EMAIL}
-    Checa se os elementos estão visíveis    ${INPUT_EMAIL}    ${INPUT_SENHA}    ${BOTAO_FAZER_LOGIN}
-    Checa se os elementos estão habilitados    ${INPUT_EMAIL}    ${INPUT_SENHA}    ${BOTAO_FAZER_LOGIN}
-    Click Element    ${INPUT_EMAIL}
-    Click Element    ${INPUT_SENHA}
+    Wait Until Element Is Visible    ${LOGIN_INPUT_EMAIL}
+    Checa se os elementos estão visíveis    ${LOGIN_INPUT_EMAIL}    ${LOGIN_INPUT_SENHA}    ${BOTAO_FAZER_LOGIN}
+    Checa se os elementos estão habilitados    ${LOGIN_INPUT_EMAIL}    ${LOGIN_INPUT_SENHA}    ${BOTAO_FAZER_LOGIN}
+    Click Element    ${LOGIN_INPUT_EMAIL}
+    Click Element    ${LOGIN_INPUT_SENHA}
     Deletar usuário
