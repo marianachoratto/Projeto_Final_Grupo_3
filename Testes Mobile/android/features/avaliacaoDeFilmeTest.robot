@@ -59,9 +59,3 @@ T07-É possível atualizar review do filme
     Quando faço outra review com um texto diferente
     Então a review é atualizada
 
-Teste de Swipe
-    Dado que tenho um filme cadastrado
-    Get Lista de Filmes 
-    Set Global Variable    ${FILME_1}    ${lista_de_filmes}[0]
-    # Log    ${FILME_1}[title]
-    Should Contain    xpath    ${FILME_1}[title]
