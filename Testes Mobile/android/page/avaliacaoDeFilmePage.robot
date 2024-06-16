@@ -113,6 +113,7 @@ Quando faço outra review com um texto diferente
     Click Element    ${BOTAO_SALVAR}
     Press Keycode    4
     Press Keycode    4
+    
 Então a review é atualizada
     Wait Until Element Is Visible    ${TITULO_DETALHES_DO_FILME}
     Swipe By Percent    0    85    0    15
