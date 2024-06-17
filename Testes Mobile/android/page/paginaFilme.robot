@@ -3,7 +3,6 @@
 Resource    ../../base.robot
 
 *** Variables ***
-# COLOQUE TODOS OS XPATHS DA PÁGINA AQUI
 ${TITULO_DETALHES_DO_FILME}    xpath=//android.view.View[@content-desc="Detalhes do filme"]
 ${BOTAO_COMENTARIO}            xpath=//android.widget.FrameLayout[@resource-id="android:id/content"]/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.Button
 ${ANO_DE_LANCAMENTO}            xpath=//android.widget.ImageView[contains(@content-desc,"Ano de Lançamento:")]

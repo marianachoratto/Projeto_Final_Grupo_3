@@ -29,7 +29,7 @@ E escolho a o opção login
    Espera o elemento para clicar    ${BOTÃO_LOGIN}
 
 Então consigo ir a tela de login
-    Checa se os elementos estão visíveis    ${Logo_Login}
+    Wait Until Keyword Succeeds    4    0    Checa se os elementos estão visíveis    ${LOGIN_INPUT_EMAIL}
 
 E escolho a o opção de cadastro de usuários
     Espera o elemento para clicar    ${BOTAO_REGISTRO}
