@@ -35,7 +35,7 @@ E escolho a o opção de cadastro de usuários
     Espera o elemento para clicar    ${BOTAO_REGISTRO}
 
 Então consigo ir a tela de cadastro
-    Checa se os elementos estão visíveis    ${TITULO_CADASTRO}
+    Espera o elemento e verifica o texto   ${TITULO_CADASTRO}     "Cadastro" 
 
 Dado que estou na página inicial 
     Checa se os elementos estão visíveis    ${TITULO_HOME}
