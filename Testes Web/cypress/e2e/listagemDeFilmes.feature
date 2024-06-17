@@ -19,7 +19,6 @@ Cenario: Caso existam mais de 5 filmes cadastrados deve ser possivel passar a li
     Quando existem mais de 5 filmes cadastrados
     Entao é possivel passar os carrosseis para os lados
 
-#BUG
 @listaDestaque @listaBemAvaliados 
 Cenario:caso existam filmes avaliados a ordem da lista mais bem avaliados deve ser do maior para o menor
     Quando existem mais de 5 filmes cadastrados
