@@ -50,7 +50,6 @@ Cenário: Não deve ser possível logar com a senha errada
     E confirmo a operação
     Então deve aparecer uma mensagem informando falha ao autenticar
 
-# 1 hora e 1 tem 3.660.000 ms
 @createUser @login @tick @deleteUser
 Cenário: Após 60 minutos, a sessão do usuário expira
     Quando coloco os dados do usuário nos inputs de login e senha
