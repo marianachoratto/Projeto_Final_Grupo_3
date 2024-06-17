@@ -336,6 +336,8 @@ describe.only("Avaliações feitas por um usuário comum não mudam o tipo quand
         .then(function (resposta) {
           expect(resposta.body[0].reviewType).to.equal(0);
         });
+
+      cy.deletarUsuario(user.email, user.password, user.id);
     });
   });
 });
