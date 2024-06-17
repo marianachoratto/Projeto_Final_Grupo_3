@@ -5,9 +5,12 @@ O projeto consiste no desenvolvimento de testes em API, Web e Mobile para o sist
 
 ## 🎯 Integrantes do Grupo
 
-| Alana Barbosa | Gabriel Peluzio | Grasiela Mary | Ítalo Renan | Mariana Choratto |
-|---|---|---|---|---|
-| <img src="img/grasy.jpg" height="100" width="100"> | <img src="img/adriana.jpg" height="100" width="100"> | <img src="img/mariana.jpg" height="100" width="100"> | <img src="img/erika.jpg" height="100" width="100"> | <img src="img/raissa.jpeg" height="100" width="100"> |
+* [Alana Barbosa](https://github.com/alanabab)
+* [Gabriel Peluzio](https://github.com/pelluzzio)
+* [Grasiela Mary](https://github.com/Grasyynha)
+* [Ítalo Renan](https://github.com/ItaloRVieira)
+* [Mariana Choratto](https://github.com/marianachoratto)
+
 
 ### ⚙️ Sites e aplicativos utilizados:
 * [Raromdb](https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/)
@@ -29,6 +32,28 @@ O projeto consiste no desenvolvimento de testes em API, Web e Mobile para o sist
 
 ## ⚙️ Metodologia
 Utilizamos BDD (Behavior Driven Development) com Gherkin para a implementação dos testes front-end. Além disso, os códigos foram escritos seguindo a metodologia de Clean Code.
+
+## ⚙️ Execução do Allure WEB e API 
+Para executar o Allure no WEB ou na API é necessário estar dentro da pasta .\Testes API ou da pasta .\Testes Web e executar os seguintes comandos:
+ ```bash
+   npm run browser:chrome
+  ```
+Após executar todos os testes rodar:
+ ```bash
+   allure generate allure-results --clean -o allure-report
+   allure open  allure-report
+  ```
+
+## ⚙️ Execução do Allure Mobile 
+Para executar o Allure no mobile é necessario está dentro da pasta .\mobile e executar os seguintes comandos 
+ ```bash
+   robot --listener allure_robotframework .\android\features\
+  ```
+Após a finalização dos testes executar o seguinte comando 
+ ```bash
+   allure serve .\output\allure\
+  ```
+
 
 ---
 
