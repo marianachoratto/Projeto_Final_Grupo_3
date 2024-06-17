@@ -257,7 +257,7 @@ describe("Consulta de avaliações do usuário", function () {
   });
 });
 
-describe.only("Avaliações feitas por um usuário comum não mudam o tipo quando a conta é promovida", function () {
+describe("Avaliações feitas por um usuário comum não mudam o tipo quando a conta é promovida", function () {
   let userAdm;
   let tokenAdm;
   let movie1;
