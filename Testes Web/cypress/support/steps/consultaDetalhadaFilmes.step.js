@@ -15,6 +15,39 @@ let token, token1, token2
 let email, email1, email2
 let userid, userid1, userid2
 let password
+
+Before({ tags: '@review' }, () => {
+    cy.cadastrarUsuario().then((resposta) => {
+        userid = resposta.id;
+        name = resposta.nome;
+        email = resposta.email;
+        password = resposta.password;
+        cy.loginValido(email, password).then((resposta) => {
+            token = resposta.body.accessToken;
+            cy.promoverAdmin(token);
+            cy.criarFilme(token)
+                .then((resposta) => {
+                    movieId = resposta.id;
+                    movieTitle = resposta.title;
+                    movieDescription = resposta.description;
+                    movieGenre = resposta.genre;
+                    durationMovie = resposta.durationInMinutes;
+                    movieYear = resposta.releaseYear
+                })
+            cy.excluirUsuario(userid, token);
+        })
+    })
+    cy.cadastrarUsuario().then((resposta) => {
+        userid = resposta.id;
+        email = resposta.email;
+        password = resposta.password
+        cy.loginValido(email, password).then((resposta) => {
+            token = resposta.body.accessToken;
+            cy.reviewMovie1(token, movieId)
+        })
+    })
+})
+
 Before({ tags: '@reviewsUsuariosComuns' }, () => {
     cy.cadastrarUsuario().then((resposta) => {
         userid = resposta.id;
@@ -165,6 +198,13 @@ Before({ tags: '@reviewsUsuariosAdmins' }, () => {
     })
 })
 
+After({ tags: '@deleteMovie' }, () => {
+    cy.promoverAdmin(token).then(() => {
+        cy.deletarFilme(movieId, token)
+        cy.excluirUsuario(userid, token)
+    })
+})
+
 After({ tags: '@deleteAll' }, () => {
     cy.loginValido(email, password).then((resposta) => {
         token = resposta.body.accessToken;
@@ -190,7 +230,7 @@ Given('que acesso filme estando deslogado', () => {
     cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
-Given('que acesso filme com usuário comum', () => {
+Given('que acesso filme como usuário comum', () => {
     cy.visit("https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/login")
     cy.loginValido(email, password).then(() => {
         cy.intercept("GET", "https://raromdb-3c39614e42d4.herokuapp.com/api/users/*").as('getUser')
@@ -204,7 +244,7 @@ Given('que acesso filme com usuário comum', () => {
 
 })
 
-Given('que acesso filme com usuário crítico', () => {
+Given('que acesso filme como usuário crítico', () => {
     cy.visit("https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/login")
     cy.loginValido(email, password).then((resposta) => {
         token = resposta.body.accessToken;
@@ -220,7 +260,7 @@ Given('que acesso filme com usuário crítico', () => {
     cy.visit('https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/movies/' + movieId)
 })
 
-Given('que acesso filme com usuário admin', () => {
+Given('que acesso filme como usuário admin', () => {
     cy.visit("https://raromdb-frontend-c7d7dc3305a0.herokuapp.com/login")
     cy.loginValido(email, password).then((resposta) => {
         token = resposta.body.accessToken;
@@ -299,4 +339,8 @@ Then('as avaliações dos admins não são contabilizados nas avaliações', () 
     cy.get(pageMovie.mediaAudiencia).its('length').should('eq', 0);
 })
 
+Then('minha avaliação feita como usuário comum permanece tipo comum', () => {
+    cy.get(pageMovie.quantidadeAvaliacaoAudiencia).should('have.text', "1 avaliação")
+    cy.get(pageMovie.mediaAudiencia).its('length').should('eq', 2)
+})
 
